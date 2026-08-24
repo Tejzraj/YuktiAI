@@ -7,7 +7,7 @@
 
 Welcome to the core backend repository for **SanskritiPulse AI** — a comprehensive cultural discovery platform and cultural intelligence engine for Karnataka's festivals and heritage events.
 
-This service manages the **PostgreSQL relational database**, automated data ingestion & seeding pipelines, and high-performance **RESTful APIs** consumed by frontend web applications, mobile interfaces, and AI analytics pipelines (Members 4, 5, and 6).
+This service manages the **PostgreSQL relational database**, automated data ingestion & seeding pipelines, and high-performance **RESTful APIs** built by **Tezraj** (*Lead Backend & Database*) and consumed by frontend web applications, mobile interfaces, AI analytics pipelines, and dashboards (**Nandish, Simran, Monika, Janvi, and Tanishi**).
 
 ---
 
@@ -296,8 +296,12 @@ Outputs:
 
 ---
 
-## 👥 Integration Guide for Team Members
+## 👥 Integration Guide for Teammates
+*(Full matrix documented in [`TEAM_ROLES.md`](TEAM_ROLES.md))*
 
-- **Member 4 (Mobile / Flutter / React Native):** Use `http://<HOST_IP>:8000/festivals` to populate map markers (using `latitude`, `longitude`), filter by district, and view media carousels.
-- **Member 5 (Web Frontend / Next.js / Dashboard):** CORS is enabled on all origins (`*`). Connect directly via `fetch()` or `axios`.
-- **Member 6 (Analytics / Recommendations):** Use `/festivals` with `expected_footfall`, `category`, and dates to feed clustering and itinerary generation algorithms.
+- **Monika (Tourist Dashboard UI):** Use `http://localhost:8000/festivals` to populate map markers (using `latitude`, `longitude`), filter by district/category, and render rich media galleries.
+- **Janvi (Government Analytics Dashboard):** Use `http://localhost:8000/festivals` with `expected_footfall` and `date` query params to render crowd charts, footfall statistics, and regional heatmaps.
+- **Tanishi (Organizer Dashboard & Integration):** Use `http://localhost:8000/festivals/{festival_id}` to view complete festival details, manage listings, and verify end-to-end integration.
+- **Nandish (AI / NLP & Recommendation):** Fetch `GET /festivals` in Python/FastAPI pipelines to extract `cultural_significance`, `major_attractions`, and `activities` for embeddings and similarity recommendations.
+- **Simran (Travel Planner & Hotels):** Use `GET /festivals/{id}` to access embedded `hotels` (names, distances, price per night) and `travel_options` (transit modes, duration, costs) for automated itinerary generation.
+- **CORS Notice:** Preconfigured `CORSMiddleware` allows all frontend origins (`*`). Connect directly via `fetch()` or `axios`.

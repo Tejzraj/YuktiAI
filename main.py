@@ -11,7 +11,7 @@ app = FastAPI(
     description="Core REST API and Database Service for SanskritiPulse AI"
 )
 
-# Enable CORS for frontend dashboards (Member 4, 5, 6)
+# Enable CORS for frontend dashboards (Monika, Janvi, Tanishi, etc.)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
