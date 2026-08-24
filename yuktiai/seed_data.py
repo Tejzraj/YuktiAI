@@ -1,5 +1,5 @@
 """
-SanskritiPulse AI - Data Engineering Pipeline
+YuktiAi - Data Engineering Pipeline
 Seed Data Generator: 30 Distinct Karnataka Festivals
 =====================================================
 Generates a curated, culturally authentic, geographically validated dataset of 30 iconic
@@ -1368,7 +1368,7 @@ FESTIVAL_RAW_DATA: List[Dict[str, Any]] = [
 class KarnatakaFestivalDataEngineer:
     """
     Data engineering pipeline to validate, enrich, and serialize the
-    SanskritiPulse AI Karnataka Festivals dataset.
+    YuktiAi Karnataka Festivals dataset.
     """
 
     KARNATAKA_LAT_BOUNDS = (11.5, 18.6)
@@ -1498,7 +1498,7 @@ class KarnatakaFestivalDataEngineer:
 # ---------------------------------------------------------------------------
 
 def main():
-    parser = argparse.ArgumentParser(description="SanskritiPulse AI - Karnataka Festivals Seed Data Generator")
+    parser = argparse.ArgumentParser(description="YuktiAi - Karnataka Festivals Seed Data Generator")
     parser.add_argument(
         "--json-output",
         default="festivals_karnataka.json",
@@ -1530,7 +1530,7 @@ def main():
     # Print summary
     summary = pipeline.generate_analytics_summary()
     print("\n" + "=" * 60)
-    print("📊 SANSKRITIPULSE AI - DATA ENGINE METRICS & SUMMARY")
+    print("📊 YUKTIAI - DATA ENGINE METRICS & SUMMARY")
     print("=" * 60)
     print(f"• Total Karnataka Festivals Seeded: {summary['total_festivals']}")
     print(f"• Total Estimated Footfall:        {summary['total_estimated_footfall']:,}")

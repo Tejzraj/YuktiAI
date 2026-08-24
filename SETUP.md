@@ -1,4 +1,4 @@
-# 🛠️ Developer Setup & Pipeline Guide — SanskritiPulse AI
+# 🛠️ Developer Setup & Pipeline Guide — YuktiAi
 
 This document provides zero-friction instructions to set up, seed, and run the complete backend service on any fresh macOS, Linux, or Windows machine. Built by **Tezraj** for teammates **Nandish**, **Simran**, **Monika**, **Janvi**, and **Tanishi** (see [`TEAM_ROLES.md`](TEAM_ROLES.md)).
 

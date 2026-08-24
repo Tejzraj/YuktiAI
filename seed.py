@@ -1,7 +1,8 @@
+#!/usr/bin/env bash
 #!/usr/bin/env python3
 """
-SanskritiPulse - PostgreSQL Database Seeding Script
-===================================================
+YuktiAi - PostgreSQL Database Seeding Script
+============================================
 Seeds festival categories, festivals master, images, hotels, and travel options
 from JSON dataset into the PostgreSQL database.
 """
@@ -12,6 +13,7 @@ import json
 import argparse
 from pathlib import Path
 from typing import Dict, Any, List, Optional
+
 def get_psycopg2():
     try:
         import psycopg2
@@ -24,7 +26,7 @@ def get_psycopg2():
 
 # Default DB Configuration (matches docker-compose.yml & environment variables)
 DB_CONFIG = {
-    "dbname": os.getenv("POSTGRES_DB", "sanskritipulse"),
+    "dbname": os.getenv("POSTGRES_DB", "yuktiai"),
     "user": os.getenv("POSTGRES_USER", "postgres"),
     "password": os.getenv("POSTGRES_PASSWORD", "password123"),
     "host": os.getenv("POSTGRES_HOST", "localhost"),
@@ -37,10 +39,10 @@ def find_default_json_file() -> Optional[Path]:
     script_dir = Path(__file__).resolve().parent
     candidates = [
         script_dir / "festivals_karnataka.json",
-        script_dir / "sanskritipulse-ai" / "festivals_karnataka.json",
+        script_dir / "yuktiai" / "festivals_karnataka.json",
         script_dir / "mock_festivals.json",
         Path.cwd() / "festivals_karnataka.json",
-        Path.cwd() / "sanskritipulse-ai" / "festivals_karnataka.json",
+        Path.cwd() / "yuktiai" / "festivals_karnataka.json",
         Path.cwd() / "mock_festivals.json",
     ]
     for p in candidates:
@@ -242,7 +244,7 @@ def seed_database(json_path: Path, reset_tables: bool = False) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Seed SanskritiPulse PostgreSQL database.")
+    parser = argparse.ArgumentParser(description="Seed YuktiAi PostgreSQL database.")
     parser.add_argument(
         "-f", "--file",
         dest="json_file",

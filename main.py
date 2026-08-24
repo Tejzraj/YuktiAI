@@ -6,9 +6,9 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 
 app = FastAPI(
-    title="SanskritiPulse Core Festival API",
+    title="YuktiAi Core Festival API",
     version="1.0.0",
-    description="Core REST API and Database Service for SanskritiPulse AI"
+    description="Core REST API and Database Service for YuktiAi"
 )
 
 # Enable CORS for frontend dashboards (Monika, Janvi, Tanishi, etc.)
@@ -21,7 +21,7 @@ app.add_middleware(
 )
 
 DB_CONFIG = {
-    "dbname": os.getenv("POSTGRES_DB", "sanskritipulse"),
+    "dbname": os.getenv("POSTGRES_DB", "yuktiai"),
     "user": os.getenv("POSTGRES_USER", "postgres"),
     "password": os.getenv("POSTGRES_PASSWORD", "password123"),
     "host": os.getenv("POSTGRES_HOST", "localhost"),
@@ -35,7 +35,7 @@ def get_db_connection():
 
 @app.get("/")
 def home():
-    return {"status": "online", "message": "SanskritiPulse Core Database API running"}
+    return {"status": "online", "message": "YuktiAi Core Database API running"}
 
 
 @app.get("/festivals")

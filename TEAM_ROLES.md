@@ -1,6 +1,6 @@
-# 👥 SanskritiPulse AI — Team Roles & Architecture Matrix
+# 👥 YuktiAi — Team Roles & Architecture Matrix
 
-This document outlines the assigned roles, core deliverables, and technical handoff points for all team members on the SanskritiPulse AI project.
+This document outlines the assigned roles, core deliverables, and technical handoff points for all team members on the YuktiAi project.
 
 ---
 

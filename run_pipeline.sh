@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ==============================================================================
-# SanskritiPulse AI - One-Click Developer Pipeline Setup
+# YuktiAi - One-Click Developer Pipeline Setup
 # ==============================================================================
 # Automates environment verification, container spin-up, dependency installation,
 # database seeding, and REST API server initialization.
@@ -20,7 +20,7 @@ NC='\033[0m' # No Color
 
 echo -e "${CYAN}${BOLD}"
 echo "================================================================="
-echo "   🚀 SANSKRITIPULSE AI — AUTOMATED BACKEND PIPELINE SETUP"
+echo "        🚀 YUKTIAI — AUTOMATED BACKEND PIPELINE SETUP            "
 echo "================================================================="
 echo -e "${NC}"
 
@@ -73,13 +73,13 @@ echo -e "  ${GREEN}✓${NC} PostgreSQL container started on port 5432"
 echo -e "  ${YELLOW}⏳ Waiting for PostgreSQL database to be healthy...${NC}"
 MAX_RETRIES=20
 RETRY_COUNT=0
-until docker exec sanskritipulse_postgres pg_isready -U postgres &> /dev/null || [ $RETRY_COUNT -eq $MAX_RETRIES ]; do
+until docker exec yuktiai_postgres pg_isready -U postgres &> /dev/null || [ $RETRY_COUNT -eq $MAX_RETRIES ]; do
     RETRY_COUNT=$((RETRY_COUNT+1))
     sleep 1
 done
 
 if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
-    echo -e "${RED}❌ Timed out waiting for PostgreSQL to start. Check docker logs with: docker logs sanskritipulse_postgres${NC}"
+    echo -e "${RED}❌ Timed out waiting for PostgreSQL to start. Check docker logs with: docker logs yuktiai_postgres${NC}"
     exit 1
 fi
 echo -e "  ${GREEN}✓${NC} PostgreSQL is fully initialized and accepting connections!"
@@ -119,7 +119,7 @@ echo ""
 
 # 6. Launch FastAPI Server
 echo -e "${GREEN}${BOLD}=================================================================${NC}"
-echo -e "${GREEN}${BOLD}   🎉 SETUP COMPLETE! STARTING SANSKRITIPULSE REST API SERVER    ${NC}"
+echo -e "${GREEN}${BOLD}      🎉 SETUP COMPLETE! STARTING YUKTIAI REST API SERVER        ${NC}"
 echo -e "${GREEN}${BOLD}=================================================================${NC}"
 echo -e "${CYAN}  • Base API:        ${BOLD}http://localhost:8000${NC}"
 echo -e "${CYAN}  • Swagger Docs:    ${BOLD}http://localhost:8000/docs${NC}"

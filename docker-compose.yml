@@ -3,11 +3,11 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: sanskritipulse_postgres
+    container_name: yuktiai_postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password123
-      POSTGRES_DB: sanskritipulse
+      POSTGRES_DB: yuktiai
     ports:
       - "5432:5432"
     volumes:

@@ -1,14 +1,14 @@
-# SanskritiPulse AI - Karnataka Cultural Festivals Data Pipeline
+# YuktiAi - Karnataka Cultural Festivals Data Pipeline
 
-A data engineering asset and dataset generator for **SanskritiPulse AI**, capturing cultural heritage festivals across Karnataka with authentic metadata, geographic validation, historical provenance, gastronomic highlights, and AI semantic tags.
+A data engineering asset and dataset generator for **YuktiAi**, capturing cultural heritage festivals across Karnataka with authentic metadata, geographic validation, historical provenance, gastronomic highlights, and AI semantic tags.
 
 ---
 
 ## 📁 Repository Contents
 
-- [`seed_data.py`](file:///Users/macbookpro/.gemini/antigravity-ide/scratch/sanskritipulse-ai/seed_data.py): Production-ready Python ETL pipeline with geographic bounding-box validation, schema verification, and export capabilities.
-- [`festivals_karnataka.json`](file:///Users/macbookpro/.gemini/antigravity-ide/scratch/sanskritipulse-ai/festivals_karnataka.json): Curated JSON array of distinct Karnataka festivals.
-- [`festivals_karnataka.csv`](file:///Users/macbookpro/.gemini/antigravity-ide/scratch/sanskritipulse-ai/festivals_karnataka.csv): Tabular dataset formatted for data warehousing and analytics.
+- [`seed_data.py`](file:///Users/macbookpro/.gemini/antigravity-ide/scratch/yuktiai/seed_data.py): Production-ready Python ETL pipeline with geographic bounding-box validation, schema verification, and export capabilities.
+- [`festivals_karnataka.json`](file:///Users/macbookpro/.gemini/antigravity-ide/scratch/yuktiai/festivals_karnataka.json): Curated JSON array of distinct Karnataka festivals.
+- [`festivals_karnataka.csv`](file:///Users/macbookpro/.gemini/antigravity-ide/scratch/yuktiai/festivals_karnataka.csv): Tabular dataset formatted for data warehousing and analytics.
 
 ---
 
@@ -45,7 +45,7 @@ A data engineering asset and dataset generator for **SanskritiPulse AI**, captur
 Run the data pipeline to regenerate or validate datasets:
 
 ```bash
-cd /Users/macbookpro/.gemini/antigravity-ide/scratch/sanskritipulse-ai
+cd yuktiai
 
 # Generate both JSON and CSV with summary metrics:
 python3 seed_data.py --summary
