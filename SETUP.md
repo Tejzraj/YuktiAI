@@ -9,8 +9,8 @@ This document provides zero-friction instructions to set up, seed, and run the c
 Clone the repository and run the automated pipeline script:
 
 ```bash
-git clone https://github.com/Tejzraj/SanskritiPulse-AI.git
-cd SanskritiPulse-AI
+git clone https://github.com/Tejzraj/YuktiAI.git
+cd YuktiAI
 chmod +x run_pipeline.sh && ./run_pipeline.sh
 ```
 
@@ -30,8 +30,8 @@ If you prefer running commands manually or are on Windows PowerShell:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/Tejzraj/SanskritiPulse-AI.git
-cd SanskritiPulse-AI
+git clone https://github.com/Tejzraj/YuktiAI.git
+cd YuktiAI
 ```
 
 ### 2. Start PostgreSQL Container
