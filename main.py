@@ -1,30 +1,48 @@
-from fastapi import FastAPI, HTTPException, Query
+import os
 from typing import Optional
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-app = FastAPI(title="SanskritiPulse Core Festival API", version="1.0.0")
+app = FastAPI(
+    title="SanskritiPulse Core Festival API",
+    version="1.0.0",
+    description="Core REST API and Database Service for SanskritiPulse AI"
+)
+
+# Enable CORS for frontend dashboards (Member 4, 5, 6)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 DB_CONFIG = {
-    "dbname": "sanskritipulse",
-    "user": "postgres",
-    "password": "password123",
-    "host": "localhost",
-    "port": "5432"
+    "dbname": os.getenv("POSTGRES_DB", "sanskritipulse"),
+    "user": os.getenv("POSTGRES_USER", "postgres"),
+    "password": os.getenv("POSTGRES_PASSWORD", "password123"),
+    "host": os.getenv("POSTGRES_HOST", "localhost"),
+    "port": os.getenv("POSTGRES_PORT", "5432")
 }
+
 
 def get_db_connection():
     return psycopg2.connect(**DB_CONFIG, cursor_factory=RealDictCursor)
+
 
 @app.get("/")
 def home():
     return {"status": "online", "message": "SanskritiPulse Core Database API running"}
 
+
 @app.get("/festivals")
 def get_festivals(
-    district: Optional[str] = None,
-    category: Optional[str] = None,
-    date: Optional[str] = None
+    district: Optional[str] = Query(None, description="Filter festivals by district name (case-insensitive)"),
+    category: Optional[str] = Query(None, description="Filter festivals by category name (case-insensitive)"),
+    date: Optional[str] = Query(None, description="Filter festivals active on a specific date (YYYY-MM-DD)")
 ):
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -54,6 +72,7 @@ def get_festivals(
     conn.close()
     return {"count": len(festivals), "data": festivals}
 
+
 @app.get("/festivals/{festival_id}")
 def get_festival_detail(festival_id: int):
     conn = get_db_connection()
@@ -68,6 +87,7 @@ def get_festival_detail(festival_id: int):
     
     festival = cursor.fetchone()
     if not festival:
+        cursor.close()
         conn.close()
         raise HTTPException(status_code=404, detail="Festival not found")
 
@@ -76,8 +96,12 @@ def get_festival_detail(festival_id: int):
     festival["images"] = [row["image_url"] for row in cursor.fetchall()]
 
     # Fetch hotels
-    cursor.execute("SELECT hotel_name, distance_km, price_per_night FROM hotels WHERE festival_id = %s", (festival_id,))
+    cursor.execute("SELECT hotel_name, distance_km, price_per_night, booking_url FROM hotels WHERE festival_id = %s", (festival_id,))
     festival["hotels"] = cursor.fetchall()
+
+    # Fetch travel options
+    cursor.execute("SELECT mode, estimated_cost, duration FROM travel_options WHERE festival_id = %s", (festival_id,))
+    festival["travel_options"] = cursor.fetchall()
 
     cursor.close()
     conn.close()

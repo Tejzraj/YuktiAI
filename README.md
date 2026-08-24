@@ -1,1 +1,303 @@
-# ai_model_build
+# SanskritiPulse AI - Core Festival Data & REST API Engine
+
+![SanskritiPulse](https://img.shields.io/badge/SanskritiPulse-AI%20Data%20Engine-orange.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)
+![CORS](https://img.shields.io/badge/CORS-Enabled-brightgreen.svg)
+
+Welcome to the core backend repository for **SanskritiPulse AI** — a comprehensive cultural discovery platform and cultural intelligence engine for Karnataka's festivals and heritage events.
+
+This service manages the **PostgreSQL relational database**, automated data ingestion & seeding pipelines, and high-performance **RESTful APIs** consumed by frontend web applications, mobile interfaces, and AI analytics pipelines (Members 4, 5, and 6).
+
+---
+
+## 📋 Features & Capabilities
+
+- 🐘 **PostgreSQL 15 Container**: Fully relational schema with categories, master festival metadata, geospatial coordinates, media arrays, hotels, and travel options.
+- ⚡ **High-Performance FastAPI**: Asynchronous REST API with automatic OpenAPI / Swagger documentation.
+- 🌐 **Full CORS Support**: Preconfigured `CORSMiddleware` with `allow_origins=["*"]`, `allow_methods=["*"]`, and `allow_headers=["*"]` to ensure seamless integration across frontend dashboards.
+- 🔄 **Automated Seeding Pipeline**: Idempotent data loader (`seed.py`) with support for nested image objects, hotels, travel logistics, and category normalization.
+- 💾 **Data Export & Backups**: Automated snapshot scripts (`backup.py`) exporting tables directly to CSV.
+
+---
+
+## 🏗️ Architecture & Database Schema
+
+The database model is defined in [`init.sql`](init.sql) and executed on PostgreSQL startup:
+
+```mermaid
+erDiagram
+    FESTIVAL_CATEGORIES ||--o{ FESTIVALS : categorizes
+    FESTIVALS ||--o{ FESTIVAL_IMAGES : includes
+    FESTIVALS ||--o{ HOTELS : nearby
+    FESTIVALS ||--o{ TRAVEL_OPTIONS : transit
+
+    FESTIVAL_CATEGORIES {
+        int id PK
+        varchar name UK
+    }
+
+    FESTIVALS {
+        int id PK
+        varchar name
+        varchar local_name
+        varchar district
+        varchar city
+        numeric latitude
+        numeric longitude
+        date start_date
+        date end_date
+        varchar timings
+        int category_id FK
+        text short_description
+        text cultural_significance
+        text history_origin
+        text[] major_attractions
+        text[] local_food
+        text[] activities
+        int expected_footfall
+        varchar official_website
+    }
+
+    FESTIVAL_IMAGES {
+        int id PK
+        int festival_id FK
+        text image_url
+    }
+
+    HOTELS {
+        int id PK
+        int festival_id FK
+        varchar hotel_name
+        numeric distance_km
+        numeric price_per_night
+        text booking_url
+    }
+
+    TRAVEL_OPTIONS {
+        int id PK
+        int festival_id FK
+        varchar mode
+        numeric estimated_cost
+        varchar duration
+    }
+```
+
+---
+
+## 🚀 Step-by-Step Quickstart Guide
+
+### 1. Prerequisites
+- [Docker](https://www.docker.com/) & Docker Compose
+- Python 3.10+ and `pip`
+
+### 2. Install Python Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Launch PostgreSQL with Docker Compose
+Start the PostgreSQL container in detached mode:
+```bash
+docker compose up -d
+```
+*The database will be initialized with [`init.sql`](init.sql) on `localhost:5432`.*
+
+To verify container health:
+```bash
+docker compose ps
+```
+
+### 4. Seed the Database
+Run the idempotent seeding script to load the complete Karnataka festivals dataset:
+```bash
+python seed.py
+```
+
+*Optional flags:*
+```bash
+# Reset tables and restart identity sequence before seeding
+python seed.py --reset
+
+# Specify a custom JSON dataset file path
+python seed.py --file sanskritipulse-ai/festivals_karnataka.json
+```
+
+### 5. Start the REST API Service
+Launch the FastAPI development server with hot-reloading on port `8000`:
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+The API will be live at:
+- **Base URL:** [http://localhost:8000](http://localhost:8000)
+- **Interactive Swagger UI Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- **ReDoc Documentation:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+---
+
+## 📡 REST API Documentation
+
+All endpoints return JSON responses with standard HTTP status codes.
+
+### 1. Health & Status Check
+- **Route:** `GET /`
+- **Description:** Verifies that the API service is online.
+- **Example Response:**
+  ```json
+  {
+    "status": "online",
+    "message": "SanskritiPulse Core Database API running"
+  }
+  ```
+
+---
+
+### 2. List & Filter Festivals
+- **Route:** `GET /festivals`
+- **Description:** Retrieve all festivals with optional multi-parameter query filters.
+- **Query Parameters:**
+  | Parameter | Type | Description | Example |
+  | :--- | :--- | :--- | :--- |
+  | `district` | `string` | Filter by district name (case-insensitive) | `?district=Mysuru` |
+  | `category` | `string` | Filter by category name (case-insensitive) | `?category=State Festival & Royal Heritage` |
+  | `date` | `string` | Filter festivals active on a date (`YYYY-MM-DD`) | `?date=2026-10-15` |
+
+- **Example Requests:**
+  ```bash
+  # Get all festivals
+  curl "http://localhost:8000/festivals"
+
+  # Filter by district
+  curl "http://localhost:8000/festivals?district=Mysuru"
+
+  # Combined filter: District and Date
+  curl "http://localhost:8000/festivals?district=Vijayanagara&date=2026-11-07"
+  ```
+
+- **Example Response:**
+  ```json
+  {
+    "count": 1,
+    "data": [
+      {
+        "id": 1,
+        "name": "Mysuru Dasara (Nada Habba)",
+        "local_name": "ಮೈಸೂರು ದಸರಾ (ನಾಡಹಬ್ಬ)",
+        "district": "Mysuru",
+        "city": "Mysuru",
+        "latitude": 12.3051,
+        "longitude": 76.6551,
+        "start_date": "2026-10-11",
+        "end_date": "2026-10-20",
+        "timings": "All Day",
+        "category_id": 1,
+        "category_name": "State Festival & Royal Heritage",
+        "short_description": "Celebrated as Karnataka's official state festival...",
+        "cultural_significance": "Represents the triumph of righteousness (Dharma) over evil...",
+        "history_origin": "Initiated in the 14th century by the Vijayanagara Empire kings...",
+        "major_attractions": [
+          "Jamboo Savari (Grand Elephant Procession carrying the 750kg Golden Howdah)",
+          "Illumination of Mysuru Palace with 100,000 bulbs"
+        ],
+        "local_food": [
+          "Mysore Pak (melt-in-mouth ghee sweet)",
+          "Mysore Masala Dosa with red chili-garlic chutney"
+        ],
+        "activities": [
+          "heritage",
+          "royal",
+          "nada-habba"
+        ],
+        "expected_footfall": 1800000,
+        "official_website": null
+      }
+    ]
+  }
+  ```
+
+---
+
+### 3. Get Festival Details by ID
+- **Route:** `GET /festivals/{festival_id}`
+- **Description:** Retrieve full details for a single festival, including embedded lists of media URLs, nearby hotel accommodations, and travel transit options.
+- **Path Parameters:**
+  | Parameter | Type | Description |
+  | :--- | :--- | :--- |
+  | `festival_id` | `integer` | Unique integer ID of the festival |
+
+- **Example Request:**
+  ```bash
+  curl "http://localhost:8000/festivals/1"
+  ```
+
+- **Example Response:**
+  ```json
+  {
+    "id": 1,
+    "name": "Mysuru Dasara (Nada Habba)",
+    "local_name": "ಮೈಸೂರು ದಸರಾ (ನಾಡಹಬ್ಬ)",
+    "district": "Mysuru",
+    "city": "Mysuru",
+    "latitude": 12.3051,
+    "longitude": 76.6551,
+    "start_date": "2026-10-11",
+    "end_date": "2026-10-20",
+    "timings": "All Day",
+    "category_id": 1,
+    "category": "State Festival & Royal Heritage",
+    "short_description": "Celebrated as Karnataka's official state festival (Nada Habba)...",
+    "cultural_significance": "Represents the triumph of righteousness (Dharma) over evil...",
+    "history_origin": "Initiated in the 14th century by the Vijayanagara Empire...",
+    "major_attractions": [
+      "Jamboo Savari (Grand Elephant Procession carrying the 750kg Golden Howdah)",
+      "Illumination of Mysuru Palace with 100,000 bulbs"
+    ],
+    "local_food": [
+      "Mysore Pak",
+      "Mysore Masala Dosa"
+    ],
+    "activities": ["heritage", "royal"],
+    "expected_footfall": 1800000,
+    "official_website": null,
+    "images": [
+      "https://images.unsplash.com/photo-1600100397608-f010f443b749",
+      "https://images.unsplash.com/photo-1582510003544-4d00b7f74220"
+    ],
+    "hotels": [
+      {
+        "hotel_name": "Grand Mercure Mysuru",
+        "distance_km": 3.2,
+        "price_per_night": 7500.0,
+        "booking_url": null
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "Train",
+        "estimated_cost": 350.0,
+        "duration": "2h 15m"
+      }
+    ]
+  }
+  ```
+
+---
+
+## 💾 Data Backup & Export Tool
+
+To export current database records to CSV files:
+```bash
+python backup.py
+```
+Outputs:
+- `festivals_backup.csv`
+- `categories_backup.csv`
+
+---
+
+## 👥 Integration Guide for Team Members
+
+- **Member 4 (Mobile / Flutter / React Native):** Use `http://<HOST_IP>:8000/festivals` to populate map markers (using `latitude`, `longitude`), filter by district, and view media carousels.
+- **Member 5 (Web Frontend / Next.js / Dashboard):** CORS is enabled on all origins (`*`). Connect directly via `fetch()` or `axios`.
+- **Member 6 (Analytics / Recommendations):** Use `/festivals` with `expected_footfall`, `category`, and dates to feed clustering and itinerary generation algorithms.
