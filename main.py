@@ -96,11 +96,11 @@ def get_festival_detail(festival_id: int):
     festival["images"] = [row["image_url"] for row in cursor.fetchall()]
 
     # Fetch hotels
-    cursor.execute("SELECT hotel_name, distance_km, price_per_night, booking_url FROM hotels WHERE festival_id = %s", (festival_id,))
+    cursor.execute("SELECT hotel_name, distance_km, price_per_night, rating, facilities, booking_url FROM hotels WHERE festival_id = %s", (festival_id,))
     festival["hotels"] = cursor.fetchall()
 
     # Fetch travel options
-    cursor.execute("SELECT mode, estimated_cost, duration FROM travel_options WHERE festival_id = %s", (festival_id,))
+    cursor.execute("SELECT mode, estimated_cost, duration, from_city FROM travel_options WHERE festival_id = %s", (festival_id,))
     festival["travel_options"] = cursor.fetchall()
 
     cursor.close()

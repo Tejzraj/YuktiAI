@@ -204,13 +204,15 @@ def seed_database(json_path: Path, reset_tables: bool = False) -> None:
                         h_dist = h.get("distance_km")
                         h_price = h.get("price_per_night")
                         h_url = h.get("booking_url")
+                        h_rating = h.get("rating")
+                        h_facilities = h.get("facilities") or []
                         if h_name:
                             cursor.execute(
                                 """
-                                INSERT INTO hotels (festival_id, hotel_name, distance_km, price_per_night, booking_url)
-                                VALUES (%s, %s, %s, %s, %s);
+                                INSERT INTO hotels (festival_id, hotel_name, distance_km, price_per_night, rating, facilities, booking_url)
+                                VALUES (%s, %s, %s, %s, %s, %s, %s);
                                 """,
-                                (festival_id, h_name, h_dist, h_price, h_url)
+                                (festival_id, h_name, h_dist, h_price, h_rating, h_facilities, h_url)
                             )
                             inserted_hotels += 1
 
@@ -220,13 +222,14 @@ def seed_database(json_path: Path, reset_tables: bool = False) -> None:
                         mode = t.get("mode")
                         cost = t.get("estimated_cost") or t.get("cost")
                         duration = t.get("duration")
+                        from_city = t.get("from_city")
                         if mode:
                             cursor.execute(
                                 """
-                                INSERT INTO travel_options (festival_id, mode, estimated_cost, duration)
-                                VALUES (%s, %s, %s, %s);
+                                INSERT INTO travel_options (festival_id, mode, estimated_cost, duration, from_city)
+                                VALUES (%s, %s, %s, %s, %s);
                                 """,
-                                (festival_id, mode, cost, duration)
+                                (festival_id, mode, cost, duration, from_city)
                             )
                             inserted_travel += 1
 
