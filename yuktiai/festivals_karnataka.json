@@ -55,7 +55,66 @@
     "footfall_formatted": "1.8 Million+",
     "attractions_count": 5,
     "culinary_items_count": 5,
-    "computed_duration": 10
+    "computed_duration": 10,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 1.5,
+        "price_per_night": 4200,
+        "rating": 4.3,
+        "facilities": [
+          "Hot Water",
+          "TV",
+          "WiFi",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 2.5,
+        "price_per_night": 3500,
+        "rating": 3.9,
+        "facilities": [
+          "TV",
+          "Parking",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 3.7,
+        "price_per_night": 1500,
+        "rating": 4.5,
+        "facilities": [
+          "AC",
+          "TV",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 280,
+        "duration": "3h 56m",
+        "from_city": "Bengaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 170,
+        "duration": "2h 52m",
+        "from_city": "Bengaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2050,
+        "duration": "2h 52m",
+        "from_city": "Bengaluru"
+      }
+    ]
   },
   {
     "id": "kambala-buffalo-race",
@@ -106,7 +165,69 @@
     "footfall_formatted": "120k+",
     "attractions_count": 4,
     "culinary_items_count": 5,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Highway Pearl",
+        "distance_km": 0.8,
+        "price_per_night": 1800,
+        "rating": 4.3,
+        "facilities": [
+          "Room Service",
+          "Parking",
+          "TV",
+          "WiFi",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Highway+Pearl"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 2.7,
+        "price_per_night": 4200,
+        "rating": 4.0,
+        "facilities": [
+          "AC",
+          "Parking",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      },
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 2.8,
+        "price_per_night": 1800,
+        "rating": 4.6,
+        "facilities": [
+          "Hot Water",
+          "TV",
+          "Power Backup",
+          "Room Service",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 50,
+        "duration": "43m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 30,
+        "duration": "31m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 350,
+        "duration": "31m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "hampi-utsav",
@@ -156,7 +277,67 @@
     "footfall_formatted": "350k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 1.0,
+        "price_per_night": 4200,
+        "rating": 4.2,
+        "facilities": [
+          "AC",
+          "Hot Water",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 1.5,
+        "price_per_night": 2000,
+        "rating": 3.6,
+        "facilities": [
+          "TV",
+          "Room Service",
+          "Hot Water",
+          "Restaurant",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 3.1,
+        "price_per_night": 1800,
+        "rating": 3.7,
+        "facilities": [
+          "Hot Water",
+          "Power Backup",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 320,
+        "duration": "4h 29m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 200,
+        "duration": "3h 15m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2350,
+        "duration": "3h 15m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "bengaluru-karaga",
@@ -207,7 +388,68 @@
     "footfall_formatted": "550k+",
     "attractions_count": 4,
     "culinary_items_count": 5,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 1.4,
+        "price_per_night": 1200,
+        "rating": 4.4,
+        "facilities": [
+          "Room Service",
+          "WiFi",
+          "Hot Water",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      },
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 3.4,
+        "price_per_night": 4200,
+        "rating": 3.6,
+        "facilities": [
+          "AC",
+          "Restaurant",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 4.2,
+        "price_per_night": 1200,
+        "rating": 3.7,
+        "facilities": [
+          "Power Backup",
+          "Parking",
+          "WiFi",
+          "AC",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 290,
+        "duration": "3h 58m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 170,
+        "duration": "2h 53m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2050,
+        "duration": "2h 53m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "pattadakal-dance-festival",
@@ -256,7 +498,66 @@
     "footfall_formatted": "65k+",
     "attractions_count": 3,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 1.4,
+        "price_per_night": 2500,
+        "rating": 3.6,
+        "facilities": [
+          "Parking",
+          "Hot Water",
+          "AC",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 1.9,
+        "price_per_night": 1200,
+        "rating": 4.4,
+        "facilities": [
+          "AC",
+          "WiFi",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 2.0,
+        "price_per_night": 2000,
+        "rating": 3.9,
+        "facilities": [
+          "Restaurant",
+          "AC",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 220,
+        "duration": "3h 5m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 140,
+        "duration": "2h 14m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1600,
+        "duration": "2h 14m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "vairamudi-brahmotsava",
@@ -306,7 +607,67 @@
     "footfall_formatted": "250k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 2.0,
+        "price_per_night": 1200,
+        "rating": 3.7,
+        "facilities": [
+          "Hot Water",
+          "Room Service",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Hotel Ganga",
+        "distance_km": 2.4,
+        "price_per_night": 2500,
+        "rating": 3.4,
+        "facilities": [
+          "TV",
+          "Hot Water",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Ganga"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 3.2,
+        "price_per_night": 2000,
+        "rating": 4.1,
+        "facilities": [
+          "Room Service",
+          "Power Backup",
+          "TV",
+          "AC",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 90,
+        "duration": "1h 17m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 60,
+        "duration": "56m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 650,
+        "duration": "56m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "kadambotsava-banavasi",
@@ -356,7 +717,66 @@
     "footfall_formatted": "75k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 2.7,
+        "price_per_night": 1200,
+        "rating": 4.4,
+        "facilities": [
+          "Restaurant",
+          "Power Backup",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      },
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 3.1,
+        "price_per_night": 1500,
+        "rating": 4.4,
+        "facilities": [
+          "Power Backup",
+          "Room Service",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 4.1,
+        "price_per_night": 2000,
+        "rating": 3.4,
+        "facilities": [
+          "Hot Water",
+          "AC",
+          "WiFi",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 210,
+        "duration": "2h 54m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 130,
+        "duration": "2h 7m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1500,
+        "duration": "2h 7m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "tula-sankramana-talakaveri",
@@ -407,7 +827,68 @@
     "footfall_formatted": "125k+",
     "attractions_count": 4,
     "culinary_items_count": 5,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 0.6,
+        "price_per_night": 4200,
+        "rating": 3.9,
+        "facilities": [
+          "Restaurant",
+          "Hot Water",
+          "TV",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      },
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 1.0,
+        "price_per_night": 1200,
+        "rating": 3.5,
+        "facilities": [
+          "Restaurant",
+          "TV",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      },
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 2.4,
+        "price_per_night": 1200,
+        "rating": 4.2,
+        "facilities": [
+          "Hot Water",
+          "Restaurant",
+          "TV",
+          "AC",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 200,
+        "duration": "2h 50m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 120,
+        "duration": "2h 4m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1450,
+        "duration": "2h 4m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "chalukya-utsava-badami",
@@ -457,7 +938,67 @@
     "footfall_formatted": "110k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "The Malnad Inn",
+        "distance_km": 1.6,
+        "price_per_night": 1800,
+        "rating": 4.4,
+        "facilities": [
+          "Power Backup",
+          "Room Service",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Malnad+Inn"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 4.1,
+        "price_per_night": 1500,
+        "rating": 3.8,
+        "facilities": [
+          "AC",
+          "Power Backup",
+          "Restaurant",
+          "WiFi",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 4.3,
+        "price_per_night": 3500,
+        "rating": 3.6,
+        "facilities": [
+          "AC",
+          "TV",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 190,
+        "duration": "2h 41m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 120,
+        "duration": "1h 57m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1400,
+        "duration": "1h 57m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "gavisiddheshwara-jatre-koppal",
@@ -508,7 +1049,69 @@
     "footfall_formatted": "2.2 Million+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 7
+    "computed_duration": 7,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 2.0,
+        "price_per_night": 2500,
+        "rating": 4.4,
+        "facilities": [
+          "TV",
+          "WiFi",
+          "Power Backup",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 2.4,
+        "price_per_night": 1200,
+        "rating": 3.6,
+        "facilities": [
+          "Room Service",
+          "Power Backup",
+          "WiFi",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 2.6,
+        "price_per_night": 3000,
+        "rating": 3.5,
+        "facilities": [
+          "Power Backup",
+          "AC",
+          "Restaurant",
+          "WiFi",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 250,
+        "duration": "3h 27m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 150,
+        "duration": "2h 31m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1800,
+        "duration": "2h 31m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "sirsi-marikamba-jatre",
@@ -559,7 +1162,69 @@
     "footfall_formatted": "850k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 9
+    "computed_duration": 9,
+    "hotels": [
+      {
+        "hotel_name": "The Malnad Inn",
+        "distance_km": 2.3,
+        "price_per_night": 2000,
+        "rating": 3.6,
+        "facilities": [
+          "TV",
+          "Power Backup",
+          "Room Service",
+          "WiFi",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Malnad+Inn"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 2.3,
+        "price_per_night": 1800,
+        "rating": 3.5,
+        "facilities": [
+          "AC",
+          "Room Service",
+          "Restaurant",
+          "Power Backup",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      },
+      {
+        "hotel_name": "Hotel Highway Pearl",
+        "distance_km": 3.0,
+        "price_per_night": 1500,
+        "rating": 3.5,
+        "facilities": [
+          "Restaurant",
+          "Room Service",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Highway+Pearl"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 200,
+        "duration": "2h 46m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 120,
+        "duration": "2h 1m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1450,
+        "duration": "2h 1m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "saundatti-yellamma-jatre",
@@ -609,7 +1274,67 @@
     "footfall_formatted": "1.3 Million+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 4
+    "computed_duration": 4,
+    "hotels": [
+      {
+        "hotel_name": "The Malnad Inn",
+        "distance_km": 2.6,
+        "price_per_night": 3000,
+        "rating": 3.6,
+        "facilities": [
+          "Power Backup",
+          "Restaurant",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Malnad+Inn"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 3.1,
+        "price_per_night": 4200,
+        "rating": 4.2,
+        "facilities": [
+          "Restaurant",
+          "Room Service",
+          "AC",
+          "Hot Water",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      },
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 4.4,
+        "price_per_night": 3000,
+        "rating": 3.6,
+        "facilities": [
+          "AC",
+          "Room Service",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 100,
+        "duration": "1h 26m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 60,
+        "duration": "1h 2m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 750,
+        "duration": "1h 2m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "dharmasthala-laksha-deepotsava",
@@ -659,7 +1384,67 @@
     "footfall_formatted": "450k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 6
+    "computed_duration": 6,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Highway Pearl",
+        "distance_km": 0.8,
+        "price_per_night": 2000,
+        "rating": 4.3,
+        "facilities": [
+          "Hot Water",
+          "WiFi",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Highway+Pearl"
+      },
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 2.9,
+        "price_per_night": 1200,
+        "rating": 4.6,
+        "facilities": [
+          "WiFi",
+          "Hot Water",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 4.1,
+        "price_per_night": 1800,
+        "rating": 4.2,
+        "facilities": [
+          "Parking",
+          "Hot Water",
+          "WiFi",
+          "Power Backup",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 130,
+        "duration": "1h 47m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 80,
+        "duration": "1h 18m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 900,
+        "duration": "1h 18m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "udupi-paryaya-utsava",
@@ -710,7 +1495,68 @@
     "footfall_formatted": "400k+",
     "attractions_count": 4,
     "culinary_items_count": 5,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 1.7,
+        "price_per_night": 3500,
+        "rating": 3.9,
+        "facilities": [
+          "Room Service",
+          "WiFi",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 1.9,
+        "price_per_night": 2500,
+        "rating": 3.8,
+        "facilities": [
+          "Parking",
+          "WiFi",
+          "Room Service",
+          "TV",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 3.5,
+        "price_per_night": 2000,
+        "rating": 3.7,
+        "facilities": [
+          "Room Service",
+          "Power Backup",
+          "AC",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 110,
+        "duration": "1h 32m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 70,
+        "duration": "1h 7m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 800,
+        "duration": "1h 7m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "mahamastakabhisheka-shravanabelagola",
@@ -760,7 +1606,66 @@
     "footfall_formatted": "2.8 Million+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 9
+    "computed_duration": 9,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 1.1,
+        "price_per_night": 3000,
+        "rating": 3.7,
+        "facilities": [
+          "TV",
+          "Power Backup",
+          "Parking",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 2.1,
+        "price_per_night": 3000,
+        "rating": 3.7,
+        "facilities": [
+          "Power Backup",
+          "Hot Water",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      },
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 3.4,
+        "price_per_night": 1800,
+        "rating": 4.5,
+        "facilities": [
+          "AC",
+          "TV",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 150,
+        "duration": "2h 1m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 90,
+        "duration": "1h 28m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1050,
+        "duration": "1h 28m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "hassanamba-temple-jatre",
@@ -810,7 +1715,68 @@
     "footfall_formatted": "1.1 Million+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 11
+    "computed_duration": 11,
+    "hotels": [
+      {
+        "hotel_name": "The Malnad Inn",
+        "distance_km": 0.5,
+        "price_per_night": 2500,
+        "rating": 4.4,
+        "facilities": [
+          "Parking",
+          "Power Backup",
+          "Room Service",
+          "TV",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Malnad+Inn"
+      },
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 1.6,
+        "price_per_night": 2000,
+        "rating": 3.9,
+        "facilities": [
+          "Room Service",
+          "WiFi",
+          "Power Backup",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      },
+      {
+        "hotel_name": "Hotel Ganga",
+        "distance_km": 3.7,
+        "price_per_night": 2500,
+        "rating": 3.4,
+        "facilities": [
+          "AC",
+          "Restaurant",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Ganga"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 220,
+        "duration": "3h 4m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 130,
+        "duration": "2h 14m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1600,
+        "duration": "2h 14m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "basavanagudi-kadalekai-parishe",
@@ -861,7 +1827,69 @@
     "footfall_formatted": "650k+",
     "attractions_count": 4,
     "culinary_items_count": 5,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 3.8,
+        "price_per_night": 3500,
+        "rating": 3.7,
+        "facilities": [
+          "Power Backup",
+          "TV",
+          "Hot Water",
+          "Restaurant",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 4.3,
+        "price_per_night": 2500,
+        "rating": 3.6,
+        "facilities": [
+          "Room Service",
+          "AC",
+          "Hot Water",
+          "WiFi",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 4.5,
+        "price_per_night": 1200,
+        "rating": 3.6,
+        "facilities": [
+          "Parking",
+          "Power Backup",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 280,
+        "duration": "3h 52m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 170,
+        "duration": "2h 49m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2000,
+        "duration": "2h 49m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "sringeri-sharada-navaratri",
@@ -911,7 +1939,70 @@
     "footfall_formatted": "300k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 10
+    "computed_duration": 10,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 1.2,
+        "price_per_night": 2000,
+        "rating": 4.3,
+        "facilities": [
+          "Restaurant",
+          "Hot Water",
+          "Power Backup",
+          "TV",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 2.3,
+        "price_per_night": 2000,
+        "rating": 3.6,
+        "facilities": [
+          "TV",
+          "WiFi",
+          "Restaurant",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 2.3,
+        "price_per_night": 2500,
+        "rating": 3.6,
+        "facilities": [
+          "WiFi",
+          "Parking",
+          "Room Service",
+          "TV",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 160,
+        "duration": "2h 13m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 100,
+        "duration": "1h 37m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1150,
+        "duration": "1h 37m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "alvas-virasat-cultural-fest",
@@ -961,7 +2052,68 @@
     "footfall_formatted": "220k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 4
+    "computed_duration": 4,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 0.6,
+        "price_per_night": 2000,
+        "rating": 4.5,
+        "facilities": [
+          "WiFi",
+          "Room Service",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      },
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 0.9,
+        "price_per_night": 3500,
+        "rating": 3.8,
+        "facilities": [
+          "WiFi",
+          "Hot Water",
+          "Parking",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      },
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 1.0,
+        "price_per_night": 2000,
+        "rating": 3.9,
+        "facilities": [
+          "Room Service",
+          "TV",
+          "WiFi",
+          "Hot Water",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 50,
+        "duration": "44m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 30,
+        "duration": "32m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 400,
+        "duration": "32m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "kalaburagi-sharanabasaveshwara-jatre",
@@ -1010,7 +2162,75 @@
     "footfall_formatted": "900k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 0.9,
+        "price_per_night": 3000,
+        "rating": 4.0,
+        "facilities": [
+          "TV",
+          "Restaurant",
+          "WiFi",
+          "Power Backup",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      },
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 1.5,
+        "price_per_night": 1500,
+        "rating": 4.4,
+        "facilities": [
+          "Parking",
+          "AC",
+          "Restaurant",
+          "Power Backup",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 3.0,
+        "price_per_night": 3000,
+        "rating": 3.8,
+        "facilities": [
+          "TV",
+          "Restaurant",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 640,
+        "duration": "8h 54m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 390,
+        "duration": "6h 28m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 4650,
+        "duration": "6h 28m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "flight",
+        "estimated_cost": 5650,
+        "duration": "1h 31m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "kukke-subramanya-champa-shashti",
@@ -1059,7 +2279,67 @@
     "footfall_formatted": "380k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 0.8,
+        "price_per_night": 2000,
+        "rating": 4.5,
+        "facilities": [
+          "AC",
+          "Restaurant",
+          "Power Backup",
+          "Hot Water",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 1.2,
+        "price_per_night": 2000,
+        "rating": 4.3,
+        "facilities": [
+          "Power Backup",
+          "Room Service",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 2.2,
+        "price_per_night": 2500,
+        "rating": 4.0,
+        "facilities": [
+          "TV",
+          "Hot Water",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 200,
+        "duration": "2h 43m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 120,
+        "duration": "1h 59m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1400,
+        "duration": "1h 59m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "bidar-utsav",
@@ -1109,7 +2389,74 @@
     "footfall_formatted": "120k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 1.4,
+        "price_per_night": 1200,
+        "rating": 3.8,
+        "facilities": [
+          "Parking",
+          "Room Service",
+          "Power Backup",
+          "Restaurant",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      },
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 2.8,
+        "price_per_night": 1200,
+        "rating": 4.1,
+        "facilities": [
+          "Hot Water",
+          "WiFi",
+          "TV",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 3.0,
+        "price_per_night": 4200,
+        "rating": 3.6,
+        "facilities": [
+          "Power Backup",
+          "Hot Water",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 860,
+        "duration": "11h 57m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 530,
+        "duration": "8h 42m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 6200,
+        "duration": "8h 42m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "flight",
+        "estimated_cost": 6350,
+        "duration": "1h 41m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "kodagu-kailpodh-huthri",
@@ -1160,7 +2507,69 @@
     "footfall_formatted": "85k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Ganga",
+        "distance_km": 0.6,
+        "price_per_night": 2500,
+        "rating": 3.9,
+        "facilities": [
+          "Power Backup",
+          "WiFi",
+          "TV",
+          "Hot Water",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Ganga"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 2.3,
+        "price_per_night": 2000,
+        "rating": 4.1,
+        "facilities": [
+          "WiFi",
+          "AC",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 2.5,
+        "price_per_night": 1200,
+        "rating": 4.0,
+        "facilities": [
+          "Hot Water",
+          "Parking",
+          "AC",
+          "WiFi",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 220,
+        "duration": "3h 5m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 140,
+        "duration": "2h 15m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1600,
+        "duration": "2h 15m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "kanakagiri-utsava",
@@ -1209,7 +2618,67 @@
     "footfall_formatted": "80k+",
     "attractions_count": 3,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 1.2,
+        "price_per_night": 1800,
+        "rating": 3.6,
+        "facilities": [
+          "WiFi",
+          "Power Backup",
+          "TV",
+          "Parking",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 2.3,
+        "price_per_night": 1500,
+        "rating": 3.4,
+        "facilities": [
+          "TV",
+          "Power Backup",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 3.2,
+        "price_per_night": 4200,
+        "rating": 4.5,
+        "facilities": [
+          "Room Service",
+          "Hot Water",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 320,
+        "duration": "4h 25m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 190,
+        "duration": "3h 12m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2300,
+        "duration": "3h 12m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "lakkundi-utsava",
@@ -1259,7 +2728,67 @@
     "footfall_formatted": "55k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Silver",
+        "distance_km": 1.4,
+        "price_per_night": 2500,
+        "rating": 4.2,
+        "facilities": [
+          "Room Service",
+          "AC",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Silver"
+      },
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 1.8,
+        "price_per_night": 1800,
+        "rating": 4.1,
+        "facilities": [
+          "TV",
+          "Room Service",
+          "AC",
+          "Power Backup",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      },
+      {
+        "hotel_name": "Hotel Ganga",
+        "distance_km": 2.8,
+        "price_per_night": 1500,
+        "rating": 4.1,
+        "facilities": [
+          "Restaurant",
+          "Room Service",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Ganga"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 140,
+        "duration": "1h 59m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 90,
+        "duration": "1h 27m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1050,
+        "duration": "1h 27m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "kittur-utsava",
@@ -1309,7 +2838,69 @@
     "footfall_formatted": "160k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 1.1,
+        "price_per_night": 2000,
+        "rating": 4.1,
+        "facilities": [
+          "Power Backup",
+          "WiFi",
+          "Room Service",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      },
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 1.3,
+        "price_per_night": 1200,
+        "rating": 3.6,
+        "facilities": [
+          "AC",
+          "Power Backup",
+          "Hot Water",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 2.5,
+        "price_per_night": 3500,
+        "rating": 4.5,
+        "facilities": [
+          "Hot Water",
+          "Power Backup",
+          "WiFi",
+          "AC",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 100,
+        "duration": "1h 23m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 60,
+        "duration": "1h",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 700,
+        "duration": "1h",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "karwar-karavali-beach-utsav",
@@ -1359,7 +2950,67 @@
     "footfall_formatted": "140k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 5
+    "computed_duration": 5,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 1.6,
+        "price_per_night": 2500,
+        "rating": 3.6,
+        "facilities": [
+          "Room Service",
+          "Hot Water",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      },
+      {
+        "hotel_name": "The Malnad Inn",
+        "distance_km": 1.8,
+        "price_per_night": 3000,
+        "rating": 4.4,
+        "facilities": [
+          "Parking",
+          "WiFi",
+          "Hot Water",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Malnad+Inn"
+      },
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 3.8,
+        "price_per_night": 1500,
+        "rating": 4.1,
+        "facilities": [
+          "Hot Water",
+          "Power Backup",
+          "AC",
+          "Restaurant"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 280,
+        "duration": "3h 52m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 170,
+        "duration": "2h 49m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2000,
+        "duration": "2h 49m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "sonda-vadiraja-mutt-rathotsava",
@@ -1409,7 +3060,68 @@
     "footfall_formatted": "60k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Vishranti",
+        "distance_km": 1.1,
+        "price_per_night": 1800,
+        "rating": 4.4,
+        "facilities": [
+          "Restaurant",
+          "WiFi",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Vishranti"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 2.1,
+        "price_per_night": 1500,
+        "rating": 3.5,
+        "facilities": [
+          "Parking",
+          "WiFi",
+          "Room Service",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      },
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 2.7,
+        "price_per_night": 1800,
+        "rating": 3.7,
+        "facilities": [
+          "TV",
+          "Hot Water",
+          "Restaurant",
+          "WiFi",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 170,
+        "duration": "2h 25m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 110,
+        "duration": "1h 46m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1250,
+        "duration": "1h 46m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "guledgudda-channabasaveshwara-jatre",
@@ -1459,7 +3171,67 @@
     "footfall_formatted": "95k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 0.9,
+        "price_per_night": 4200,
+        "rating": 4.2,
+        "facilities": [
+          "WiFi",
+          "Restaurant",
+          "Parking",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      },
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 2.7,
+        "price_per_night": 2000,
+        "rating": 3.9,
+        "facilities": [
+          "Restaurant",
+          "TV",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 2.9,
+        "price_per_night": 2500,
+        "rating": 3.5,
+        "facilities": [
+          "Hot Water",
+          "Restaurant",
+          "AC",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 260,
+        "duration": "3h 36m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 160,
+        "duration": "2h 37m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1850,
+        "duration": "2h 37m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "sagara-ikkeri-malnad-utsava",
@@ -1509,7 +3281,67 @@
     "footfall_formatted": "48k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Ganga",
+        "distance_km": 1.0,
+        "price_per_night": 1500,
+        "rating": 4.0,
+        "facilities": [
+          "Restaurant",
+          "AC",
+          "Hot Water",
+          "WiFi",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Ganga"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 2.9,
+        "price_per_night": 2000,
+        "rating": 4.6,
+        "facilities": [
+          "Hot Water",
+          "Restaurant",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      },
+      {
+        "hotel_name": "Hotel Pai Vista",
+        "distance_km": 4.4,
+        "price_per_night": 3000,
+        "rating": 4.0,
+        "facilities": [
+          "Hot Water",
+          "AC",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Pai+Vista"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 300,
+        "duration": "4h 10m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 180,
+        "duration": "3h 2m",
+        "from_city": "Hubballi"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2150,
+        "duration": "3h 2m",
+        "from_city": "Hubballi"
+      }
+    ]
   },
   {
     "id": "nanjarayapatna-kambala",
@@ -1557,7 +3389,67 @@
     "footfall_formatted": "40k+",
     "attractions_count": 3,
     "culinary_items_count": 4,
-    "computed_duration": 2
+    "computed_duration": 2,
+    "hotels": [
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 2.6,
+        "price_per_night": 4200,
+        "rating": 4.0,
+        "facilities": [
+          "WiFi",
+          "AC",
+          "Hot Water"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      },
+      {
+        "hotel_name": "The Malnad Inn",
+        "distance_km": 3.3,
+        "price_per_night": 1800,
+        "rating": 3.6,
+        "facilities": [
+          "AC",
+          "Power Backup",
+          "TV",
+          "WiFi",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Malnad+Inn"
+      },
+      {
+        "hotel_name": "Hotel Mayura",
+        "distance_km": 3.6,
+        "price_per_night": 1800,
+        "rating": 4.2,
+        "facilities": [
+          "WiFi",
+          "Room Service",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Mayura"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 190,
+        "duration": "2h 36m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 110,
+        "duration": "1h 54m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 1350,
+        "duration": "1h 54m",
+        "from_city": "Mysuru"
+      }
+    ]
   },
   {
     "id": "mundkur-durga-parameshwari-jathre",
@@ -1606,7 +3498,67 @@
     "footfall_formatted": "85k+",
     "attractions_count": 3,
     "culinary_items_count": 4,
-    "computed_duration": 4
+    "computed_duration": 4,
+    "hotels": [
+      {
+        "hotel_name": "The Heritage",
+        "distance_km": 1.7,
+        "price_per_night": 2000,
+        "rating": 4.0,
+        "facilities": [
+          "AC",
+          "TV",
+          "Parking",
+          "Room Service",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=The+Heritage"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 2.4,
+        "price_per_night": 2000,
+        "rating": 4.4,
+        "facilities": [
+          "TV",
+          "AC",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      },
+      {
+        "hotel_name": "Hotel Grand",
+        "distance_km": 3.9,
+        "price_per_night": 4200,
+        "rating": 3.8,
+        "facilities": [
+          "Parking",
+          "Room Service",
+          "AC"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Grand"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 60,
+        "duration": "52m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 40,
+        "duration": "38m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 450,
+        "duration": "38m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "shravana-masa-koodli-sangama",
@@ -1656,7 +3608,70 @@
     "footfall_formatted": "90k+",
     "attractions_count": 3,
     "culinary_items_count": 4,
-    "computed_duration": 4
+    "computed_duration": 4,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 1.4,
+        "price_per_night": 2500,
+        "rating": 4.0,
+        "facilities": [
+          "Parking",
+          "Power Backup",
+          "Room Service",
+          "Hot Water",
+          "TV"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Hotel Sandalwood",
+        "distance_km": 4.1,
+        "price_per_night": 3500,
+        "rating": 4.4,
+        "facilities": [
+          "Power Backup",
+          "Room Service",
+          "TV",
+          "WiFi"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Sandalwood"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 4.4,
+        "price_per_night": 4200,
+        "rating": 3.9,
+        "facilities": [
+          "WiFi",
+          "Parking",
+          "Restaurant",
+          "Hot Water",
+          "Power Backup"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 350,
+        "duration": "4h 48m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 210,
+        "duration": "3h 30m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 2500,
+        "duration": "3h 30m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "mudbidri-jain-basadi-deepotsava",
@@ -1706,7 +3721,69 @@
     "footfall_formatted": "95k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 0.6,
+        "price_per_night": 2000,
+        "rating": 4.5,
+        "facilities": [
+          "Power Backup",
+          "AC",
+          "Restaurant",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      },
+      {
+        "hotel_name": "Hotel Woodlands",
+        "distance_km": 0.8,
+        "price_per_night": 1200,
+        "rating": 3.8,
+        "facilities": [
+          "AC",
+          "Hot Water",
+          "Restaurant",
+          "WiFi",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Woodlands"
+      },
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 1.9,
+        "price_per_night": 1800,
+        "rating": 3.5,
+        "facilities": [
+          "AC",
+          "Hot Water",
+          "WiFi",
+          "Room Service"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 50,
+        "duration": "43m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 30,
+        "duration": "31m",
+        "from_city": "Mangaluru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 350,
+        "duration": "31m",
+        "from_city": "Mangaluru"
+      }
+    ]
   },
   {
     "id": "nanjangud-dodda-jaathre",
@@ -1756,6 +3833,67 @@
     "footfall_formatted": "350k+",
     "attractions_count": 4,
     "culinary_items_count": 4,
-    "computed_duration": 3
+    "computed_duration": 3,
+    "hotels": [
+      {
+        "hotel_name": "Sri Residency",
+        "distance_km": 3.1,
+        "price_per_night": 1500,
+        "rating": 3.8,
+        "facilities": [
+          "AC",
+          "TV",
+          "Power Backup",
+          "Restaurant",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Sri+Residency"
+      },
+      {
+        "hotel_name": "Hotel Shanti",
+        "distance_km": 3.4,
+        "price_per_night": 3000,
+        "rating": 4.2,
+        "facilities": [
+          "AC",
+          "WiFi",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Shanti"
+      },
+      {
+        "hotel_name": "Hotel Kaveri",
+        "distance_km": 3.5,
+        "price_per_night": 1800,
+        "rating": 3.7,
+        "facilities": [
+          "AC",
+          "Power Backup",
+          "Room Service",
+          "Parking"
+        ],
+        "booking_url": "https://www.booking.com/search.html?ss=Hotel+Kaveri"
+      }
+    ],
+    "travel_options": [
+      {
+        "mode": "bus",
+        "estimated_cost": 50,
+        "duration": "38m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "train",
+        "estimated_cost": 30,
+        "duration": "27m",
+        "from_city": "Mysuru"
+      },
+      {
+        "mode": "car",
+        "estimated_cost": 350,
+        "duration": "27m",
+        "from_city": "Mysuru"
+      }
+    ]
   }
 ]
