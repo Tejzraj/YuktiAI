@@ -1,29 +1,28 @@
-# YuktiAi - Core Festival Data & REST API Engine
+# SanskritiPulse AI (YuktiAi) - Multi-Stakeholder Unified Backend
 
 ![YuktiAi](https://img.shields.io/badge/YuktiAi-AI%20Data%20Engine-orange.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)
 ![CORS](https://img.shields.io/badge/CORS-Enabled-brightgreen.svg)
 
-Welcome to the core backend repository for **YuktiAi** — a comprehensive cultural discovery platform and cultural intelligence engine for Karnataka's festivals and heritage events.
-
-This service manages the **PostgreSQL relational database**, automated data ingestion & seeding pipelines, and high-performance **RESTful APIs** built by **Tezraj** (*Lead Backend & Database*) and consumed by frontend web applications, mobile interfaces, AI analytics pipelines, and dashboards (**Nandish, Simran, Monika, Janvi, and Tanishi**).
+Welcome to the unified backend repository for **SanskritiPulse AI (YuktiAi)** — a comprehensive cultural discovery platform, travel planner, AI recommendation engine, government intelligence system, and live site operations hub for Karnataka's festivals and heritage events.
 
 ---
 
-## 📋 Features & Capabilities
+## 👥 Multi-Stakeholder Architecture & Team Roles
 
-- 🐘 **PostgreSQL 15 Container**: Fully relational schema with categories, master festival metadata, geospatial coordinates, media arrays, hotels, and travel options.
-- ⚡ **High-Performance FastAPI**: Asynchronous REST API with automatic OpenAPI / Swagger documentation.
-- 🌐 **Full CORS Support**: Preconfigured `CORSMiddleware` with `allow_origins=["*"]`, `allow_methods=["*"]`, and `allow_headers=["*"]` to ensure seamless integration across frontend dashboards.
-- 🔄 **Automated Seeding Pipeline**: Idempotent data loader (`seed.py`) with support for nested image objects, hotels, travel logistics, and category normalization.
-- 💾 **Data Export & Backups**: Automated snapshot scripts (`backup.py`) exporting tables directly to CSV.
+| Role | Team Member | Module / Engine | Key Endpoint Routes |
+| :--- | :--- | :--- | :--- |
+| **Member 1** | Tezraj | Core PostgreSQL DB & Dataset | `GET /festivals`, `GET /festivals/{id}` |
+| **Member 2** | Nandish | AI Recommendation & Multilingual Engine | `POST /recommend`, `POST /translate` |
+| **Member 3** | Simran | Travel Planner & Hotel Engine | `POST /travel-plan`, `GET /hotels/{location}` |
+| **Member 4** | Monika | Tourist Dashboard & Live Updates | `GET /announcements/{festival_id}` |
+| **Member 5** | Gov Analytics | Department Intelligence & Crowd Risk | `GET /analytics/overview`, `GET /analytics/map-data`, `GET /analytics/trends` |
+| **Member 6** | Tanishi | Organizer Site Ops & Live Announcements | `GET /organizer/overview/{id}`, `POST /organizer/announcement` |
 
 ---
 
-## 🏗️ Architecture & Database Schema
-
-The database model is defined in [`init.sql`](init.sql) and executed on PostgreSQL startup:
+## 🏗️ Relational Database Schema
 
 ```mermaid
 erDiagram
@@ -31,6 +30,8 @@ erDiagram
     FESTIVALS ||--o{ FESTIVAL_IMAGES : includes
     FESTIVALS ||--o{ HOTELS : nearby
     FESTIVALS ||--o{ TRAVEL_OPTIONS : transit
+    FESTIVALS ||--o{ SITE_ANNOUNCEMENTS : broadcasts
+    FESTIVALS ||--o{ SITE_OPS : monitors
 
     FESTIVAL_CATEGORIES {
         int id PK
@@ -40,29 +41,13 @@ erDiagram
     FESTIVALS {
         int id PK
         varchar name
-        varchar local_name
         varchar district
         varchar city
         numeric latitude
         numeric longitude
         date start_date
         date end_date
-        varchar timings
-        int category_id FK
-        text short_description
-        text cultural_significance
-        text history_origin
-        text[] major_attractions
-        text[] local_food
-        text[] activities
         int expected_footfall
-        varchar official_website
-    }
-
-    FESTIVAL_IMAGES {
-        int id PK
-        int festival_id FK
-        text image_url
     }
 
     HOTELS {
@@ -71,7 +56,6 @@ erDiagram
         varchar hotel_name
         numeric distance_km
         numeric price_per_night
-        text booking_url
     }
 
     TRAVEL_OPTIONS {
@@ -81,119 +65,187 @@ erDiagram
         numeric estimated_cost
         varchar duration
     }
+
+    SITE_ANNOUNCEMENTS {
+        int id PK
+        varchar festival_id
+        text message
+        timestamp created_at
+    }
+
+    SITE_OPS {
+        int id PK
+        varchar festival_id UK
+        int current_visitors
+        varchar peak_hours
+        int capacity
+    }
 ```
 
 ---
 
-## 🚀 Step-by-Step Quickstart Guide
+## 🚀 Quickstart & Setup Guide
 
-### 1. Prerequisites
-- [Docker](https://www.docker.com/) & Docker Compose
-- Python 3.10+ and `pip`
-
-### 2. Automated One-Line Setup
-```bash
-chmod +x run_pipeline.sh && ./run_pipeline.sh
-```
-
-### 3. Or Run Manually:
+### 1. Installation
 ```bash
 pip install -r requirements.txt
+```
+
+### 2. Start PostgreSQL & Run Migration Pipeline
+```bash
 docker compose up -d
 python seed.py
+```
+
+### 3. Run FastAPI Application Server
+```bash
 uvicorn main:app --reload --port 8000
 ```
-
-*Optional seeding flags:*
-```bash
-# Reset tables and restart identity sequence before seeding
-python seed.py --reset
-
-# Specify a custom JSON dataset file path
-python seed.py --file yuktiai/festivals_karnataka.json
-```
-
-The API will be live at:
-- **Base URL:** [http://localhost:8000](http://localhost:8000)
-- **Interactive Swagger UI Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Interactive Swagger UI Documentation:** [http://localhost:8000/docs](http://localhost:8000/docs)
 - **ReDoc Documentation:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
 ---
 
-## 📡 REST API Documentation
+## 📡 Complete REST API Documentation
 
-All endpoints return JSON responses with standard HTTP status codes.
+### 1. Core Festivals (Member 1 - Tezraj)
 
-### 1. Health & Status Check
-- **Route:** `GET /`
-- **Description:** Verifies that the API service is online.
-- **Example Response:**
+#### `GET /festivals`
+- **Description:** Retrieve master festivals list with optional query parameters.
+- **Query Params:** `district`, `category`, `date` (`YYYY-MM-DD`).
+- **Example:** `curl "http://localhost:8000/festivals?district=Mysuru"`
+
+#### `GET /festivals/{festival_id}`
+- **Description:** Detailed view including images, hotel options, and transit routes.
+- **Example:** `curl "http://localhost:8000/festivals/1"`
+
+---
+
+### 2. AI Recommendation & Multilingual Engine (Member 2 - Nandish)
+
+#### `POST /recommend`
+- **Description:** Matches user interest tags against festival vector embeddings using Cosine Similarity.
+- **Request Body:**
   ```json
   {
-    "status": "online",
-    "message": "YuktiAi Core Database API running"
+    "interests": ["food", "folk", "culture", "heritage"]
+  }
+  ```
+- **Response Example:**
+  ```json
+  {
+    "status": "success",
+    "recommendations": [
+      {
+        "festival_id": "mysuru-dasara",
+        "name": "Mysuru Dasara",
+        "district": "Mysuru",
+        "category": "State Festival & Royal Heritage",
+        "score": 88.5
+      }
+    ]
+  }
+  ```
+
+#### `POST /translate`
+- **Description:** Translates input text into Kannada (`kn`), Hindi (`hi`), or English (`en`).
+- **Request Body:**
+  ```json
+  {
+    "text": "Welcome to Mysuru Dasara festival",
+    "target_lang": "kn"
+  }
+  ```
+- **Response Example:**
+  ```json
+  {
+    "original_text": "Welcome to Mysuru Dasara festival",
+    "target_lang": "kn",
+    "translated_text": "ಮೈಸೂರು ದಸರಾ ಹಬ್ಬಕ್ಕೆ ಸುಸ್ವಾಗತ"
   }
   ```
 
 ---
 
-### 2. List & Filter Festivals
-- **Route:** `GET /festivals`
-- **Description:** Retrieve all festivals with optional multi-parameter query filters.
-- **Query Parameters:**
-  | Parameter | Type | Description | Example |
-  | :--- | :--- | :--- | :--- |
-  | `district` | `string` | Filter by district name (case-insensitive) | `?district=Mysuru` |
-  | `category` | `string` | Filter by category name (case-insensitive) | `?category=State Festival & Royal Heritage` |
-  | `date` | `string` | Filter festivals active on a date (`YYYY-MM-DD`) | `?date=2026-10-15` |
+### 3. Travel Planner & Hotel Engine (Member 3 - Simran)
 
-- **Example Requests:**
-  ```bash
-  # Get all festivals
-  curl "http://localhost:8000/festivals"
-
-  # Filter by district
-  curl "http://localhost:8000/festivals?district=Mysuru"
-
-  # Combined filter: District and Date
-  curl "http://localhost:8000/festivals?district=Vijayanagara&date=2026-11-07"
+#### `POST /travel-plan`
+- **Description:** Calculates travel matrix options (Bus, Train, Car) from Karnataka hubs to festival destinations and builds structured 2-day itineraries.
+- **Request Body:**
+  ```json
+  {
+    "origin": "Bangalore",
+    "festival_id": "mysuru-dasara",
+    "date": "2026-10-15"
+  }
   ```
+- **Response Example:**
+  ```json
+  {
+    "origin": "Bangalore",
+    "destination": "Mysuru",
+    "festival_name": "Mysuru Dasara",
+    "distance_km": 145.0,
+    "mode_comparisons": [
+      { "mode": "Bus", "duration": "2.9 hours", "estimated_cost": "₹319" },
+      { "mode": "Train", "duration": "2.4 hours", "estimated_cost": "₹217" },
+      { "mode": "Car (Private / Taxi)", "duration": "1.9 hours", "estimated_cost": "₹1160" }
+    ],
+    "itinerary": {
+      "day1": { "title": "Arrival in Mysuru & Evening Festival Experience", "schedule": [...] },
+      "day2": { "title": "Local Heritage Tour & Grand Procession", "schedule": [...] }
+    }
+  }
+  ```
+
+#### `GET /hotels/{location}`
+- **Description:** Returns nearby hotels with distances, nightly prices, ratings, amenities, and external booking links.
+- **Example:** `curl "http://localhost:8000/hotels/Mysuru"`
 
 ---
 
-### 3. Get Festival Details by ID
-- **Route:** `GET /festivals/{festival_id}`
-- **Description:** Retrieve full details for a single festival, including embedded lists of media URLs, nearby hotel accommodations, and travel transit options.
-- **Path Parameters:**
-  | Parameter | Type | Description |
-  | :--- | :--- | :--- |
-  | `festival_id` | `integer` | Unique integer ID of the festival |
+### 4. Department Intelligence & Crowd Risk (Member 5 - Gov Analytics)
 
-- **Example Request:**
-  ```bash
-  curl "http://localhost:8000/festivals/1"
-  ```
+#### `GET /analytics/overview`
+- **Description:** High-level KPI metrics (Total Festivals, Expected Visitors, High-Risk Events Count, Trending District).
+- **Example:** `curl "http://localhost:8000/analytics/overview"`
+
+#### `GET /analytics/map-data`
+- **Description:** GeoJSON-ready markers with coordinates, risk levels (🟢 Low, 🟡 Medium, 🔴 High), projected growth percentages, and automated infrastructure advisory flags (Transport, Sanitation, Security, Medical, Parking).
+- **Example:** `curl "http://localhost:8000/analytics/map-data"`
+
+#### `GET /analytics/trends`
+- **Description:** Category-wise and district-wise footfall distribution data for frontend charts.
+- **Example:** `curl "http://localhost:8000/analytics/trends"`
 
 ---
 
-## 💾 Data Backup & Export Tool
+### 5. Organizer Site Ops & Live Announcements (Member 6 - Tanishi)
 
-To export current database records to CSV files:
+#### `GET /organizer/overview/{festival_id}`
+- **Description:** Real-time visitor estimates, venue peak hours, capacity occupancy %, and crowd warning flags.
+- **Example:** `curl "http://localhost:8000/organizer/overview/mysuru-dasara"`
+
+#### `POST /organizer/announcement`
+- **Description:** Publishes timestamped broadcast announcement.
+- **Request Body:**
+  ```json
+  {
+    "festival_id": "mysuru-dasara",
+    "message": "Jamboo Savari procession starts at 4:00 PM today!"
+  }
+  ```
+
+#### `GET /announcements/{festival_id}`
+- **Description:** Enables Tourist Dashboard (Monika) to fetch real-time announcements pushed by site organizers.
+- **Example:** `curl "http://localhost:8000/announcements/mysuru-dasara"`
+
+---
+
+## 🧪 Automated Testing & Verification Suite
+
+To execute the automated end-to-end integration tests on all routes:
 ```bash
-python backup.py
+python test_api_flow.py
 ```
-Outputs:
-- `festivals_backup.csv`
-- `categories_backup.csv`
-
----
-
-## 👥 Integration Guide for Teammates
-*(Full matrix documented in [`TEAM_ROLES.md`](TEAM_ROLES.md))*
-
-- **Monika (Tourist Dashboard UI):** Use `http://localhost:8000/festivals` to populate map markers (using `latitude`, `longitude`), filter by district/category, and render rich media galleries.
-- **Janvi (Government Analytics Dashboard):** Use `http://localhost:8000/festivals` with `expected_footfall` and `date` query params to render crowd charts, footfall statistics, and regional heatmaps.
-- **Tanishi (Organizer Dashboard & Integration):** Use `http://localhost:8000/festivals/{festival_id}` to view complete festival details, manage listings, and verify end-to-end integration.
-- **Nandish (AI / NLP & Recommendation):** Fetch `GET /festivals` in Python/FastAPI pipelines to extract `cultural_significance`, `major_attractions`, and `activities` for embeddings and similarity recommendations.
-- **Simran (Travel Planner & Hotels):** Use `GET /festivals/{id}` to access embedded `hotels` (names, distances, price per night) and `travel_options` (transit modes, duration, costs) for automated itinerary generation.
-- **CORS Notice:** Preconfigured `CORSMiddleware` allows all frontend origins (`*`). Connect directly via `fetch()` or `axios`.
+Outputs status checks across all 11 endpoints and verifies HTTP status code 200 OK.
