@@ -1,0 +1,205 @@
+[
+  {
+    "id": "mysuru-dasara",
+    "name": "Mysuru Dasara (Nada Habba)",
+    "local_name": "ಮೈಸೂರು ದಸರಾ (ನಾಡಹಬ್ಬ)",
+    "district": "Mysuru",
+    "city": "Mysuru",
+    "latitude": 12.3051,
+    "longitude": 76.6551,
+    "start_date": "2026-10-11",
+    "end_date": "2026-10-20",
+    "duration_days": 10,
+    "season": "Sharad (Autumn)",
+    "category": "State Festival & Royal Heritage",
+    "short_description": "Karnataka's official state festival featuring royal palace illuminations and grand elephant procession.",
+    "cultural_significance": "Celebrates Goddess Chamundeshwari's victory over Mahishasura. Preserved by the Wadiyar Dynasty.",
+    "history_origin": "Initiated in the 14th century by the Vijayanagara Empire and institutionalized in Mysuru in 1799.",
+    "major_attractions": [
+      "Jamboo Savari (750kg Golden Howdah Elephant Procession)",
+      "Palace Illumination with 100,000 light bulbs",
+      "Torchlight Parade at Bannimantap Ground",
+      "Yuva Dasara & Classical Music Concerts"
+    ],
+    "local_food": [
+      "Mysore Pak (Ghee sweet)",
+      "Mysore Masala Dosa",
+      "Maddur Vada",
+      "Nanjanagudu Rasabale Banana"
+    ],
+    "activities": ["royal", "heritage", "food", "folk", "culture", "illumination", "music"],
+    "expected_footfall": 1800000,
+    "timings": "9:00 AM - 10:00 PM",
+    "best_time_to_visit": "October (Sharad Navaratri season)",
+    "dos_and_donts": {
+      "dos": ["Arrive 2 hours early for Jamboo Savari seats", "Wear comfortable walking footwear", "Respect palace photography guidelines"],
+      "donts": ["Do not use single-use plastic inside palace grounds", "Avoid flash photography near procession elephants"]
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1600100397608-f010f443b749", "caption": "Mysuru Palace illuminated during Dasara" },
+      { "url": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220", "caption": "Golden Howdah procession" }
+    ],
+    "image_url": "https://images.unsplash.com/photo-1600100397608-f010f443b749"
+  },
+  {
+    "id": "hampi-utsav",
+    "name": "Hampi Utsav (Vijaya Utsav)",
+    "local_name": "ಹಂಪಿ ಉತ್ಸವ (ವಿಜಯ ಉತ್ಸವ)",
+    "district": "Vijayanagara",
+    "city": "Hampi",
+    "latitude": 15.3350,
+    "longitude": 76.4600,
+    "start_date": "2026-11-03",
+    "end_date": "2026-11-05",
+    "duration_days": 3,
+    "season": "Winter",
+    "category": "Heritage & Art",
+    "short_description": "Grand cultural extravaganza celebrating Vijayanagara architecture, dance, music, and light shows.",
+    "cultural_significance": "Honors the golden era of the Vijayanagara Empire with performances amidst UNESCO World Heritage ruins.",
+    "history_origin": "Revived by the Government of Karnataka to celebrate historical architectural grandeur.",
+    "major_attractions": [
+      "Light and Sound Show at Stone Chariot & Virupaksha Temple",
+      "Janapada Kalavahini Folk Procession",
+      "Classical Dance performances by national artistes",
+      "Rock Climbing & Heritage Walks"
+    ],
+    "local_food": [
+      "Jowar Rotti with Ennegayi (Stuffed Brinjal)",
+      "Shenga Chutney (Peanut Powder)",
+      "Bisi Bele Bath",
+      "Mandakki Susarla"
+    ],
+    "activities": ["heritage", "art", "music", "dance", "architecture", "history"],
+    "expected_footfall": 450000,
+    "timings": "10:00 AM - 11:00 PM",
+    "best_time_to_visit": "November (Cool winter evening climate)",
+    "dos_and_donts": {
+      "dos": ["Carry sun protection during daytime temple walks", "Use licensed local heritage guides", "Hydrate frequently"],
+      "donts": ["Do not climb on ancient stone sculptures or monuments", "Avoid littering UNESCO heritage sites"]
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1600100397608-f010f443b749", "caption": "Hampi Stone Chariot at twilight" }
+    ],
+    "image_url": "https://images.unsplash.com/photo-1600100397608-f010f443b749"
+  },
+  {
+    "id": "kambala-race",
+    "name": "Kambala Buffalo Race",
+    "local_name": "ಕಂಬಳ ಜಾನಪದ ಕ್ರೀಡೆ",
+    "district": "Dakshina Kannada",
+    "city": "Mangaluru",
+    "latitude": 12.9141,
+    "longitude": 74.8560,
+    "start_date": "2026-11-20",
+    "end_date": "2026-11-22",
+    "duration_days": 2,
+    "season": "Post-Monsoon",
+    "category": "Folk & Sports",
+    "short_description": "Thrilling traditional coastal slush track buffalo race demonstrating rural athletic vigor.",
+    "cultural_significance": "Deeply rooted in Tulunadu agrarian traditions dedicated to Lord Kadri Manjunatha for good harvests.",
+    "history_origin": "Practiced for over 800 years by coastal farming communities of Dakshina Kannada and Udupi.",
+    "major_attractions": [
+      "Overnight High-Speed Buffalo Pair Sprints",
+      "Koli Anke and Coastal Folk Music",
+      "Pilikula Kambala Track Ceremonies"
+    ],
+    "local_food": [
+      "Kori Rotti (Chicken Curry with Rice Wafers)",
+      "Neer Dosa with Coconut Chutney",
+      "Mangalore Buns",
+      "Goli Baje"
+    ],
+    "activities": ["folk", "sports", "coastal", "tradition", "agrarian"],
+    "expected_footfall": 250000,
+    "timings": "8:00 AM - Midnight",
+    "best_time_to_visit": "November to February",
+    "dos_and_donts": {
+      "dos": ["Stay behind spectator safety barricades near mud tracks", "Enjoy overnight race heats"],
+      "donts": ["Do not attempt to touch racing buffaloes", "Avoid blocking jockey marshals"]
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62", "caption": "Kambala jockey driving buffaloes across slush track" }
+    ],
+    "image_url": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62"
+  },
+  {
+    "id": "bengaluru-karaga",
+    "name": "Bengaluru Karaga Shakthyotsava",
+    "local_name": "ಬೆಂಗಳೂರು ಕರಗ ಶಕ್ತ್ಯೋತ್ಸವ",
+    "district": "Bengaluru Urban",
+    "city": "Bengaluru",
+    "latitude": 12.9698,
+    "longitude": 77.5857,
+    "start_date": "2026-04-02",
+    "end_date": "2026-04-11",
+    "duration_days": 9,
+    "season": "Spring",
+    "category": "Spiritual & Folk",
+    "short_description": "Night-long spiritual procession led by the Karaga bearer carrying a floral pyramid pot without hands.",
+    "cultural_significance": "Celebrates Draupadi as Sakthi. Represents inter-community communal harmony between Hindus and Muslims.",
+    "history_origin": "Centuries-old festival of the Thigala community centering at Dharmaraya Swamy Temple.",
+    "major_attractions": [
+      "Midnight Karaga Carrier Procession",
+      "Veerakumara Sword Ritual Dance",
+      "Visit to Hazrat Tawakkal Mastan Dargah"
+    ],
+    "local_food": [
+      "Filter Coffee",
+      "Malleswaram Dosa",
+      "Obbattu (Holige)",
+      "Puliyogare"
+    ],
+    "activities": ["spiritual", "folk", "harmony", "procession", "night"],
+    "expected_footfall": 600000,
+    "timings": "10:00 PM - 6:00 AM (Midnight Rituals)",
+    "best_time_to_visit": "Chaitra Poornima Night",
+    "dos_and_donts": {
+      "dos": ["Maintain silence during sacred sword ceremonies", "Follow designated procession route"],
+      "donts": ["Do not obstruct the Karaga bearer's movement", "Avoid using camera flash directly at bearer"]
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1600100397608-f010f443b749", "caption": "Bengaluru Karaga floral procession" }
+    ],
+    "image_url": "https://images.unsplash.com/photo-1600100397608-f010f443b749"
+  },
+  {
+    "id": "pattadakal-dance",
+    "name": "Pattadakal Dance Festival",
+    "local_name": "ಪಟ್ಟದಕಲ್ಲು ನೃತ್ಯೋತ್ಸವ",
+    "district": "Bagalkot",
+    "city": "Pattadakal",
+    "latitude": 15.9483,
+    "longitude": 75.8157,
+    "start_date": "2026-01-20",
+    "end_date": "2026-01-22",
+    "duration_days": 3,
+    "season": "Winter",
+    "category": "Classical Dance & Art",
+    "short_description": "Classical Indian dance performances set against the backdrop of 8th-century Chalukyan rock-cut temples.",
+    "cultural_significance": "Showcases classical Indian dance forms (Bharatanatyam, Kathak, Odissi, Kuchipudi) at a UNESCO heritage site.",
+    "history_origin": "Organized annually by the Department of Tourism to honor Chalukyan architectural heritage.",
+    "major_attractions": [
+      "Virupaksha Temple Illuminated Dance Stage",
+      "Crafts Bazaar and Stone Artisan Exhibitions",
+      "Guided Heritage Architectural Walks"
+    ],
+    "local_food": [
+      "Shenga Pundi",
+      "Jowar Rotti",
+      "Badami Milk",
+      "Holige"
+    ],
+    "activities": ["dance", "classical", "art", "heritage", "chalukya"],
+    "expected_footfall": 85000,
+    "timings": "6:00 PM - 10:00 PM",
+    "best_time_to_visit": "January",
+    "dos_and_donts": {
+      "dos": ["Arrive before 5:30 PM for good seating", "Carry warm jackets for winter evenings"],
+      "donts": ["Do not touch temple carvings", "Avoid phone ringtones during dance recitals"]
+    },
+    "images": [
+      { "url": "https://images.unsplash.com/photo-1600100397608-f010f443b749", "caption": "Pattadakal temple lit up during dance festival" }
+    ],
+    "image_url": "https://images.unsplash.com/photo-1600100397608-f010f443b749"
+  }
+]

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SanskritiPulse AI - Royal Mysuru Cultural Portal</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Leaflet GIS Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Custom Royal Mysuru Cultural Design System -->
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 bg-[#0f0d15]/90 backdrop-blur-md px-4 lg:px-8 py-3.5 border-b border-[#D4AF37]/20 flex flex-wrap justify-between items-center gap-4">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#800020] to-[#D4AF37] flex items-center justify-center text-white shadow-lg shadow-[#D4AF37]/20">
+        <i class="fa-solid fa-om text-xl text-[#F5D061]"></i>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold font-heading bg-gradient-to-r from-[#F5D061] via-[#D4AF37] to-amber-200 bg-clip-text text-transparent">
+          SanskritiPulse AI
+        </h1>
+        <p class="text-xs text-amber-200/70 font-medium">Karnataka Cultural Intelligence Engine</p>
+      </div>
+    </div>
+
+    <!-- Stakeholder Navigation Tabs -->
+    <nav class="flex items-center bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800 text-sm font-medium">
+      <button id="tab-btn-tourist" onclick="switchTab('tourist')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 btn-terracotta">
+        <i class="fa-solid fa-suitcase"></i> <span>Tourist Discovery</span>
+      </button>
+      <button id="tab-btn-gov" onclick="switchTab('gov')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-landmark"></i> <span>Gov Analytics</span>
+      </button>
+      <button id="tab-btn-organizer" onclick="switchTab('organizer')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-tent"></i> <span>Site Ops</span>
+      </button>
+    </nav>
+
+    <!-- Language Selector Dropdown -->
+    <div class="flex items-center gap-2">
+      <span class="text-xs text-slate-400 font-medium hidden sm:inline"><i class="fa-solid fa-language text-[#D4AF37] mr-1"></i> Lang:</span>
+      <div class="flex bg-slate-950 border border-slate-800 rounded-xl p-1 text-xs font-semibold">
+        <button onclick="setLanguage('en')" id="lang-en" class="px-2.5 py-1 rounded-lg bg-mysuru-gold text-slate-950 font-bold">EN</button>
+        <button onclick="setLanguage('kn')" id="lang-kn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">ಕನ್ನಡ</button>
+        <button onclick="setLanguage('hi')" id="lang-hi" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">हिंदी</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 space-y-8">
+
+    <!-- Toast Notification Banner -->
+    <div id="toast-banner" class="hidden cultural-card border-l-4 border-emerald-500 p-4 rounded-xl flex justify-between items-center shadow-lg transition-all">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+        <div>
+          <h4 class="font-bold text-sm text-emerald-300" id="toast-title">Success</h4>
+          <p class="text-xs text-slate-300" id="toast-body">Operation completed successfully.</p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('toast-banner').classList.add('hidden')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- =================================================================================== -->
+    <!-- TAB 1: TOURIST DISCOVERY DASHBOARD -->
+    <!-- =================================================================================== -->
+    <section id="view-tourist" class="space-y-8">
+      
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-royal-gradient border border-[#D4AF37]/30 p-6 md:p-10 shadow-2xl">
+        <div class="max-w-2xl space-y-4 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#F5D061] text-xs font-semibold">
+            <i class="fa-solid fa-sparkles"></i> AI Cosine & TF-IDF Matcher Engine
+          </div>
+          <h2 class="text-3xl md:text-5xl font-extrabold font-heading text-white leading-tight" id="hero-heading">
+            Discover Karnataka's Living Traditions & Grand Festivals
+          </h2>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Personalized AI recommendations, Haversine travel distance math, 2-day itineraries, and live site announcements for festivals across all 31 districts.
+          </p>
+
+          <!-- Interest Quiz -->
+          <div class="pt-2">
+            <p class="text-xs font-semibold text-[#F5D061] mb-2 uppercase tracking-wider">Select Interest Tags for Cosine Match Scoring:</p>
+            <div class="flex flex-wrap gap-2" id="interest-tags">
+              <button onclick="toggleInterest(this, 'food')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300 hover:border-[#D4AF37] flex items-center gap-1.5">
+                <i class="fa-solid fa-utensils text-amber-400"></i> Food & Gastronomy
+              </button>
+              <button onclick="toggleInterest(this, 'folk')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300 hover:border-[#D4AF37] flex items-center gap-1.5">
+                <i class="fa-solid fa-drum text-amber-400"></i> Folk & Dance
+              </button>
+              <button onclick="toggleInterest(this, 'heritage')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300 hover:border-[#D4AF37] flex items-center gap-1.5">
+                <i class="fa-solid fa-archway text-amber-400"></i> Royal Heritage
+              </button>
+              <button onclick="toggleInterest(this, 'sports')" class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300 hover:border-[#D4AF37] flex items-center gap-1.5">
+                <i class="fa-solid fa-trophy text-amber-400"></i> Coastal Sports
+              </button>
+            </div>
+            <button onclick="runAIRecommendation()" class="mt-4 px-6 py-2.5 rounded-xl btn-royal-gold font-bold text-xs flex items-center gap-2">
+              <i class="fa-solid fa-bolt"></i> Run AI Cosine Matcher
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="cultural-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
+            <i class="fa-solid fa-map-location-dot text-[#D4AF37]"></i>
+            <select id="filter-district" onchange="applyFilters()" class="bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-[#D4AF37]">
+              <option value="">All Districts</option>
+              <option value="Mysuru">Mysuru</option>
+              <option value="Vijayanagara">Vijayanagara (Hampi)</option>
+              <option value="Dakshina Kannada">Dakshina Kannada</option>
+              <option value="Bengaluru Urban">Bengaluru Urban</option>
+              <option value="Bagalkot">Bagalkot</option>
+            </select>
+          </div>
+        </div>
+        <div class="text-xs text-slate-400 font-medium">
+          Showing <span id="festival-count" class="text-mysuru-gold font-bold">0</span> Festivals
+        </div>
+      </div>
+
+      <!-- Festival Grid -->
+      <div id="festivals-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamic Cards Inserted via JS -->
+      </div>
+    </section>
+
+    <!-- =================================================================================== -->
+    <!-- TAB 2: GOV ANALYTICS -->
+    <!-- =================================================================================== -->
+    <section id="view-gov" class="hidden space-y-8">
+      
+      <!-- KPI Overview Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="cultural-card p-5 rounded-2xl border-l-4 border-[#D4AF37]">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Festivals Tracked</p>
+          <h3 id="kpi-total-festivals" class="text-3xl font-extrabold font-heading text-white mt-1">35</h3>
+        </div>
+        <div class="cultural-card p-5 rounded-2xl border-l-4 border-amber-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Expected Footfall</p>
+          <h3 id="kpi-expected-visitors" class="text-3xl font-extrabold font-heading text-mysuru-gold mt-1">16.5M+</h3>
+        </div>
+        <div class="cultural-card p-5 rounded-2xl border-l-4 border-red-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">High-Risk Events (&gt;500k)</p>
+          <h3 id="kpi-high-risk" class="text-3xl font-extrabold font-heading text-red-400 mt-1">9</h3>
+        </div>
+        <div class="cultural-card p-5 rounded-2xl border-l-4 border-emerald-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Top Trending District</p>
+          <h3 id="kpi-trending" class="text-3xl font-extrabold font-heading text-emerald-400 mt-1">Mysuru</h3>
+        </div>
+      </div>
+
+      <!-- GIS Interactive Map & Advisories -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 cultural-card p-4 rounded-2xl space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold font-heading text-base text-slate-200 flex items-center gap-2">
+              <i class="fa-solid fa-map text-[#D4AF37]"></i> Karnataka GIS OpenStreetMap Crowd Risk Map
+            </h3>
+          </div>
+          <div id="map"></div>
+        </div>
+
+        <div class="cultural-card p-5 rounded-2xl space-y-4">
+          <h3 class="font-bold font-heading text-base text-slate-200 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-amber-400"></i> Infrastructure Advisories
+          </h3>
+          <div id="advisory-list" class="space-y-3 text-xs max-h-[420px] overflow-y-auto pr-1">
+            <!-- Dynamic Advisories -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Trends -->
+      <div class="cultural-card p-6 rounded-2xl space-y-4">
+        <h3 class="font-bold font-heading text-base text-slate-200">District Footfall Share</h3>
+        <div id="trends-container" class="grid grid-cols-1 gap-4">
+          <!-- Footfall trends -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================================== -->
+    <!-- TAB 3: SITE OPS & EVENT PUBLISHING -->
+    <!-- =================================================================================== -->
+    <section id="view-organizer" class="hidden space-y-8">
+      
+      <!-- Festival Control Bar -->
+      <div class="cultural-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-tent text-[#D4AF37] text-xl"></i>
+          <div>
+            <h3 class="font-bold font-heading text-base text-slate-200">Site Operations Control Room</h3>
+            <p class="text-xs text-slate-400">Monitor live visitor metrics & publish new festival events to tourist feeds</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="document.getElementById('modal-publish').classList.remove('hidden')" class="px-4 py-2 rounded-xl btn-royal-gold text-xs font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i> Publish New Festival
+          </button>
+          <select id="organizer-fest-select" onchange="loadOrganizerOverview()" class="bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold">
+            <option value="mysuru-dasara">Mysuru Dasara</option>
+            <option value="hampi-utsav">Hampi Utsav</option>
+            <option value="kambala-race">Kambala Race</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Live Visitor Metrics -->
+        <div class="cultural-card p-6 rounded-2xl space-y-4 border-t-4 border-[#D4AF37]">
+          <h3 class="font-bold font-heading text-base text-slate-200">Live Visitor Metrics</h3>
+          <div class="space-y-3">
+            <div>
+              <p class="text-xs text-slate-400">Real-Time Visitors</p>
+              <div id="ops-visitor-count" class="text-4xl font-extrabold font-heading text-mysuru-gold mt-1">142,000</div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-slate-400">Venue Capacity</span>
+                <span id="ops-occupancy-pct" class="text-amber-400">71.0%</span>
+              </div>
+              <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800">
+                <div id="ops-occupancy-bar" class="bg-mysuru-gold h-3 rounded-full" style="width: 71%"></div>
+              </div>
+            </div>
+          </div>
+          <div class="pt-3 border-t border-slate-800 space-y-2">
+            <h4 class="text-xs font-bold text-slate-300 uppercase">Warning Flags:</h4>
+            <ul id="ops-warning-flags" class="space-y-1 text-xs text-slate-300">
+              <!-- Warning flags -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="cultural-card p-6 rounded-2xl space-y-4 lg:col-span-2">
+          <h3 class="font-bold font-heading text-base text-slate-200 flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn text-amber-400"></i> Broadcast Live Announcement
+          </h3>
+          <div class="space-y-3">
+            <textarea id="announcement-msg" rows="3" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-[#D4AF37]" placeholder="Type announcement..."></textarea>
+            <button onclick="publishAnnouncement()" class="px-6 py-2 rounded-xl btn-terracotta text-xs font-bold flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> Broadcast Alert
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: AI TOURIST GUIDE (Step 5) -->
+  <!-- =================================================================================== -->
+  <div id="modal-guide" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="cultural-card max-w-2xl w-full max-h-[90vh] overflow-y-auto rounded-3xl p-6 md:p-8 space-y-6 relative border border-[#D4AF37]/40">
+      <button onclick="closeModal('modal-guide')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="guide-modal-body">
+        <!-- Dynamic AI guide content -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: FESTIVAL DETAIL -->
+  <!-- =================================================================================== -->
+  <div id="modal-detail" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="cultural-card max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-3xl p-6 md:p-8 space-y-6 relative border border-[#D4AF37]/40">
+      <button onclick="closeModal('modal-detail')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="detail-modal-body">
+        <!-- Content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: CUSTOMIZABLE TRIP PLANNER (Step 5) -->
+  <!-- =================================================================================== -->
+  <div id="modal-trip" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="cultural-card max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-3xl p-6 md:p-8 space-y-6 relative border border-[#D4AF37]/40">
+      <button onclick="closeModal('modal-trip')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-[#800020] text-mysuru-gold flex items-center justify-center">
+            <i class="fa-solid fa-route text-xl"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold font-heading text-white">Customizable Haversine Trip & Budget Planner</h3>
+            <p class="text-xs text-slate-400">Road distance calculation, per-person costs, and budget breakdown</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs">
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Starting City:</label>
+            <select id="trip-origin" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 font-bold focus:outline-none focus:border-[#D4AF37]">
+              <option value="Bangalore">Bangalore (Bengaluru)</option>
+              <option value="Mysuru">Mysuru</option>
+              <option value="Mangaluru">Mangaluru</option>
+              <option value="Hubballi">Hubballi</option>
+              <option value="Belagavi">Belagavi</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Festival ID:</label>
+            <input type="text" id="trip-festival-id" value="mysuru-dasara" readonly class="w-full bg-slate-900 text-mysuru-gold font-bold border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Start Date:</label>
+            <input type="date" id="trip-date" value="2026-10-15" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Travelers:</label>
+            <input type="number" id="trip-people" value="2" min="1" max="20" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 font-bold">
+          </div>
+        </div>
+
+        <button onclick="calculateTripPlan()" class="w-full py-2.5 rounded-xl btn-royal-gold font-bold text-xs flex items-center justify-center gap-2">
+          <i class="fa-solid fa-calculator"></i> Calculate Route & Itinerary
+        </button>
+      </div>
+
+      <div id="trip-modal-output" class="space-y-6">
+        <!-- Output -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: ORGANIZER EVENT PUBLISHER (Step 4) -->
+  <!-- =================================================================================== -->
+  <div id="modal-publish" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="cultural-card max-w-lg w-full rounded-3xl p-6 space-y-4 relative border border-[#D4AF37]/40">
+      <button onclick="closeModal('modal-publish')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="text-lg font-bold font-heading text-white">Publish New Festival Event</h3>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Festival Name:</label>
+          <input type="text" id="pub-name" placeholder="e.g., Gavisiddheshwara Jatre" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">District:</label>
+            <input type="text" id="pub-district" value="Koppal" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Category:</label>
+            <input type="text" id="pub-category" value="Spiritual & Folk" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Expected Footfall:</label>
+          <input type="number" id="pub-footfall" value="500000" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Description:</label>
+          <textarea id="pub-desc" rows="2" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5" placeholder="Event description..."></textarea>
+        </div>
+        <button onclick="publishNewOrganizerEvent()" class="w-full py-2.5 rounded-xl btn-terracotta font-bold">
+          <i class="fa-solid fa-globe"></i> Publish to Live Tourist Feed & Map
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

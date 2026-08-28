@@ -1,0 +1,106 @@
+/* SanskritiPulse AI - Royal Mysuru Cultural Design System */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --color-mysuru-gold: #D4AF37;
+  --color-mysuru-gold-bright: #F5D061;
+  --color-terracotta-maroon: #800020;
+  --color-terracotta-dark: #4A0012;
+  --color-sandstone-dark: #0f0d15;
+  --color-sandstone-card: #181423;
+  --color-sandstone-border: rgba(212, 175, 55, 0.2);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--color-sandstone-dark);
+  color: #f1f5f9;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(128, 0, 32, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Royal Mysuru Glass Cards */
+.cultural-card {
+  background: rgba(24, 20, 35, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--color-sandstone-border);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cultural-card:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 15px 35px -5px rgba(212, 175, 55, 0.15);
+}
+
+/* Royal Gold & Maroon Gradients */
+.bg-royal-gradient {
+  background: linear-gradient(135deg, var(--color-terracotta-dark) 0%, var(--color-sandstone-card) 60%, rgba(212, 175, 55, 0.1) 100%);
+}
+
+.text-mysuru-gold {
+  color: var(--color-mysuru-gold-bright);
+}
+
+.bg-mysuru-gold {
+  background-color: var(--color-mysuru-gold);
+}
+
+.border-mysuru-gold {
+  border-color: var(--color-mysuru-gold);
+}
+
+.btn-royal-gold {
+  background: linear-gradient(135deg, var(--color-mysuru-gold) 0%, #b8860b 100%);
+  color: #120a02;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  transition: all 0.2s ease;
+}
+
+.btn-royal-gold:hover {
+  background: linear-gradient(135deg, var(--color-mysuru-gold-bright) 0%, var(--color-mysuru-gold) 100%);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-terracotta {
+  background: linear-gradient(135deg, var(--color-terracotta-maroon) 0%, var(--color-terracotta-dark) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(128, 0, 32, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-terracotta:hover {
+  background: linear-gradient(135deg, #a00028 0%, var(--color-terracotta-maroon) 100%);
+  box-shadow: 0 6px 20px rgba(128, 0, 32, 0.6);
+  transform: translateY(-1px);
+}
+
+/* Leaflet Map Customization */
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-sandstone-border);
+  z-index: 10;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #181423 !important;
+  color: #f8fafc !important;
+  border: 1px solid var(--color-mysuru-gold) !important;
+  border-radius: 1rem !important;
+}
+
+.leaflet-popup-tip {
+  background: #181423 !important;
+}
