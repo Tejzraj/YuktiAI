@@ -11,9 +11,12 @@ Unified FastAPI application bringing together all 6 stakeholder roles:
 """
 
 import os
+from pathlib import Path
 from typing import Optional, List, Union, Any
 from fastapi import FastAPI, HTTPException, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 # Import engines
@@ -38,6 +41,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ---------------------------------------------------------
+# Static Files Mounting
+# ---------------------------------------------------------
+static_dir = Path(__file__).parent / "static"
+static_dir.mkdir(exist_ok=True)
+app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 
 # ---------------------------------------------------------
@@ -83,6 +93,9 @@ def get_db_connection():
 
 @app.get("/")
 def home():
+    index_file = static_dir / "index.html"
+    if index_file.exists():
+        return FileResponse(str(index_file))
     return {
         "status": "online",
         "service": "SanskritiPulse AI Unified Multi-Stakeholder Backend",

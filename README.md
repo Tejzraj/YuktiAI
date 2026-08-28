@@ -1,251 +1,114 @@
-# SanskritiPulse AI (YuktiAi) - Multi-Stakeholder Unified Backend
+# SanskritiPulse AI (YuktiAi) - Full-Stack Cultural Intelligence Platform
 
 ![YuktiAi](https://img.shields.io/badge/YuktiAi-AI%20Data%20Engine-orange.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-38bdf8.svg)
+![Leaflet.js](https://img.shields.io/badge/Leaflet.js-GIS%20Map-198754.svg)
 ![CORS](https://img.shields.io/badge/CORS-Enabled-brightgreen.svg)
 
-Welcome to the unified backend repository for **SanskritiPulse AI (YuktiAi)** — a comprehensive cultural discovery platform, travel planner, AI recommendation engine, government intelligence system, and live site operations hub for Karnataka's festivals and heritage events.
+Welcome to the full-stack repository for **SanskritiPulse AI (YuktiAi)** — a unified cultural discovery platform, AI recommendation engine, travel itinerary builder, government intelligence system, and live site operations control room for Karnataka's festivals and heritage events.
 
 ---
 
-## 👥 Multi-Stakeholder Architecture & Team Roles
+## 🚀 One-Command Launch Guide
 
-| Role | Team Member | Module / Engine | Key Endpoint Routes |
-| :--- | :--- | :--- | :--- |
-| **Member 1** | Tezraj | Core PostgreSQL DB & Dataset | `GET /festivals`, `GET /festivals/{id}` |
-| **Member 2** | Nandish | AI Recommendation & Multilingual Engine | `POST /recommend`, `POST /translate` |
-| **Member 3** | Simran | Travel Planner & Hotel Engine | `POST /travel-plan`, `GET /hotels/{location}` |
-| **Member 4** | Monika | Tourist Dashboard & Live Updates | `GET /announcements/{festival_id}` |
-| **Member 5** | Gov Analytics | Department Intelligence & Crowd Risk | `GET /analytics/overview`, `GET /analytics/map-data`, `GET /analytics/trends` |
-| **Member 6** | Tanishi | Organizer Site Ops & Live Announcements | `GET /organizer/overview/{id}`, `POST /organizer/announcement` |
+Launch the entire full-stack application (backend REST APIs + single-page web UI):
 
----
-
-## 🏗️ Relational Database Schema
-
-```mermaid
-erDiagram
-    FESTIVAL_CATEGORIES ||--o{ FESTIVALS : categorizes
-    FESTIVALS ||--o{ FESTIVAL_IMAGES : includes
-    FESTIVALS ||--o{ HOTELS : nearby
-    FESTIVALS ||--o{ TRAVEL_OPTIONS : transit
-    FESTIVALS ||--o{ SITE_ANNOUNCEMENTS : broadcasts
-    FESTIVALS ||--o{ SITE_OPS : monitors
-
-    FESTIVAL_CATEGORIES {
-        int id PK
-        varchar name UK
-    }
-
-    FESTIVALS {
-        int id PK
-        varchar name
-        varchar district
-        varchar city
-        numeric latitude
-        numeric longitude
-        date start_date
-        date end_date
-        int expected_footfall
-    }
-
-    HOTELS {
-        int id PK
-        int festival_id FK
-        varchar hotel_name
-        numeric distance_km
-        numeric price_per_night
-    }
-
-    TRAVEL_OPTIONS {
-        int id PK
-        int festival_id FK
-        varchar mode
-        numeric estimated_cost
-        varchar duration
-    }
-
-    SITE_ANNOUNCEMENTS {
-        int id PK
-        varchar festival_id
-        text message
-        timestamp created_at
-    }
-
-    SITE_OPS {
-        int id PK
-        varchar festival_id UK
-        int current_visitors
-        varchar peak_hours
-        int capacity
-    }
-```
-
----
-
-## 🚀 Quickstart & Setup Guide
-
-### 1. Installation
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Start PostgreSQL & Run Migration Pipeline
-```bash
-docker compose up -d
-python seed.py
-```
-
-### 3. Run FastAPI Application Server
 ```bash
 uvicorn main:app --reload --port 8000
 ```
-- **Interactive Swagger UI Documentation:** [http://localhost:8000/docs](http://localhost:8000/docs)
-- **ReDoc Documentation:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+Once running, access the interactive prototype in your web browser:
+- 🌐 **Live Web Application UI:** [http://localhost:8000](http://localhost:8000)
+- 📚 **Interactive Swagger API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- 📖 **ReDoc OpenAPI Documentation:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
 ---
 
-## 📡 Complete REST API Documentation
+## 🎨 Unified Multi-Stakeholder Interactive Web App (`static/index.html`)
 
-### 1. Core Festivals (Member 1 - Tezraj)
+The single-page web application features a top navigation tab bar enabling seamless switching between all 3 stakeholder views:
 
-#### `GET /festivals`
-- **Description:** Retrieve master festivals list with optional query parameters.
-- **Query Params:** `district`, `category`, `date` (`YYYY-MM-DD`).
-- **Example:** `curl "http://localhost:8000/festivals?district=Mysuru"`
+### 1. 🧳 Tourist Discovery Dashboard (Monika's View)
+- **Festival Discovery Grid:** Browse over 35 Karnataka festivals with District and Category dropdown filters.
+- **Interactive AI Interest Quiz:** Select interest tags (*Food, Folk, Heritage, Sports, Music*) to call `POST /recommend` with Cosine Similarity match percentage badges (e.g. `92% Match`).
+- **Festival Detail Modal:** Deep dive into cultural significance, history, local food, attractions, and live broadcast announcements (`GET /announcements/{id}`).
+- **Smart Travel & Hotel Planner Modal:** Form calling `POST /travel-plan` returning transit comparisons (Bus vs. Train vs. Car), structured 2-day itineraries, and nearby hotel accommodations (`GET /hotels/{id}`).
+- **Multilingual Language Selector:** Toggle between English, ಕನ್ನಡ (Kannada), and हिंदी (Hindi) with real-time UI text translation (`POST /translate`).
 
-#### `GET /festivals/{festival_id}`
-- **Description:** Detailed view including images, hotel options, and transit routes.
-- **Example:** `curl "http://localhost:8000/festivals/1"`
+### 2. 🏛️ Tourism Department Intelligence (Gov Analytics View)
+- **Real-Time KPI Cards:** Displays Total Festivals, Total Expected Visitors (16.5M+), High-Risk Events Count, and Top Trending District.
+- **Leaflet.js GIS Interactive Map:** Displays Karnataka festival markers color-coded by Crowd Risk level (🟢 Low `<100k`, 🟡 Medium `100k-500k`, 🔴 High `>500k`) with popups for projected growth % and automated infrastructure advisories.
+- **Infrastructure Advisories Panel:** Real-time warnings for Transport, Sanitation, Security, Medical, and Parking logistics.
+- **Footfall Distribution Trends:** Visual progress bars displaying district and category footfall shares.
 
----
-
-### 2. AI Recommendation & Multilingual Engine (Member 2 - Nandish)
-
-#### `POST /recommend`
-- **Description:** Matches user interest tags against festival vector embeddings using Cosine Similarity.
-- **Request Body:**
-  ```json
-  {
-    "interests": ["food", "folk", "culture", "heritage"]
-  }
-  ```
-- **Response Example:**
-  ```json
-  {
-    "status": "success",
-    "recommendations": [
-      {
-        "festival_id": "mysuru-dasara",
-        "name": "Mysuru Dasara",
-        "district": "Mysuru",
-        "category": "State Festival & Royal Heritage",
-        "score": 88.5
-      }
-    ]
-  }
-  ```
-
-#### `POST /translate`
-- **Description:** Translates input text into Kannada (`kn`), Hindi (`hi`), or English (`en`).
-- **Request Body:**
-  ```json
-  {
-    "text": "Welcome to Mysuru Dasara festival",
-    "target_lang": "kn"
-  }
-  ```
-- **Response Example:**
-  ```json
-  {
-    "original_text": "Welcome to Mysuru Dasara festival",
-    "target_lang": "kn",
-    "translated_text": "ಮೈಸೂರು ದಸರಾ ಹಬ್ಬಕ್ಕೆ ಸುಸ್ವಾಗತ"
-  }
-  ```
+### 3. 🎪 Festival Site Organizer (Tanishi's View)
+- **Live Spectator Control Room:** Venue selector dropdown with real-time spectator counters, venue capacity progress bars, peak hours (`6 PM - 9 PM`), and crowd warning flags.
+- **Broadcast Announcement Publisher:** Form posting live alerts (`POST /organizer/announcement`) that immediately update the tourist feed across the portal.
 
 ---
 
-### 3. Travel Planner & Hotel Engine (Member 3 - Simran)
+## 👥 Multi-Stakeholder API Matrix
 
-#### `POST /travel-plan`
-- **Description:** Calculates travel matrix options (Bus, Train, Car) from Karnataka hubs to festival destinations and builds structured 2-day itineraries.
-- **Request Body:**
-  ```json
-  {
-    "origin": "Bangalore",
-    "festival_id": "mysuru-dasara",
-    "date": "2026-10-15"
-  }
-  ```
-- **Response Example:**
-  ```json
-  {
-    "origin": "Bangalore",
-    "destination": "Mysuru",
-    "festival_name": "Mysuru Dasara",
-    "distance_km": 145.0,
-    "mode_comparisons": [
-      { "mode": "Bus", "duration": "2.9 hours", "estimated_cost": "₹319" },
-      { "mode": "Train", "duration": "2.4 hours", "estimated_cost": "₹217" },
-      { "mode": "Car (Private / Taxi)", "duration": "1.9 hours", "estimated_cost": "₹1160" }
-    ],
-    "itinerary": {
-      "day1": { "title": "Arrival in Mysuru & Evening Festival Experience", "schedule": [...] },
-      "day2": { "title": "Local Heritage Tour & Grand Procession", "schedule": [...] }
-    }
-  }
-  ```
-
-#### `GET /hotels/{location}`
-- **Description:** Returns nearby hotels with distances, nightly prices, ratings, amenities, and external booking links.
-- **Example:** `curl "http://localhost:8000/hotels/Mysuru"`
+| Stakeholder Role | Team Member | Primary Module | Endpoint Routes |
+| :--- | :--- | :--- | :--- |
+| **Member 1** | Tezraj | PostgreSQL DB & Master Metadata | `GET /festivals`, `GET /festivals/{id}` |
+| **Member 2** | Nandish | AI Recommendation & Multilingual | `POST /recommend`, `POST /translate` |
+| **Member 3** | Simran | Travel & Hotel Engine | `POST /travel-plan`, `GET /hotels/{location}` |
+| **Member 4** | Monika | Tourist Discovery Dashboard | `GET /announcements/{festival_id}` |
+| **Member 5** | Gov Analytics | Department Intelligence & Crowd Risk | `GET /analytics/overview`, `/analytics/map-data`, `/analytics/trends` |
+| **Member 6** | Tanishi | Organizer Site Ops | `GET /organizer/overview/{id}`, `POST /organizer/announcement` |
 
 ---
 
-### 4. Department Intelligence & Crowd Risk (Member 5 - Gov Analytics)
+## 🧪 Automated Testing & Prototype Verification
 
-#### `GET /analytics/overview`
-- **Description:** High-level KPI metrics (Total Festivals, Expected Visitors, High-Risk Events Count, Trending District).
-- **Example:** `curl "http://localhost:8000/analytics/overview"`
+Execute end-to-end integration tests across all 12 backend and UI routes:
 
-#### `GET /analytics/map-data`
-- **Description:** GeoJSON-ready markers with coordinates, risk levels (🟢 Low, 🟡 Medium, 🔴 High), projected growth percentages, and automated infrastructure advisory flags (Transport, Sanitation, Security, Medical, Parking).
-- **Example:** `curl "http://localhost:8000/analytics/map-data"`
-
-#### `GET /analytics/trends`
-- **Description:** Category-wise and district-wise footfall distribution data for frontend charts.
-- **Example:** `curl "http://localhost:8000/analytics/trends"`
-
----
-
-### 5. Organizer Site Ops & Live Announcements (Member 6 - Tanishi)
-
-#### `GET /organizer/overview/{festival_id}`
-- **Description:** Real-time visitor estimates, venue peak hours, capacity occupancy %, and crowd warning flags.
-- **Example:** `curl "http://localhost:8000/organizer/overview/mysuru-dasara"`
-
-#### `POST /organizer/announcement`
-- **Description:** Publishes timestamped broadcast announcement.
-- **Request Body:**
-  ```json
-  {
-    "festival_id": "mysuru-dasara",
-    "message": "Jamboo Savari procession starts at 4:00 PM today!"
-  }
-  ```
-
-#### `GET /announcements/{festival_id}`
-- **Description:** Enables Tourist Dashboard (Monika) to fetch real-time announcements pushed by site organizers.
-- **Example:** `curl "http://localhost:8000/announcements/mysuru-dasara"`
-
----
-
-## 🧪 Automated Testing & Verification Suite
-
-To execute the automated end-to-end integration tests on all routes:
 ```bash
-python test_api_flow.py
+python test_full_prototype.py
 ```
-Outputs status checks across all 11 endpoints and verifies HTTP status code 200 OK.
+
+### Test Verification Summary:
+```text
+================================================================
+🚀 Running SanskritiPulse AI Full Prototype Test Suite
+================================================================
+
+Testing [GET] / (Single-Page Web UI) ... ✅ PASSED (HTTP 200)
+Testing [GET] /festivals (Get Festivals) ... ✅ PASSED (HTTP 200)
+Testing [POST] /recommend (AI Recommendation) ... ✅ PASSED (HTTP 200)
+Testing [POST] /translate (Multilingual Translation) ... ✅ PASSED (HTTP 200)
+Testing [POST] /travel-plan (Travel Route & Itinerary) ... ✅ PASSED (HTTP 200)
+Testing [GET] /hotels/mysuru-dasara (Nearby Hotels Search) ... ✅ PASSED (HTTP 200)
+Testing [GET] /analytics/overview (Analytics Overview) ... ✅ PASSED (HTTP 200)
+Testing [GET] /analytics/map-data (GIS Map GeoJSON) ... ✅ PASSED (HTTP 200)
+Testing [GET] /analytics/trends (Analytics Trends) ... ✅ PASSED (HTTP 200)
+Testing [GET] /organizer/overview/mysuru-dasara (Site Ops Overview) ... ✅ PASSED (HTTP 200)
+Testing [POST] /organizer/announcement (Publish Announcement) ... ✅ PASSED (HTTP 200)
+Testing [GET] /announcements/mysuru-dasara (Fetch Announcements) ... ✅ PASSED (HTTP 200)
+
+================================================================
+📊 Summary: 12/12 Prototype Routes Verified (HTTP 200 OK)
+================================================================
+```
+
+---
+
+## 🛠️ Project File Structure
+
+```
+YuktiAI/
+├── main.py                     # Master FastAPI app (Cors, Routes, Static Files)
+├── ai_engine.py                # AI Vector Recommendation & Multilingual Engine
+├── travel_engine.py            # Route matrices, 2-day itineraries, and hotel lookup
+├── analytics_engine.py         # Footfall prediction, Crowd Risk & GIS GeoJSON
+├── organizer_engine.py         # Live spectator metrics & broadcast announcements
+├── test_full_prototype.py      # Automated e2e verification suite (12/12 tests)
+├── static/
+│   └── index.html              # Unified HTML5/Tailwind single-page web app
+├── festivals_backup.csv        # Seeding data backups
+├── requirements.txt            # Python dependencies
+└── README.md                   # Full-stack documentation
+```

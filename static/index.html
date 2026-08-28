@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SanskritiPulse AI - Unified Cultural Intelligence & Multi-Stakeholder Portal</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Leaflet GIS Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            sanskriti: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              900: '#7c2d12',
+            },
+            royal: {
+              800: '#1e1b4b',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f1f5f9; }
+    h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-nav {
+      background: rgba(11, 15, 25, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    #map { height: 480px; width: 100%; border-radius: 1rem; z-index: 10; }
+    .leaflet-popup-content-wrapper {
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 0.75rem;
+    }
+    .leaflet-popup-tip { background: #0f172a; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-orange-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 glass-nav px-4 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+        <i class="fa-solid fa-om text-xl"></i>
+      </div>
+      <div>
+        <h1 class="text-xl font-bold font-heading bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
+          SanskritiPulse AI
+        </h1>
+        <p class="text-xs text-slate-400 font-medium">Karnataka Cultural Intelligence Portal</p>
+      </div>
+    </div>
+
+    <!-- Stakeholder Navigation Tabs -->
+    <nav class="flex items-center bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800 text-sm font-medium">
+      <button id="tab-btn-tourist" onclick="switchTab('tourist')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 bg-orange-600 text-white font-semibold shadow-md shadow-orange-600/30">
+        <i class="fa-solid fa-suitcase"></i> <span>Tourist View (Monika)</span>
+      </button>
+      <button id="tab-btn-gov" onclick="switchTab('gov')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+        <i class="fa-solid fa-landmark"></i> <span>Gov Analytics</span>
+      </button>
+      <button id="tab-btn-organizer" onclick="switchTab('organizer')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+        <i class="fa-solid fa-tent"></i> <span>Site Ops (Tanishi)</span>
+      </button>
+    </nav>
+
+    <!-- Language Selector Dropdown -->
+    <div class="flex items-center gap-2">
+      <span class="text-xs text-slate-400 font-medium hidden sm:inline"><i class="fa-solid fa-language text-orange-400 mr-1"></i> Lang:</span>
+      <div class="flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs font-semibold">
+        <button onclick="setLanguage('en')" id="lang-en" class="px-2.5 py-1 rounded-lg bg-orange-500 text-white">EN</button>
+        <button onclick="setLanguage('kn')" id="lang-kn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">ಕನ್ನಡ</button>
+        <button onclick="setLanguage('hi')" id="lang-hi" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">हिंदी</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 space-y-8">
+
+    <!-- Toast Notification Banner -->
+    <div id="toast-banner" class="hidden glass-card border-l-4 border-emerald-500 p-4 rounded-xl flex justify-between items-center shadow-lg transition-all animate-bounce">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+        <div>
+          <h4 class="font-bold text-sm text-emerald-300" id="toast-title">Success</h4>
+          <p class="text-xs text-slate-300" id="toast-body">Operation completed successfully.</p>
+        </div>
+      </div>
+      <button onclick="hideToast()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- =================================================================================== -->
+    <!-- TAB 1: TOURIST DISCOVERY DASHBOARD (MONIKA) -->
+    <!-- =================================================================================== -->
+    <section id="view-tourist" class="space-y-8">
+      
+      <!-- Hero Banner & AI Recommendation Launcher -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-royal-900 to-orange-950 border border-orange-500/20 p-6 md:p-10 shadow-2xl">
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-orange-500 pointer-events-none">
+          <i class="fa-solid fa-om text-[280px]"></i>
+        </div>
+        <div class="max-w-2xl space-y-4 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold">
+            <i class="fa-solid fa-sparkles"></i> AI-Powered Cultural Engine
+          </div>
+          <h2 class="text-3xl md:text-5xl font-extrabold font-heading text-white leading-tight" id="hero-heading">
+            Discover Karnataka's Living Traditions & Grand Festivals
+          </h2>
+          <p class="text-slate-300 text-sm md:text-base leading-relaxed" id="hero-subtext">
+            Personalized AI recommendations, real-time travel logistics, 2-day itineraries, and live site announcements for over 35 iconic festivals across 31 districts.
+          </p>
+
+          <!-- Interactive Interest Selector Quiz -->
+          <div class="pt-2">
+            <p class="text-xs font-semibold text-orange-300 mb-2 uppercase tracking-wider">Select Your Interests for Match Scoring:</p>
+            <div class="flex flex-wrap gap-2" id="interest-tags">
+              <button onclick="toggleInterest(this, 'food')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-utensils text-orange-400"></i> Food & Gastronomy
+              </button>
+              <button onclick="toggleInterest(this, 'folk')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-drum text-amber-400"></i> Folk & Dance
+              </button>
+              <button onclick="toggleInterest(this, 'heritage')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-archway text-yellow-400"></i> Royal Heritage
+              </button>
+              <button onclick="toggleInterest(this, 'sports')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-trophy text-emerald-400"></i> Coastal Sports
+              </button>
+              <button onclick="toggleInterest(this, 'culture')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+                <i class="fa-solid fa-masks-theater text-indigo-400"></i> Music & Drama
+              </button>
+            </div>
+            <button onclick="runAIRecommendation()" class="mt-4 px-6 py-2.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center gap-2 transition-all">
+              <i class="fa-solid fa-bolt"></i> Run AI Cosine Matcher
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="glass-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+          <!-- District Filter -->
+          <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
+            <i class="fa-solid fa-map-location-dot text-orange-400"></i>
+            <select id="filter-district" onchange="applyFilters()" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
+              <option value="">All Districts</option>
+              <option value="Mysuru">Mysuru</option>
+              <option value="Vijayanagara">Vijayanagara (Hampi)</option>
+              <option value="Dakshina Kannada">Dakshina Kannada</option>
+              <option value="Bengaluru Urban">Bengaluru Urban</option>
+              <option value="Bagalkot">Bagalkot</option>
+            </select>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
+            <i class="fa-solid fa-layer-group text-amber-400"></i>
+            <select id="filter-category" onchange="applyFilters()" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
+              <option value="">All Categories</option>
+              <option value="State Festival & Royal Heritage">State Festival & Heritage</option>
+              <option value="Folk & Sports">Folk & Sports</option>
+              <option value="Heritage & Art">Heritage & Art</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium">
+          Showing <span id="festival-count" class="text-orange-400 font-bold">0</span> Festivals
+        </div>
+      </div>
+
+      <!-- Festival Grid -->
+      <div id="festivals-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamic Cards Inserted via JS -->
+      </div>
+    </section>
+
+    <!-- =================================================================================== -->
+    <!-- TAB 2: GOV ANALYTICS & DEPARTMENT INTELLIGENCE -->
+    <!-- =================================================================================== -->
+    <section id="view-gov" class="hidden space-y-8">
+      
+      <!-- KPI Overview Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="glass-card p-5 rounded-2xl border-l-4 border-orange-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Festivals Tracked</p>
+          <h3 id="kpi-total-festivals" class="text-3xl font-extrabold font-heading text-white mt-1">35</h3>
+          <p class="text-xs text-orange-400 mt-2"><i class="fa-solid fa-chart-line"></i> Across 31 Karnataka Districts</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl border-l-4 border-amber-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Expected Footfall</p>
+          <h3 id="kpi-expected-visitors" class="text-3xl font-extrabold font-heading text-amber-400 mt-1">16.5M+</h3>
+          <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-arrow-trend-up text-emerald-400"></i> Projected Season Season Total</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl border-l-4 border-red-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">High-Risk Events (&gt;500k)</p>
+          <h3 id="kpi-high-risk" class="text-3xl font-extrabold font-heading text-red-400 mt-1">9</h3>
+          <p class="text-xs text-red-300 mt-2"><i class="fa-solid fa-triangle-exclamation"></i> Security & Transport Alerts</p>
+        </div>
+        <div class="glass-card p-5 rounded-2xl border-l-4 border-emerald-500">
+          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Top Trending District</p>
+          <h3 id="kpi-trending" class="text-3xl font-extrabold font-heading text-emerald-400 mt-1">Mysuru</h3>
+          <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-fire text-orange-400"></i> 1.8M Expected Visitors</p>
+        </div>
+      </div>
+
+      <!-- GIS Interactive Map & Advisories -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 glass-card p-4 rounded-2xl space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold font-heading text-lg text-slate-200 flex items-center gap-2">
+              <i class="fa-solid fa-map text-orange-400"></i> Karnataka GIS Crowd Risk Map
+            </h3>
+            <div class="flex gap-3 text-xs font-semibold">
+              <span class="flex items-center gap-1 text-emerald-400"><i class="fa-solid fa-circle text-[10px]"></i> Low (&lt;100k)</span>
+              <span class="flex items-center gap-1 text-amber-400"><i class="fa-solid fa-circle text-[10px]"></i> Med (100k-500k)</span>
+              <span class="flex items-center gap-1 text-red-400"><i class="fa-solid fa-circle text-[10px]"></i> High (&gt;500k)</span>
+            </div>
+          </div>
+          <div id="map"></div>
+        </div>
+
+        <!-- Infrastructure Advisories Panel -->
+        <div class="glass-card p-5 rounded-2xl space-y-4">
+          <h3 class="font-bold font-heading text-lg text-slate-200 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-amber-400"></i> Infrastructure Advisories
+          </h3>
+          <div id="advisory-list" class="space-y-3 text-xs overflow-y-auto max-h-[400px] pr-1">
+            <!-- Dynamic Advisories -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Trends & Footfall Distribution -->
+      <div class="glass-card p-6 rounded-2xl space-y-4">
+        <h3 class="font-bold font-heading text-lg text-slate-200 flex items-center gap-2">
+          <i class="fa-solid fa-chart-simple text-orange-400"></i> District & Category Footfall Distribution
+        </h3>
+        <div id="trends-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Footfall trends bars -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================================== -->
+    <!-- TAB 3: FESTIVAL SITE ORGANIZER (TANISHI) -->
+    <!-- =================================================================================== -->
+    <section id="view-organizer" class="hidden space-y-8">
+      
+      <!-- Festival Selector Bar -->
+      <div class="glass-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-tent text-orange-400 text-xl"></i>
+          <div>
+            <h3 class="font-bold font-heading text-base text-slate-200">Site Operations Control Room</h3>
+            <p class="text-xs text-slate-400">Select active venue for real-time monitoring and broadcast announcements</p>
+          </div>
+        </div>
+        <select id="organizer-fest-select" onchange="loadOrganizerOverview()" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-4 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
+          <option value="mysuru-dasara">Mysuru Dasara (Nada Habba)</option>
+          <option value="hampi-utsav">Hampi Utsav</option>
+          <option value="kambala-race">Kambala Buffalo Race</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Live Visitor Metrics Card -->
+        <div class="glass-card p-6 rounded-2xl space-y-5 lg:col-span-1 border-t-4 border-orange-500">
+          <h3 class="font-bold font-heading text-lg text-slate-200 flex items-center gap-2">
+            <i class="fa-solid fa-users-viewfinder text-orange-400"></i> Live Spectator Metrics
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <p class="text-xs text-slate-400 uppercase font-medium">Estimated Real-Time Crowd</p>
+              <div id="ops-visitor-count" class="text-4xl font-extrabold font-heading text-orange-400 mt-1">142,000</div>
+            </div>
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-slate-400">Venue Capacity Occupancy</span>
+                <span id="ops-occupancy-pct" class="text-amber-400">71.0%</span>
+              </div>
+              <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800">
+                <div id="ops-occupancy-bar" class="bg-gradient-to-r from-amber-500 to-orange-600 h-3 rounded-full" style="width: 71%"></div>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-800/80 grid grid-cols-2 gap-4 text-xs">
+              <div>
+                <p class="text-slate-400 font-medium">Peak Hours</p>
+                <p id="ops-peak-hours" class="font-bold text-slate-200 mt-0.5">6 PM - 9 PM</p>
+              </div>
+              <div>
+                <p class="text-slate-400 font-medium">Crowd Status</p>
+                <span id="ops-crowd-status" class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-[10px] inline-block mt-0.5">HIGH_DENSITY</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800 space-y-2">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Crowd Warning Flags:</h4>
+            <ul id="ops-warning-flags" class="space-y-1.5 text-xs text-slate-300">
+              <!-- Warning flags -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Announcement Publisher Form -->
+        <div class="glass-card p-6 rounded-2xl space-y-4 lg:col-span-2">
+          <h3 class="font-bold font-heading text-lg text-slate-200 flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn text-amber-400"></i> Broadcast Live Announcement
+          </h3>
+          <p class="text-xs text-slate-400">Pushes instant alerts to Monika's Tourist Dashboard and tourist app feeds.</p>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Announcement Message:</label>
+              <textarea id="announcement-msg" rows="3" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-orange-500" placeholder="Enter live updates (e.g., Gate 2 illuminations starting at 7 PM, use Gate 4 for entry)..."></textarea>
+            </div>
+            <button onclick="publishAnnouncement()" class="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i> Publish Live Announcement
+            </button>
+          </div>
+
+          <!-- Active Announcements List -->
+          <div class="pt-4 border-t border-slate-800 space-y-3">
+            <h4 class="font-bold text-sm text-slate-200">Active Published Announcements:</h4>
+            <div id="ops-announcements-list" class="space-y-2 text-xs max-h-48 overflow-y-auto pr-1">
+              <!-- Dynamic list -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: FESTIVAL DETAIL & LIVE ANNOUNCEMENTS -->
+  <!-- =================================================================================== -->
+  <div id="modal-detail" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-orange-500/30 p-6 md:p-8 space-y-6 relative">
+      <button onclick="closeModal('modal-detail')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="detail-modal-body">
+        <!-- Content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: TRIP PLANNER & HOTELS -->
+  <!-- =================================================================================== -->
+  <div id="modal-trip" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="glass-card max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-orange-500/30 p-6 md:p-8 space-y-6 relative">
+      <button onclick="closeModal('modal-trip')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-orange-600/20 text-orange-400 flex items-center justify-center">
+            <i class="fa-solid fa-route text-xl"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold font-heading text-white">Smart Travel & Hotel Planner</h3>
+            <p class="text-xs text-slate-400">Routes, transit mode costs, structured 2-day itineraries, and nearby hotels</p>
+          </div>
+        </div>
+
+        <!-- Trip Planner Inputs -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Origin City:</label>
+            <input type="text" id="trip-origin" value="Bangalore" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Festival:</label>
+            <input type="text" id="trip-festival-id" value="mysuru-dasara" readonly class="w-full bg-slate-950 text-orange-400 font-bold border border-slate-800 rounded-xl px-3 py-2 text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-400 mb-1">Travel Date:</label>
+            <input type="date" id="trip-date" value="2026-10-15" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500">
+          </div>
+        </div>
+        
+        <button onclick="calculateTripPlan()" class="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-md shadow-orange-600/30 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-calculator"></i> Calculate Route & Itinerary
+        </button>
+      </div>
+
+      <!-- Travel Plan Output -->
+      <div id="trip-modal-output" class="space-y-6">
+        <!-- Dynamic trip output -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const API_BASE = "";
+    let selectedInterests = [];
+    let allFestivals = [];
+    let currentLang = 'en';
+    let leafletMap = null;
+
+    // Load initial data
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchFestivals();
+      loadAnalyticsOverview();
+      loadOrganizerOverview();
+    });
+
+    // Tab Switching
+    function switchTab(tab) {
+      document.getElementById('view-tourist').classList.add('hidden');
+      document.getElementById('view-gov').classList.add('hidden');
+      document.getElementById('view-organizer').classList.add('hidden');
+
+      document.getElementById('tab-btn-tourist').className = "px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50";
+      document.getElementById('tab-btn-gov').className = "px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50";
+      document.getElementById('tab-btn-organizer').className = "px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50";
+
+      if (tab === 'tourist') {
+        document.getElementById('view-tourist').classList.remove('hidden');
+        document.getElementById('tab-btn-tourist').className = "px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 bg-orange-600 text-white font-semibold shadow-md shadow-orange-600/30";
+      } else if (tab === 'gov') {
+        document.getElementById('view-gov').classList.remove('hidden');
+        document.getElementById('tab-btn-gov').className = "px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 bg-orange-600 text-white font-semibold shadow-md shadow-orange-600/30";
+        initLeafletMap();
+      } else if (tab === 'organizer') {
+        document.getElementById('view-organizer').classList.remove('hidden');
+        document.getElementById('tab-btn-organizer').className = "px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 bg-orange-600 text-white font-semibold shadow-md shadow-orange-600/30";
+        loadOrganizerOverview();
+      }
+    }
+
+    // Fetch Festivals List
+    async function fetchFestivals() {
+      try {
+        const res = await fetch(`${API_BASE}/festivals`);
+        const json = await res.json();
+        allFestivals = json.data || [];
+        renderFestivalsGrid(allFestivals);
+      } catch (err) {
+        console.error("Error fetching festivals:", err);
+      }
+    }
+
+    function applyFilters() {
+      const dist = document.getElementById('filter-district').value.toLowerCase();
+      const cat = document.getElementById('filter-category').value.toLowerCase();
+
+      const filtered = allFestivals.filter(f => {
+        const matchesDist = !dist || (f.district && f.district.toLowerCase().includes(dist));
+        const matchesCat = !cat || (f.category && f.category.toLowerCase().includes(cat));
+        return matchesDist && matchesCat;
+      });
+      renderFestivalsGrid(filtered);
+    }
+
+    function renderFestivalsGrid(festivals) {
+      const grid = document.getElementById('festivals-grid');
+      document.getElementById('festival-count').innerText = festivals.length;
+      grid.innerHTML = "";
+
+      festivals.forEach(fest => {
+        const imgUrl = (fest.images && fest.images.length > 0) ? fest.images[0] : "https://images.unsplash.com/photo-1600100397608-f010f443b749";
+        const scoreBadge = fest.score ? `<span class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold"><i class="fa-solid fa-sparkles"></i> ${fest.score}% Match</span>` : "";
+
+        const card = `
+          <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-orange-500/40 transition-all duration-300 flex flex-col group">
+            <div class="relative h-48 overflow-hidden bg-slate-900">
+              <img src="${imgUrl}" alt="${fest.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+              <div class="absolute top-3 left-3 flex gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-orange-400 text-xs font-semibold border border-orange-500/30">${fest.district || 'Karnataka'}</span>
+              </div>
+              <div class="absolute top-3 right-3">
+                ${scoreBadge}
+              </div>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+              <div>
+                <h3 class="text-lg font-bold font-heading text-white group-hover:text-orange-400 transition-colors">${fest.name}</h3>
+                <p class="text-xs text-slate-400 mt-1 line-clamp-2">${fest.short_description || fest.description || 'Grand cultural heritage festival of Karnataka.'}</p>
+              </div>
+              <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                <span><i class="fa-solid fa-users text-amber-400 mr-1"></i> ${(fest.expected_footfall || fest.footfall || 100000).toLocaleString()} visitors</span>
+                <span class="text-slate-300 font-medium">${fest.category || 'Culture'}</span>
+              </div>
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <button onclick="openFestivalDetail('${fest.id || fest.name}')" class="py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold transition-all flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-circle-info"></i> Details
+                </button>
+                <button onclick="openTripPlanner('${fest.id || 'mysuru-dasara'}')" class="py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold transition-all shadow-md shadow-orange-600/20 flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-compass"></i> Plan Trip
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.innerHTML += card;
+      });
+    }
+
+    // AI Interest Quiz
+    function toggleInterest(btn, tag) {
+      if (selectedInterests.includes(tag)) {
+        selectedInterests = selectedInterests.filter(t => t !== tag);
+        btn.classList.remove('bg-orange-600', 'text-white', 'border-orange-500');
+        btn.classList.add('bg-slate-950/60', 'text-slate-300', 'border-slate-700');
+      } else {
+        selectedInterests.push(tag);
+        btn.classList.add('bg-orange-600', 'text-white', 'border-orange-500');
+        btn.classList.remove('bg-slate-950/60', 'text-slate-300', 'border-slate-700');
+      }
+    }
+
+    async function runAIRecommendation() {
+      if (selectedInterests.length === 0) {
+        showToast("Select Interests", "Please tap at least one interest tag (e.g., Food, Folk, Heritage).");
+        return;
+      }
+      try {
+        const res = await fetch(`${API_BASE}/recommend`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ interests: selectedInterests })
+        });
+        const json = await res.json();
+        const recs = json.recommendations || [];
+        
+        // Merge score into allFestivals
+        allFestivals.forEach(f => {
+          const match = recs.find(r => r.name === f.name || String(r.festival_id) === String(f.id));
+          f.score = match ? match.score : 0;
+        });
+
+        allFestivals.sort((a, b) => (b.score || 0) - (a.score || 0));
+        renderFestivalsGrid(allFestivals);
+        showToast("AI Recommendations Updated", `Ranked ${recs.length} festivals using Cosine Similarity.`);
+      } catch (err) {
+        console.error("Recommendation error:", err);
+      }
+    }
+
+    // Detail Modal
+    async function openFestivalDetail(festId) {
+      try {
+        const res = await fetch(`${API_BASE}/festivals/${festId}`);
+        const fest = await res.json();
+        
+        const annRes = await fetch(`${API_BASE}/announcements/${festId}`);
+        const annJson = await annRes.json();
+        const announcements = annJson.announcements || [];
+
+        let annHtml = announcements.map(a => `
+          <div class="p-3 rounded-xl bg-orange-950/40 border border-orange-500/30 text-xs text-orange-200 space-y-1">
+            <div class="flex justify-between font-bold">
+              <span><i class="fa-solid fa-bullhorn text-orange-400"></i> Organizer Alert</span>
+              <span class="text-[10px] text-slate-400">${a.created_at}</span>
+            </div>
+            <p>${a.message}</p>
+          </div>
+        `).join('') || `<p class="text-xs text-slate-500 italic">No live announcements published yet.</p>`;
+
+        document.getElementById('detail-modal-body').innerHTML = `
+          <div class="space-y-5">
+            <div>
+              <span class="px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold">${fest.category || 'State Heritage'}</span>
+              <h2 class="text-2xl font-extrabold font-heading text-white mt-2">${fest.name}</h2>
+              <p class="text-xs text-slate-400">${fest.district} District • Timings: ${fest.timings || 'All Day'}</p>
+            </div>
+
+            <div class="space-y-3">
+              <h4 class="text-sm font-bold text-slate-200 uppercase tracking-wider">Cultural Significance & History</h4>
+              <p class="text-xs text-slate-300 leading-relaxed">${fest.cultural_significance || fest.short_description || fest.description}</p>
+            </div>
+
+            <div class="space-y-3">
+              <h4 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-bullhorn"></i> Live Broadcast Announcements
+              </h4>
+              <div class="space-y-2 max-h-40 overflow-y-auto pr-1">
+                ${annHtml}
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex justify-end">
+              <button onclick="closeModal('modal-detail'); openTripPlanner('${fest.id || festId}')" class="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-lg shadow-orange-600/30 flex items-center gap-2">
+                <i class="fa-solid fa-compass"></i> Plan Trip & Check Hotels
+              </button>
+            </div>
+          </div>
+        `;
+        document.getElementById('modal-detail').classList.remove('hidden');
+      } catch (err) {
+        console.error("Error opening detail:", err);
+      }
+    }
+
+    // Trip Planner Modal
+    function openTripPlanner(festId) {
+      document.getElementById('trip-festival-id').value = festId;
+      document.getElementById('modal-trip').classList.remove('hidden');
+      calculateTripPlan();
+    }
+
+    async function calculateTripPlan() {
+      const origin = document.getElementById('trip-origin').value;
+      const festId = document.getElementById('trip-festival-id').value;
+      const date = document.getElementById('trip-date').value;
+
+      try {
+        const res = await fetch(`${API_BASE}/travel-plan`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ origin, festival_id: festId, date })
+        });
+        const plan = await res.json();
+
+        // Fetch hotels
+        const hotelRes = await fetch(`${API_BASE}/hotels/${festId}`);
+        const hotelJson = await hotelRes.json();
+        const hotels = hotelJson.hotels || [];
+
+        let modesHtml = (plan.mode_comparisons || []).map(m => `
+          <div class="glass-card p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-sm text-white">${m.mode}</span>
+              <span class="text-xs font-extrabold text-orange-400">${m.estimated_cost}</span>
+            </div>
+            <div class="text-xs text-slate-400 flex justify-between">
+              <span>Duration: ${m.duration}</span>
+              <span>Dist: ${m.distance_km} km</span>
+            </div>
+            <p class="text-[11px] text-slate-400 italic">${m.recommended_for}</p>
+          </div>
+        `).join('');
+
+        let itinerary = plan.itinerary || {};
+        let day1 = itinerary.day1 || {};
+        let day2 = itinerary.day2 || {};
+
+        let hotelsHtml = hotels.map(h => `
+          <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+            <div>
+              <h5 class="font-bold text-xs text-white">${h.name}</h5>
+              <p class="text-[11px] text-slate-400">${h.distance_km} km away • ${h.rating}</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs font-bold text-emerald-400 block">${h.price_per_night}</span>
+              <a href="${h.booking_url}" target="_blank" class="text-[10px] text-orange-400 hover:underline">Book Now <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+        `).join('');
+
+        document.getElementById('trip-modal-output').innerHTML = `
+          <div class="space-y-5">
+            <div>
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Transit Mode Comparisons</h4>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+                ${modesHtml}
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Structured 2-Day Itinerary</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <h5 class="font-bold text-xs text-orange-400">Day 1: ${day1.title || 'Arrival & Evening Program'}</h5>
+                  <ul class="space-y-1.5 text-[11px] text-slate-300">
+                    ${(day1.schedule || []).map(s => `<li><strong class="text-slate-400">${s.time}:</strong> ${s.activity}</li>`).join('')}
+                  </ul>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                  <h5 class="font-bold text-xs text-amber-400">Day 2: ${day2.title || 'Heritage Tour & Return'}</h5>
+                  <ul class="space-y-1.5 text-[11px] text-slate-300">
+                    ${(day2.schedule || []).map(s => `<li><strong class="text-slate-400">${s.time}:</strong> ${s.activity}</li>`).join('')}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Nearby Accommodations</h4>
+              <div class="space-y-2 mt-2">
+                ${hotelsHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error("Trip plan error:", err);
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    // Leaflet GIS Map Initialization
+    async function initLeafletMap() {
+      if (leafletMap) return;
+
+      leafletMap = L.map('map').setView([14.25, 75.8], 7);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+      }).addTo(leafletMap);
+
+      try {
+        const res = await fetch(`${API_BASE}/analytics/map-data`);
+        const json = await res.json();
+        const features = json.features || [];
+        const advList = document.getElementById('advisory-list');
+        advList.innerHTML = "";
+
+        features.forEach(feat => {
+          const props = feat.properties;
+          const coords = feat.geometry.coordinates; // [lng, lat]
+          const color = props.risk_color || "#FAAD14";
+
+          const marker = L.circleMarker([coords[1], coords[0]], {
+            radius: 9,
+            fillColor: color,
+            color: "#fff",
+            weight: 1.5,
+            opacity: 1,
+            fillOpacity: 0.85
+          }).addTo(leafletMap);
+
+          const popupContent = `
+            <div class="space-y-1">
+              <h4 class="font-bold text-sm text-white">${props.name}</h4>
+              <p class="text-xs text-slate-300">${props.district} • Projected: <strong>${(props.predicted_footfall).toLocaleString()}</strong> (${props.projected_growth_percentage})</p>
+              <div class="pt-1 text-[11px] text-amber-300">
+                <strong>Advisory:</strong> ${props.infrastructure_advisories ? props.infrastructure_advisories.security : 'Standard safety'}
+              </div>
+            </div>
+          `;
+          marker.bindPopup(popupContent);
+
+          // Add to advisories panel
+          advList.innerHTML += `
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+              <div class="flex justify-between items-center font-bold">
+                <span class="text-slate-200">${props.name}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded" style="background:${color}20; color:${color}">${props.risk_badge}</span>
+              </div>
+              <p class="text-[11px] text-slate-400"><strong>Transport:</strong> ${props.infrastructure_advisories.transport}</p>
+              <p class="text-[11px] text-slate-400"><strong>Sanitation:</strong> ${props.infrastructure_advisories.sanitation}</p>
+            </div>
+          `;
+        });
+      } catch (err) {
+        console.error("Map error:", err);
+      }
+    }
+
+    // Gov Analytics Overview
+    async function loadAnalyticsOverview() {
+      try {
+        const res = await fetch(`${API_BASE}/analytics/overview`);
+        const ov = await res.json();
+        document.getElementById('kpi-total-festivals').innerText = ov.total_festivals;
+        document.getElementById('kpi-expected-visitors').innerText = ov.formatted_visitors;
+        document.getElementById('kpi-high-risk').innerText = ov.high_risk_events_count;
+        document.getElementById('kpi-trending').innerText = ov.trending_district;
+
+        const trendsRes = await fetch(`${API_BASE}/analytics/trends`);
+        const trends = await trendsRes.json();
+        const trendsContainer = document.getElementById('trends-container');
+
+        let distHtml = (trends.district_distribution || []).slice(0, 5).map(d => `
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-300">${d.district}</span>
+              <span class="text-orange-400">${(d.footfall / 1000).toFixed(0)}k</span>
+            </div>
+            <div class="w-full bg-slate-900 rounded-full h-2">
+              <div class="bg-orange-500 h-2 rounded-full" style="width: ${Math.min(100, (d.footfall / 2000000) * 100)}%"></div>
+            </div>
+          </div>
+        `).join('');
+
+        let catHtml = (trends.category_distribution || []).slice(0, 5).map(c => `
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs font-semibold">
+              <span class="text-slate-300">${c.category}</span>
+              <span class="text-amber-400">${(c.footfall / 1000).toFixed(0)}k</span>
+            </div>
+            <div class="w-full bg-slate-900 rounded-full h-2">
+              <div class="bg-amber-500 h-2 rounded-full" style="width: ${Math.min(100, (c.footfall / 2000000) * 100)}%"></div>
+            </div>
+          </div>
+        `).join('');
+
+        trendsContainer.innerHTML = `
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold text-slate-400 uppercase">Top District Footfall</h4>
+            ${distHtml}
+          </div>
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold text-slate-400 uppercase">Category Footfall Share</h4>
+            ${catHtml}
+          </div>
+        `;
+      } catch (err) {
+        console.error("Analytics overview error:", err);
+      }
+    }
+
+    // Site Ops Overview (Tanishi)
+    async function loadOrganizerOverview() {
+      const festId = document.getElementById('organizer-fest-select').value;
+      try {
+        const res = await fetch(`${API_BASE}/organizer/overview/${festId}`);
+        const ops = await res.json();
+
+        const count = ops.realtime_visitor_estimate || ops.current_visitors || 142000;
+        const pct = ops.crowd_occupancy_percentage || "71.0%";
+
+        document.getElementById('ops-visitor-count').innerText = count.toLocaleString();
+        document.getElementById('ops-occupancy-pct').innerText = pct;
+        document.getElementById('ops-occupancy-bar').style.width = pct;
+        document.getElementById('ops-peak-hours').innerText = ops.peak_hours || "6 PM - 9 PM";
+        document.getElementById('ops-crowd-status').innerText = ops.crowd_status || "ACTIVE_MONITORING";
+
+        const flags = ops.warning_flags || [];
+        document.getElementById('ops-warning-flags').innerHTML = flags.map(f => `<li>• ${f}</li>`).join('');
+
+        // Announcements
+        const annRes = await fetch(`${API_BASE}/announcements/${festId}`);
+        const annJson = await annRes.json();
+        const announcements = annJson.announcements || [];
+
+        document.getElementById('ops-announcements-list').innerHTML = announcements.map(a => `
+          <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+            <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+              <span>ID: #${a.id}</span>
+              <span>${a.created_at}</span>
+            </div>
+            <p>${a.message}</p>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error("Organizer ops error:", err);
+      }
+    }
+
+    async function publishAnnouncement() {
+      const festId = document.getElementById('organizer-fest-select').value;
+      const msg = document.getElementById('announcement-msg').value;
+
+      if (!msg.trim()) {
+        showToast("Empty Announcement", "Please type an announcement message.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/organizer/announcement`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ festival_id: festId, message: msg })
+        });
+        const json = await res.json();
+        document.getElementById('announcement-msg').value = "";
+        showToast("Announcement Published", "Live update broadcasted to tourist dashboard.");
+        loadOrganizerOverview();
+      } catch (err) {
+        console.error("Publish error:", err);
+      }
+    }
+
+    // Translation Service
+    async function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('lang-en').className = lang === 'en' ? "px-2.5 py-1 rounded-lg bg-orange-500 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
+      document.getElementById('lang-kn').className = lang === 'kn' ? "px-2.5 py-1 rounded-lg bg-orange-500 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
+      document.getElementById('lang-hi').className = lang === 'hi' ? "px-2.5 py-1 rounded-lg bg-orange-500 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
+
+      if (lang === 'en') {
+        document.getElementById('hero-heading').innerText = "Discover Karnataka's Living Traditions & Grand Festivals";
+        document.getElementById('hero-subtext').innerText = "Personalized AI recommendations, real-time travel logistics, 2-day itineraries, and live site announcements for over 35 iconic festivals across 31 districts.";
+        return;
+      }
+
+      try {
+        const headingRes = await fetch(`${API_BASE}/translate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text: "Discover Karnataka's Living Traditions & Grand Festivals", target_lang: lang })
+        });
+        const headingJson = await headingRes.json();
+        document.getElementById('hero-heading').innerText = headingJson.translated_text;
+      } catch (err) {
+        console.error("Translation error:", err);
+      }
+    }
+
+    function showToast(title, msg) {
+      document.getElementById('toast-title').innerText = title;
+      document.getElementById('toast-body').innerText = msg;
+      document.getElementById('toast-banner').classList.remove('hidden');
+      setTimeout(hideToast, 4000);
+    }
+
+    function hideToast() {
+      document.getElementById('toast-banner').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
