@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SanskritiPulse AI - Unified Cultural Intelligence & Multi-Stakeholder Portal</title>
-  
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Outfit & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- Leaflet GIS Map CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <script>
@@ -44,38 +47,64 @@
     }
   </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #0b0f19; color: #f1f5f9; }
-    h1, h2, h3, h4, .font-heading { font-family: 'Outfit', sans-serif; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #f1f5f9;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-heading {
+      font-family: 'Outfit', sans-serif;
+    }
+
     .glass-card {
       background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .glass-nav {
       background: rgba(11, 15, 25, 0.85);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    #map { height: 480px; width: 100%; border-radius: 1rem; z-index: 10; }
+
+    #map {
+      height: 480px;
+      width: 100%;
+      border-radius: 1rem;
+      z-index: 10;
+    }
+
     .leaflet-popup-content-wrapper {
       background: #0f172a;
       color: #f8fafc;
       border: 1px solid rgba(249, 115, 22, 0.3);
       border-radius: 0.75rem;
     }
-    .leaflet-popup-tip { background: #0f172a; }
+
+    .leaflet-popup-tip {
+      background: #0f172a;
+    }
   </style>
 </head>
+
 <body class="min-h-screen flex flex-col antialiased selection:bg-orange-500 selection:text-white">
 
   <!-- Top Navigation Header -->
   <header class="sticky top-0 z-50 glass-nav px-4 lg:px-8 py-3.5 flex flex-wrap justify-between items-center gap-4">
     <div class="flex items-center space-x-3">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+      <div
+        class="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
         <i class="fa-solid fa-om text-xl"></i>
       </div>
       <div>
-        <h1 class="text-xl font-bold font-heading bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
+        <h1
+          class="text-xl font-bold font-heading bg-gradient-to-r from-orange-400 via-amber-300 to-yellow-400 bg-clip-text text-transparent">
           SanskritiPulse AI
         </h1>
         <p class="text-xs text-slate-400 font-medium">Karnataka Cultural Intelligence Portal</p>
@@ -84,24 +113,31 @@
 
     <!-- Stakeholder Navigation Tabs -->
     <nav class="flex items-center bg-slate-900/80 p-1.5 rounded-2xl border border-slate-800 text-sm font-medium">
-      <button id="tab-btn-tourist" onclick="switchTab('tourist')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 bg-orange-600 text-white font-semibold shadow-md shadow-orange-600/30">
-        <i class="fa-solid fa-suitcase"></i> <span>Tourist View (Monika)</span>
+      <button id="tab-btn-tourist" onclick="switchTab('tourist')"
+        class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 bg-orange-600 text-white font-semibold shadow-md shadow-orange-600/30">
+        <i class="fa-solid fa-suitcase"></i> <span>Tourist View</span>
       </button>
-      <button id="tab-btn-gov" onclick="switchTab('gov')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+      <button id="tab-btn-gov" onclick="switchTab('gov')"
+        class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
         <i class="fa-solid fa-landmark"></i> <span>Gov Analytics</span>
       </button>
-      <button id="tab-btn-organizer" onclick="switchTab('organizer')" class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
-        <i class="fa-solid fa-tent"></i> <span>Site Ops (Tanishi)</span>
+      <button id="tab-btn-organizer" onclick="switchTab('organizer')"
+        class="px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50">
+        <i class="fa-solid fa-tent"></i> <span>Site Ops</span>
       </button>
     </nav>
 
     <!-- Language Selector Dropdown -->
     <div class="flex items-center gap-2">
-      <span class="text-xs text-slate-400 font-medium hidden sm:inline"><i class="fa-solid fa-language text-orange-400 mr-1"></i> Lang:</span>
+      <span class="text-xs text-slate-400 font-medium hidden sm:inline"><i
+          class="fa-solid fa-language text-orange-400 mr-1"></i> Lang:</span>
       <div class="flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs font-semibold">
-        <button onclick="setLanguage('en')" id="lang-en" class="px-2.5 py-1 rounded-lg bg-orange-500 text-white">EN</button>
-        <button onclick="setLanguage('kn')" id="lang-kn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">ಕನ್ನಡ</button>
-        <button onclick="setLanguage('hi')" id="lang-hi" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">हिंदी</button>
+        <button onclick="setLanguage('ENG')" id="lang-en"
+          class="px-2.5 py-1 rounded-lg bg-orange-500 text-white">EN</button>
+        <button onclick="setLanguage('ಕನ್ನಡ')" id="lang-kn"
+          class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">ಕನ್ನಡ</button>
+        <button onclick="setLanguage('हिंदी')" id="lang-hi"
+          class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">हिंदी</button>
       </div>
     </div>
   </header>
@@ -110,7 +146,8 @@
   <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 space-y-8">
 
     <!-- Toast Notification Banner -->
-    <div id="toast-banner" class="hidden glass-card border-l-4 border-emerald-500 p-4 rounded-xl flex justify-between items-center shadow-lg transition-all animate-bounce">
+    <div id="toast-banner"
+      class="hidden glass-card border-l-4 border-emerald-500 p-4 rounded-xl flex justify-between items-center shadow-lg transition-all animate-bounce">
       <div class="flex items-center gap-3">
         <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
         <div>
@@ -125,44 +162,54 @@
     <!-- TAB 1: TOURIST DISCOVERY DASHBOARD (MONIKA) -->
     <!-- =================================================================================== -->
     <section id="view-tourist" class="space-y-8">
-      
+
       <!-- Hero Banner & AI Recommendation Launcher -->
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-royal-900 to-orange-950 border border-orange-500/20 p-6 md:p-10 shadow-2xl">
+      <div
+        class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-royal-900 to-orange-950 border border-orange-500/20 p-6 md:p-10 shadow-2xl">
         <div class="absolute -right-10 -bottom-10 opacity-10 text-orange-500 pointer-events-none">
           <i class="fa-solid fa-om text-[280px]"></i>
         </div>
         <div class="max-w-2xl space-y-4 relative z-10">
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold">
             <i class="fa-solid fa-sparkles"></i> AI-Powered Cultural Engine
           </div>
           <h2 class="text-3xl md:text-5xl font-extrabold font-heading text-white leading-tight" id="hero-heading">
             Discover Karnataka's Living Traditions & Grand Festivals
           </h2>
           <p class="text-slate-300 text-sm md:text-base leading-relaxed" id="hero-subtext">
-            Personalized AI recommendations, real-time travel logistics, 2-day itineraries, and live site announcements for over 35 iconic festivals across 31 districts.
+            Personalized AI recommendations, real-time travel logistics, 2-day itineraries, and live site announcements
+            for over 35 iconic festivals across 31 districts.
           </p>
 
           <!-- Interactive Interest Selector Quiz -->
           <div class="pt-2">
-            <p class="text-xs font-semibold text-orange-300 mb-2 uppercase tracking-wider">Select Your Interests for Match Scoring:</p>
+            <p class="text-xs font-semibold text-orange-300 mb-2 uppercase tracking-wider">Select Your Interests for
+              Match Scoring:</p>
             <div class="flex flex-wrap gap-2" id="interest-tags">
-              <button onclick="toggleInterest(this, 'food')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+              <button onclick="toggleInterest(this, 'food')"
+                class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-utensils text-orange-400"></i> Food & Gastronomy
               </button>
-              <button onclick="toggleInterest(this, 'folk')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+              <button onclick="toggleInterest(this, 'folk')"
+                class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-drum text-amber-400"></i> Folk & Dance
               </button>
-              <button onclick="toggleInterest(this, 'heritage')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+              <button onclick="toggleInterest(this, 'heritage')"
+                class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-archway text-yellow-400"></i> Royal Heritage
               </button>
-              <button onclick="toggleInterest(this, 'sports')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+              <button onclick="toggleInterest(this, 'sports')"
+                class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-trophy text-emerald-400"></i> Coastal Sports
               </button>
-              <button onclick="toggleInterest(this, 'culture')" class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
+              <button onclick="toggleInterest(this, 'culture')"
+                class="interest-btn px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-950/60 text-xs font-medium text-slate-300 hover:border-orange-500 transition-all flex items-center gap-1.5">
                 <i class="fa-solid fa-masks-theater text-indigo-400"></i> Music & Drama
               </button>
             </div>
-            <button onclick="runAIRecommendation()" class="mt-4 px-6 py-2.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center gap-2 transition-all">
+            <button onclick="runAIRecommendation()"
+              class="mt-4 px-6 py-2.5 rounded-xl bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center gap-2 transition-all">
               <i class="fa-solid fa-bolt"></i> Run AI Cosine Matcher
             </button>
           </div>
@@ -175,7 +222,8 @@
           <!-- District Filter -->
           <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
             <i class="fa-solid fa-map-location-dot text-orange-400"></i>
-            <select id="filter-district" onchange="applyFilters()" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
+            <select id="filter-district" onchange="applyFilters()"
+              class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
               <option value="">All Districts</option>
               <option value="Mysuru">Mysuru</option>
               <option value="Vijayanagara">Vijayanagara (Hampi)</option>
@@ -188,7 +236,8 @@
           <!-- Category Filter -->
           <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
             <i class="fa-solid fa-layer-group text-amber-400"></i>
-            <select id="filter-category" onchange="applyFilters()" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
+            <select id="filter-category" onchange="applyFilters()"
+              class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
               <option value="">All Categories</option>
               <option value="State Festival & Royal Heritage">State Festival & Heritage</option>
               <option value="Folk & Sports">Folk & Sports</option>
@@ -212,28 +261,32 @@
     <!-- TAB 2: GOV ANALYTICS & DEPARTMENT INTELLIGENCE -->
     <!-- =================================================================================== -->
     <section id="view-gov" class="hidden space-y-8">
-      
+
       <!-- KPI Overview Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div class="glass-card p-5 rounded-2xl border-l-4 border-orange-500">
           <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Festivals Tracked</p>
           <h3 id="kpi-total-festivals" class="text-3xl font-extrabold font-heading text-white mt-1">35</h3>
-          <p class="text-xs text-orange-400 mt-2"><i class="fa-solid fa-chart-line"></i> Across 31 Karnataka Districts</p>
+          <p class="text-xs text-orange-400 mt-2"><i class="fa-solid fa-chart-line"></i> Across 31 Karnataka Districts
+          </p>
         </div>
         <div class="glass-card p-5 rounded-2xl border-l-4 border-amber-500">
           <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Expected Footfall</p>
           <h3 id="kpi-expected-visitors" class="text-3xl font-extrabold font-heading text-amber-400 mt-1">16.5M+</h3>
-          <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-arrow-trend-up text-emerald-400"></i> Projected Season Season Total</p>
+          <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-arrow-trend-up text-emerald-400"></i> Projected
+            Season Season Total</p>
         </div>
         <div class="glass-card p-5 rounded-2xl border-l-4 border-red-500">
           <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">High-Risk Events (&gt;500k)</p>
           <h3 id="kpi-high-risk" class="text-3xl font-extrabold font-heading text-red-400 mt-1">9</h3>
-          <p class="text-xs text-red-300 mt-2"><i class="fa-solid fa-triangle-exclamation"></i> Security & Transport Alerts</p>
+          <p class="text-xs text-red-300 mt-2"><i class="fa-solid fa-triangle-exclamation"></i> Security & Transport
+            Alerts</p>
         </div>
         <div class="glass-card p-5 rounded-2xl border-l-4 border-emerald-500">
           <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Top Trending District</p>
           <h3 id="kpi-trending" class="text-3xl font-extrabold font-heading text-emerald-400 mt-1">Mysuru</h3>
-          <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-fire text-orange-400"></i> 1.8M Expected Visitors</p>
+          <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-fire text-orange-400"></i> 1.8M Expected Visitors
+          </p>
         </div>
       </div>
 
@@ -245,9 +298,12 @@
               <i class="fa-solid fa-map text-orange-400"></i> Karnataka GIS Crowd Risk Map
             </h3>
             <div class="flex gap-3 text-xs font-semibold">
-              <span class="flex items-center gap-1 text-emerald-400"><i class="fa-solid fa-circle text-[10px]"></i> Low (&lt;100k)</span>
-              <span class="flex items-center gap-1 text-amber-400"><i class="fa-solid fa-circle text-[10px]"></i> Med (100k-500k)</span>
-              <span class="flex items-center gap-1 text-red-400"><i class="fa-solid fa-circle text-[10px]"></i> High (&gt;500k)</span>
+              <span class="flex items-center gap-1 text-emerald-400"><i class="fa-solid fa-circle text-[10px]"></i> Low
+                (&lt;100k)</span>
+              <span class="flex items-center gap-1 text-amber-400"><i class="fa-solid fa-circle text-[10px]"></i> Med
+                (100k-500k)</span>
+              <span class="flex items-center gap-1 text-red-400"><i class="fa-solid fa-circle text-[10px]"></i> High
+                (&gt;500k)</span>
             </div>
           </div>
           <div id="map"></div>
@@ -279,17 +335,19 @@
     <!-- TAB 3: FESTIVAL SITE ORGANIZER (TANISHI) -->
     <!-- =================================================================================== -->
     <section id="view-organizer" class="hidden space-y-8">
-      
+
       <!-- Festival Selector Bar -->
       <div class="glass-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-tent text-orange-400 text-xl"></i>
           <div>
             <h3 class="font-bold font-heading text-base text-slate-200">Site Operations Control Room</h3>
-            <p class="text-xs text-slate-400">Select active venue for real-time monitoring and broadcast announcements</p>
+            <p class="text-xs text-slate-400">Select active venue for real-time monitoring and broadcast announcements
+            </p>
           </div>
         </div>
-        <select id="organizer-fest-select" onchange="loadOrganizerOverview()" class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-4 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
+        <select id="organizer-fest-select" onchange="loadOrganizerOverview()"
+          class="bg-slate-900 text-slate-200 border border-slate-800 rounded-xl px-4 py-2 text-xs font-semibold focus:outline-none focus:border-orange-500">
           <option value="mysuru-dasara">Mysuru Dasara (Nada Habba)</option>
           <option value="hampi-utsav">Hampi Utsav</option>
           <option value="kambala-race">Kambala Buffalo Race</option>
@@ -305,7 +363,8 @@
           <div class="space-y-4">
             <div>
               <p class="text-xs text-slate-400 uppercase font-medium">Estimated Real-Time Crowd</p>
-              <div id="ops-visitor-count" class="text-4xl font-extrabold font-heading text-orange-400 mt-1">142,000</div>
+              <div id="ops-visitor-count" class="text-4xl font-extrabold font-heading text-orange-400 mt-1">142,000
+              </div>
             </div>
             <div>
               <div class="flex justify-between text-xs font-semibold mb-1">
@@ -313,7 +372,8 @@
                 <span id="ops-occupancy-pct" class="text-amber-400">71.0%</span>
               </div>
               <div class="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-800">
-                <div id="ops-occupancy-bar" class="bg-gradient-to-r from-amber-500 to-orange-600 h-3 rounded-full" style="width: 71%"></div>
+                <div id="ops-occupancy-bar" class="bg-gradient-to-r from-amber-500 to-orange-600 h-3 rounded-full"
+                  style="width: 71%"></div>
               </div>
             </div>
             <div class="pt-2 border-t border-slate-800/80 grid grid-cols-2 gap-4 text-xs">
@@ -323,7 +383,8 @@
               </div>
               <div>
                 <p class="text-slate-400 font-medium">Crowd Status</p>
-                <span id="ops-crowd-status" class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-[10px] inline-block mt-0.5">HIGH_DENSITY</span>
+                <span id="ops-crowd-status"
+                  class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 font-bold text-[10px] inline-block mt-0.5">HIGH_DENSITY</span>
               </div>
             </div>
           </div>
@@ -341,13 +402,17 @@
           <h3 class="font-bold font-heading text-lg text-slate-200 flex items-center gap-2">
             <i class="fa-solid fa-bullhorn text-amber-400"></i> Broadcast Live Announcement
           </h3>
-          <p class="text-xs text-slate-400">Pushes instant alerts to Monika's Tourist Dashboard and tourist app feeds.</p>
+          <p class="text-xs text-slate-400">Pushes instant alerts to Monika's Tourist Dashboard and tourist app feeds.
+          </p>
           <div class="space-y-4">
             <div>
               <label class="block text-xs font-semibold text-slate-300 mb-1">Announcement Message:</label>
-              <textarea id="announcement-msg" rows="3" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-orange-500" placeholder="Enter live updates (e.g., Gate 2 illuminations starting at 7 PM, use Gate 4 for entry)..."></textarea>
+              <textarea id="announcement-msg" rows="3"
+                class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-3 text-xs focus:outline-none focus:border-orange-500"
+                placeholder="Enter live updates (e.g., Gate 2 illuminations starting at 7 PM, use Gate 4 for entry)..."></textarea>
             </div>
-            <button onclick="publishAnnouncement()" class="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center gap-2">
+            <button onclick="publishAnnouncement()"
+              class="px-6 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-lg shadow-orange-600/30 flex items-center gap-2">
               <i class="fa-solid fa-paper-plane"></i> Publish Live Announcement
             </button>
           </div>
@@ -368,9 +433,12 @@
   <!-- =================================================================================== -->
   <!-- MODAL: FESTIVAL DETAIL & LIVE ANNOUNCEMENTS -->
   <!-- =================================================================================== -->
-  <div id="modal-detail" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-orange-500/30 p-6 md:p-8 space-y-6 relative">
-      <button onclick="closeModal('modal-detail')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+  <div id="modal-detail"
+    class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div
+      class="glass-card max-w-3xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-orange-500/30 p-6 md:p-8 space-y-6 relative">
+      <button onclick="closeModal('modal-detail')"
+        class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
       <div id="detail-modal-body">
@@ -382,9 +450,12 @@
   <!-- =================================================================================== -->
   <!-- MODAL: TRIP PLANNER & HOTELS -->
   <!-- =================================================================================== -->
-  <div id="modal-trip" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="glass-card max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-orange-500/30 p-6 md:p-8 space-y-6 relative">
-      <button onclick="closeModal('modal-trip')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+  <div id="modal-trip"
+    class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div
+      class="glass-card max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-orange-500/30 p-6 md:p-8 space-y-6 relative">
+      <button onclick="closeModal('modal-trip')"
+        class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
@@ -395,7 +466,8 @@
           </div>
           <div>
             <h3 class="text-xl font-bold font-heading text-white">Smart Travel & Hotel Planner</h3>
-            <p class="text-xs text-slate-400">Routes, transit mode costs, structured 2-day itineraries, and nearby hotels</p>
+            <p class="text-xs text-slate-400">Routes, transit mode costs, structured 2-day itineraries, and nearby
+              hotels</p>
           </div>
         </div>
 
@@ -403,19 +475,23 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
           <div>
             <label class="block text-[11px] font-semibold text-slate-400 mb-1">Origin City:</label>
-            <input type="text" id="trip-origin" value="Bangalore" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500">
+            <input type="text" id="trip-origin" value="Bangalore"
+              class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500">
           </div>
           <div>
             <label class="block text-[11px] font-semibold text-slate-400 mb-1">Festival:</label>
-            <input type="text" id="trip-festival-id" value="mysuru-dasara" readonly class="w-full bg-slate-950 text-orange-400 font-bold border border-slate-800 rounded-xl px-3 py-2 text-xs">
+            <input type="text" id="trip-festival-id" value="mysuru-dasara" readonly
+              class="w-full bg-slate-950 text-orange-400 font-bold border border-slate-800 rounded-xl px-3 py-2 text-xs">
           </div>
           <div>
             <label class="block text-[11px] font-semibold text-slate-400 mb-1">Travel Date:</label>
-            <input type="date" id="trip-date" value="2026-10-15" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500">
+            <input type="date" id="trip-date" value="2026-10-15"
+              class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-orange-500">
           </div>
         </div>
-        
-        <button onclick="calculateTripPlan()" class="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-md shadow-orange-600/30 flex items-center justify-center gap-2">
+
+        <button onclick="calculateTripPlan()"
+          class="w-full py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm shadow-md shadow-orange-600/30 flex items-center justify-center gap-2">
           <i class="fa-solid fa-calculator"></i> Calculate Route & Itinerary
         </button>
       </div>
@@ -561,7 +637,7 @@
         });
         const json = await res.json();
         const recs = json.recommendations || [];
-        
+
         // Merge score into allFestivals
         allFestivals.forEach(f => {
           const match = recs.find(r => r.name === f.name || String(r.festival_id) === String(f.id));
@@ -581,7 +657,7 @@
       try {
         const res = await fetch(`${API_BASE}/festivals/${festId}`);
         const fest = await res.json();
-        
+
         const annRes = await fetch(`${API_BASE}/announcements/${festId}`);
         const annJson = await annRes.json();
         const announcements = annJson.announcements || [];
@@ -942,4 +1018,5 @@
     }
   </script>
 </body>
+
 </html>
