@@ -46,7 +46,7 @@ class OrganizerEngine:
         """Initialize PostgreSQL tables if DB is connected."""
         try:
             import psycopg2
-            conn = psycopg2.connect(**DB_CONFIG)
+            conn = psycopg2.connect(**DB_CONFIG, connect_timeout=1)
             cursor = conn.cursor()
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS site_announcements (

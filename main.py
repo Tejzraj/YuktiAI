@@ -88,7 +88,7 @@ DB_CONFIG = {
 def get_db_connection():
     import psycopg2
     from psycopg2.extras import RealDictCursor
-    return psycopg2.connect(**DB_CONFIG, cursor_factory=RealDictCursor)
+    return psycopg2.connect(**DB_CONFIG, connect_timeout=1, cursor_factory=RealDictCursor)
 
 
 @app.get("/")

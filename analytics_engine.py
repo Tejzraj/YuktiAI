@@ -22,7 +22,7 @@ def load_all_festivals() -> List[Dict[str, Any]]:
     try:
         import psycopg2
         from psycopg2.extras import RealDictCursor
-        conn = psycopg2.connect(**DB_CONFIG, cursor_factory=RealDictCursor)
+        conn = psycopg2.connect(**DB_CONFIG, connect_timeout=1, cursor_factory=RealDictCursor)
         cursor = conn.cursor()
         cursor.execute("""
             SELECT f.id, f.name, f.district, f.city, f.latitude as lat, f.longitude as lng,

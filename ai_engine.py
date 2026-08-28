@@ -7,23 +7,33 @@ import os
 import json
 from pathlib import Path
 from typing import List, Dict, Any, Union
-import numpy as np
 
-# Try importing sentence_transformers
+# Try importing sentence_transformers & torch safely
+HAS_SENTENCE_TRANSFORMERS = False
 try:
+    import torch
     from sentence_transformers import SentenceTransformer, util
     HAS_SENTENCE_TRANSFORMERS = True
-except ImportError:
+except Exception:
     HAS_SENTENCE_TRANSFORMERS = False
 
+# Try importing scikit-learn TfidfVectorizer & cosine_similarity
+HAS_SKLEARN = False
+try:
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+    HAS_SKLEARN = True
+except Exception:
+    HAS_SKLEARN = False
+
 # Try importing deep_translator
+HAS_DEEP_TRANSLATOR = False
 try:
     from deep_translator import GoogleTranslator
     HAS_DEEP_TRANSLATOR = True
-except ImportError:
+except Exception:
     HAS_DEEP_TRANSLATOR = False
 
-# Database fallback loader
 DB_CONFIG = {
     "dbname": os.getenv("POSTGRES_DB", "yuktiai"),
     "user": os.getenv("POSTGRES_USER", "postgres"),
@@ -38,7 +48,7 @@ def load_festivals_dataset() -> List[Dict[str, Any]]:
     try:
         import psycopg2
         from psycopg2.extras import RealDictCursor
-        conn = psycopg2.connect(**DB_CONFIG, cursor_factory=RealDictCursor)
+        conn = psycopg2.connect(**DB_CONFIG, connect_timeout=1, cursor_factory=RealDictCursor)
         cursor = conn.cursor()
         cursor.execute("""
             SELECT f.id, f.name, f.district, f.short_description as description, 
@@ -62,7 +72,6 @@ def load_festivals_dataset() -> List[Dict[str, Any]]:
     except Exception:
         pass
 
-    # JSON dataset fallback
     candidates = [
         Path(__file__).parent / "yuktiai" / "festivals_karnataka.json",
         Path(__file__).parent / "festivals_karnataka.json",
@@ -77,20 +86,19 @@ def load_festivals_dataset() -> List[Dict[str, Any]]:
             except Exception:
                 pass
 
-    # Basic static fallback if no file found
     return [
         {
-            "id": 1,
+            "id": "mysuru-dasara",
             "name": "Mysuru Dasara",
             "district": "Mysuru",
-            "category": "Heritage & Culture",
+            "category": "State Festival & Royal Heritage",
             "description": "Royal state festival featuring royal heritage, food, illuminations, and elephant procession.",
             "attractions": ["Jamboo Savari", "Palace Illumination"],
             "local_food": ["Mysore Pak", "Masala Dosa"],
             "tags": ["royal", "heritage", "food", "folk", "culture"]
         },
         {
-            "id": 2,
+            "id": "kambala-race",
             "name": "Kambala Buffalo Race",
             "district": "Dakshina Kannada",
             "category": "Folk & Sports",
@@ -100,7 +108,7 @@ def load_festivals_dataset() -> List[Dict[str, Any]]:
             "tags": ["folk", "sports", "coastal", "culture", "tradition"]
         },
         {
-            "id": 3,
+            "id": "hampi-utsav",
             "name": "Hampi Utsav",
             "district": "Vijayanagara",
             "category": "Heritage & Art",
@@ -115,21 +123,10 @@ def load_festivals_dataset() -> List[Dict[str, Any]]:
 class AIEngine:
     def __init__(self):
         self.festivals = load_festivals_dataset()
-        self.model = None
-        self.festival_embeddings = None
-        self._init_model()
-
-    def _init_model(self):
-        """Initialize sentence transformer model if available."""
-        if HAS_SENTENCE_TRANSFORMERS:
-            try:
-                # Load modelall-MiniLM-L6-v2
-                self.model = SentenceTransformer("all-MiniLM-L6-v2")
-                texts = [self._build_festival_text(f) for f in self.festivals]
-                self.festival_embeddings = self.model.encode(texts, convert_to_tensor=True)
-            except Exception as e:
-                print(f"⚠️ Could not initialize SentenceTransformer online model: {e}")
-                self.model = None
+        self.tfidf_vectorizer = None
+        self.tfidf_matrix = None
+        self.festival_texts = []
+        self._init_tfidf()
 
     def _build_festival_text(self, fest: Dict[str, Any]) -> str:
         name = fest.get("name", "")
@@ -144,23 +141,33 @@ class AIEngine:
         tags = " ".join(tag_list) if isinstance(tag_list, list) else str(tag_list)
         return f"{name} {cat} {desc} {significance} {attractions} {food} {tags}".lower()
 
+    def _init_tfidf(self):
+        """Initialize fast TF-IDF vectorizer immediately."""
+        self.festival_texts = [self._build_festival_text(f) for f in self.festivals]
+        if HAS_SKLEARN and self.festival_texts:
+            try:
+                self.tfidf_vectorizer = TfidfVectorizer(stop_words='english')
+                self.tfidf_matrix = self.tfidf_vectorizer.fit_transform(self.festival_texts)
+            except Exception as e:
+                print(f"⚠️ Could not initialize TF-IDF vectorizer: {e}")
+
     def recommend(self, interests: List[str]) -> List[Dict[str, Any]]:
-        """Calculate recommendations based on cosine similarity or keyword vector overlap."""
+        """Calculate recommendations based on TF-IDF Cosine Similarity or Keyword Vector Overlap."""
         if not interests or not self.festivals:
             return []
 
         user_query = " ".join(interests).lower()
 
-        # If sentence-transformers model is ready
-        if self.model is not None and self.festival_embeddings is not None:
+        # Strategy A: Fast Scikit-Learn TF-IDF Cosine Similarity
+        if self.tfidf_vectorizer is not None and self.tfidf_matrix is not None:
             try:
-                query_embedding = self.model.encode(user_query, convert_to_tensor=True)
-                cosine_scores = util.cos_sim(query_embedding, self.festival_embeddings)[0]
+                query_vec = self.tfidf_vectorizer.transform([user_query])
+                sim_scores = cosine_similarity(query_vec, self.tfidf_matrix)[0]
                 results = []
                 for i, fest in enumerate(self.festivals):
-                    raw_score = float(cosine_scores[i].item())
-                    # Convert to percentage score (0-100)
-                    score = round(max(0.0, min(100.0, raw_score * 100)), 2)
+                    raw_score = float(sim_scores[i])
+                    # Score formatting (0-100)
+                    score = round(max(0.0, min(99.0, raw_score * 100 + 20.0 if raw_score > 0 else 10.0)), 2)
                     fest_id = fest.get("id") or fest.get("festival_id")
                     results.append({
                         "festival_id": fest_id,
@@ -172,9 +179,9 @@ class AIEngine:
                 results.sort(key=lambda x: x["score"], reverse=True)
                 return results
             except Exception as e:
-                print(f"⚠️ Error running sentence transformer recommendation: {e}")
+                print(f"⚠️ TF-IDF recommendation error: {e}")
 
-        # Fallback Cosine Similarity matching via term overlap vectors
+        # Strategy B: Keyword Overlap Vector Matcher
         results = []
         interest_tokens = set(user_query.lower().split())
         for fest in self.festivals:
@@ -184,21 +191,14 @@ class AIEngine:
                 score = 0.0
             else:
                 intersection = interest_tokens.intersection(fest_tokens)
-                # Jaccard / Cosine similarity approximation percentage
-                score = round((len(intersection) / (len(interest_tokens) ** 0.5 * len(fest_tokens) ** 0.5)) * 100, 2)
-                # Boost if direct substring matches occur
-                for interest in interests:
-                    if interest.lower() in text:
-                        score += 15.0
-                score = round(min(99.0, score), 2)
-            
+                score = round((len(intersection) / max(1, len(interest_tokens))) * 80.0 + 10.0, 2)
             fest_id = fest.get("id") or fest.get("festival_id")
             results.append({
                 "festival_id": fest_id,
                 "name": fest.get("name"),
                 "district": fest.get("district"),
                 "category": fest.get("category"),
-                "score": score
+                "score": min(99.0, score)
             })
         results.sort(key=lambda x: x["score"], reverse=True)
         return results
@@ -222,7 +222,7 @@ class AIEngine:
                     "translated_text": translated
                 }
             except Exception as e:
-                print(f"⚠️ Translation service fallback triggered: {e}")
+                print(f"⚠️ Translation fallback triggered: {e}")
 
         # Dictionary Fallback for Offline / Mock testing
         kannada_dict = {
@@ -230,16 +230,14 @@ class AIEngine:
             "festival": "ಹಬ್ಬ",
             "culture": "ಸಂಸ್ಕೃತಿ",
             "food": "ಆಹಾರ",
-            "heritage": "ಪಾರಂಪರಿಕ",
-            "travel": "ಪ್ರಯಾಣ"
+            "heritage": "ಪಾರಂಪರಿಕ"
         }
         hindi_dict = {
             "welcome": "स्वागत है",
             "festival": "त्यौहार",
             "culture": "संस्कृति",
             "food": "भोजन",
-            "heritage": "विरासत",
-            "travel": "यात्रा"
+            "heritage": "विरासत"
         }
 
         words = text.lower().split()
