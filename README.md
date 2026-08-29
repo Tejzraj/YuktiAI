@@ -1,76 +1,135 @@
-# SanskritiPulse AI (YuktiAi) - Full-Stack Cultural Intelligence Platform
+<div align="center">
 
-![YuktiAi](https://img.shields.io/badge/YuktiAi-AI%20Data%20Engine-orange.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-38bdf8.svg)
-![Leaflet.js](https://img.shields.io/badge/Leaflet.js-GIS%20Map-198754.svg)
-![CORS](https://img.shields.io/badge/CORS-Enabled-brightgreen.svg)
+# 🏛️ YuktiAI — SanskritiPulse
 
-Welcome to the full-stack repository for **SanskritiPulse AI (YuktiAi)** — a unified cultural discovery platform, AI recommendation engine, travel itinerary builder, government intelligence system, and live site operations control room for Karnataka's festivals and heritage events.
+### *Unified Cultural Intelligence & Live Event Management Platform*
+
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github-actions)](https://github.com/Tejzraj/YuktiAI)
+[![Version](https://img.shields.io/badge/version-v1.0.0-blue?style=for-the-badge)](https://github.com/Tejzraj/YuktiAI)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15.0-4169E1?style=for-the-badge&logo=postgresql)](https://www.postgresql.org)
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
+
+**YuktiAI is an end-to-end AI-powered cultural intelligence platform that integrates real-time tourist event recommendations, GIS crowd risk analytics, smart travel routing, and live venue site operations into a single interactive dashboard.**
+
+[Quick Start](#-quick-start) • [Key Features](#-key-features) • [System Architecture](#%EF%B8%8F-system-architecture) • [API Matrix](#-multi-stakeholder-api-matrix) • [Testing](#-verification--testing)
+
+</div>
 
 ---
 
-## 🚀 One-Command Launch Guide
+## ⚡ Quick Start
 
-Launch the entire full-stack application (backend REST APIs + single-page web UI):
+Launch the full-stack REST API and interactive web application using a single command:
 
 ```bash
+# Clone the repository
+git clone https://github.com/Tejzraj/YuktiAI.git && cd YuktiAI
+
+# Install dependencies and start the application
+pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 ```
 
-Once running, access the interactive prototype in your web browser:
-- 🌐 **Live Web Application UI:** [http://localhost:8000](http://localhost:8000)
-- 📚 **Interactive Swagger API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
-- 📖 **ReDoc OpenAPI Documentation:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+| Service Endpoint | Description | Link |
+| :--- | :--- | :--- |
+| 🌐 **Live Web Application** | Interactive single-page multi-stakeholder web dashboard | [http://localhost:8000](http://localhost:8000) |
+| 📚 **Swagger OpenAPI Docs** | Interactive API testing interface | [http://localhost:8000/docs](http://localhost:8000/docs) |
+| 📖 **ReDoc Documentation** | Structural API spec reference | [http://localhost:8000/redoc](http://localhost:8000/redoc) |
 
 ---
 
-## 🎨 Unified Multi-Stakeholder Interactive Web App (`static/index.html`)
+## 🌟 Key Features
 
-The single-page web application features a top navigation tab bar enabling seamless switching between all 3 stakeholder views:
+### 🧳 1. Tourist Cultural Discovery
+- **Personalized Vector Match:** Calculates cosine similarity scores to match user preferences with 35+ Karnataka heritage festivals.
+- **Smart Itinerary Planner:** Generates multi-modal transit comparisons (Bus, Train, Car) alongside 2-day tailored travel schedules and nearby hotel lookup.
+- **Multilingual Support:** Offers instant real-time localized interface translation across English, ಕನ್ನಡ (Kannada), and हिंदी (Hindi).
 
-### 1. 🧳 Tourist Discovery Dashboard (Monika's View)
-- **Festival Discovery Grid:** Browse over 35 Karnataka festivals with District and Category dropdown filters.
-- **Interactive AI Interest Quiz:** Select interest tags (*Food, Folk, Heritage, Sports, Music*) to call `POST /recommend` with Cosine Similarity match percentage badges (e.g. `92% Match`).
-- **Festival Detail Modal:** Deep dive into cultural significance, history, local food, attractions, and live broadcast announcements (`GET /announcements/{id}`).
-- **Smart Travel & Hotel Planner Modal:** Form calling `POST /travel-plan` returning transit comparisons (Bus vs. Train vs. Car), structured 2-day itineraries, and nearby hotel accommodations (`GET /hotels/{id}`).
-- **Multilingual Language Selector:** Toggle between English, ಕನ್ನಡ (Kannada), and हिंदी (Hindi) with real-time UI text translation (`POST /translate`).
+### 🏛️ 2. Tourism Department Intelligence
+- **GIS Crowd Risk Map:** Renders color-coded risk markers (🟢 Low, 🟡 Medium, 🔴 High) powered by Leaflet.js based on projected footfall.
+- **Predictive Logistics:** Generates automated advisories for transport capacity, sanitation, medical services, and security deployment.
+- **District Analytics:** Tracks footfall distribution and high-risk crowd events in real time.
 
-### 2. 🏛️ Tourism Department Intelligence (Gov Analytics View)
-- **Real-Time KPI Cards:** Displays Total Festivals, Total Expected Visitors (16.5M+), High-Risk Events Count, and Top Trending District.
-- **Leaflet.js GIS Interactive Map:** Displays Karnataka festival markers color-coded by Crowd Risk level (🟢 Low `<100k`, 🟡 Medium `100k-500k`, 🔴 High `>500k`) with popups for projected growth % and automated infrastructure advisories.
-- **Infrastructure Advisories Panel:** Real-time warnings for Transport, Sanitation, Security, Medical, and Parking logistics.
-- **Footfall Distribution Trends:** Visual progress bars displaying district and category footfall shares.
+### 🎪 3. Live Site Event Operations
+- **Real-Time Spectator Monitoring:** Tracks live venue occupancy percentages against maximum safety thresholds with peak-hour alerts.
+- **Instant Broadcast Alerts:** Enables organizers to publish site notifications that propagate dynamically to tourist feeds.
 
-### 3. 🎪 Festival Site Organizer (Tanishi's View)
-- **Live Spectator Control Room:** Venue selector dropdown with real-time spectator counters, venue capacity progress bars, peak hours (`6 PM - 9 PM`), and crowd warning flags.
-- **Broadcast Announcement Publisher:** Form posting live alerts (`POST /organizer/announcement`) that immediately update the tourist feed across the portal.
+---
+
+## 🏗️ System Architecture
+
+### 📂 Directory Structure
+
+```text
+YuktiAI/
+├── main.py                     # Master FastAPI application, CORS policy & router mounting
+├── ai_engine.py                # Cosine similarity vector matcher & multilingual translation engine
+├── travel_engine.py            # Transit route matrix, multi-day itinerary builder & hotel locator
+├── analytics_engine.py         # Crowd risk assessment, footfall forecasting & GIS GeoJSON generator
+├── organizer_engine.py         # Live spectator telemetry & broadcast alert publisher
+├── test_full_prototype.py      # E2E automated test suite (12/12 routes verified)
+├── static/
+│   └── index.html              # Single-page HTML5/TailwindCSS & Leaflet.js web application
+├── database/
+│   ├── init.sql                # PostgreSQL relational database schema definition
+│   └── mock_festivals.json     # Baseline dataset for festival records & metadata
+├── requirements.txt            # Python dependencies (FastAPI, Uvicorn, Requests, Pydantic)
+├── Dockerfile                  # Container build instructions for backend service
+└── docker-compose.yml          # Multi-container orchestration (FastAPI + PostgreSQL)
+```
+
+### 🔄 Data & Execution Flow
+
+```text
+  [ Web Browser / Client ]
+             │
+             ▼
+      ┌──────────────┐
+      │  main.py     │  ◄── FastAPI REST Gateway & Static File Server
+      └──────┬───────┘
+             │
+ ┌───────────┼───────────────┬──────────────────┐
+ ▼           ▼               ▼                  ▼
+┌──────────────┐ ┌──────────────┐ ┌────────────────┐ ┌──────────────────┐
+│ ai_engine    │ │ travel_engine│ │analytics_engine│ │ organizer_engine │
+├──────────────┤ ├──────────────┤ ├────────────────┤ ├──────────────────┤
+│• Vector Match│ │• Transit Plan│ │• Hotels Data │ │• GIS GeoJSON   │ │• Live Telemetry  │
+│• Translation │ │• Hotels Data │ │• Crowd Risk    │ │• Broadcast Alerts│
+└──────────────┘ └──────────────┘ └────────────────┘ └──────────────────┘
+```
 
 ---
 
 ## 👥 Multi-Stakeholder API Matrix
 
-| Stakeholder Role | Team Member | Primary Module | Endpoint Routes |
-| :--- | :--- | :--- | :--- |
-| **Member 1** | Tezraj | PostgreSQL DB & Master Metadata | `GET /festivals`, `GET /festivals/{id}` |
-| **Member 2** | Nandish | AI Recommendation & Multilingual | `POST /recommend`, `POST /translate` |
-| **Member 3** | Simran | Travel & Hotel Engine | `POST /travel-plan`, `GET /hotels/{location}` |
-| **Member 4** | Monika | Tourist Discovery Dashboard | `GET /announcements/{festival_id}` |
-| **Member 5** | Jhanvi | Department Intelligence & Crowd Risk | `GET /analytics/overview`, `/analytics/map-data`, `/analytics/trends` |
-| **Member 6** | Tanishi | Organizer Site Ops | `GET /organizer/overview/{id}`, `POST /organizer/announcement` |
+| Stakeholder Domain | Core Module | Route Endpoint | HTTP Method | Functionality |
+| :--- | :--- | :--- | :--- | :--- |
+| **Festival Core** | `main.py` | `/festivals` | `GET` | Retrieve complete festival catalog & filtering metadata |
+| **Festival Core** | `main.py` | `/festivals/{id}` | `GET` | Fetch specific festival profile details |
+| **AI Intelligence** | `ai_engine.py` | `/recommend` | `POST` | Execute vector similarity matching against user quiz tags |
+| **AI Intelligence** | `ai_engine.py` | `/translate` | `POST` | Translate UI text dynamically (EN, KN, HI) |
+| **Travel & Logistics** | `travel_engine.py` | `/travel-plan` | `POST` | Compute multi-modal route options & 2-day itinerary |
+| **Travel & Logistics** | `travel_engine.py` | `/hotels/{id}` | `GET` | Find nearby accommodation options by festival ID |
+| **Gov Analytics** | `analytics_engine.py` | `/analytics/overview` | `GET` | Fetch macro tourism KPIs, total footfall & risk counters |
+| **Gov Analytics** | `analytics_engine.py` | `/analytics/map-data` | `GET` | Generate Leaflet-compatible GeoJSON feature collections |
+| **Gov Analytics** | `analytics_engine.py` | `/analytics/trends` | `GET` | Get district & category footfall distribution metrics |
+| **Site Operations** | `organizer_engine.py` | `/organizer/overview/{id}`| `GET` | Monitor live venue spectator stats & safety thresholds |
+| **Site Operations** | `organizer_engine.py` | `/organizer/announcement`| `POST` | Dispatch live emergency or general event broadcasts |
+| **Tourist Feed** | `organizer_engine.py` | `/announcements/{id}` | `GET` | Stream broadcast announcements to tourist dashboard |
 
 ---
 
-## 🧪 Automated Testing & Prototype Verification
+## 🧪 Verification & Testing
 
-Execute end-to-end integration tests across all 12 backend and UI routes:
+Verify system integrity across all 12 backend endpoints with the automated integration suite:
 
 ```bash
 python test_full_prototype.py
 ```
 
-### Test Verification Summary:
+### Test Suite Execution Output:
+
 ```text
 ================================================================
 🚀 Running SanskritiPulse AI Full Prototype Test Suite
@@ -96,19 +155,20 @@ Testing [GET] /announcements/mysuru-dasara (Fetch Announcements) ... ✅ PASSED 
 
 ---
 
-## 🛠️ Project File Structure
+## 🐳 Docker Deployment
 
+Run the complete containerized stack using Docker Compose:
+
+```bash
+# Build and run containers in detached mode
+docker-compose up -d --build
+
+# View application logs
+docker-compose logs -f
 ```
-YuktiAI/
-├── main.py                     # Master FastAPI app (Cors, Routes, Static Files)
-├── ai_engine.py                # AI Vector Recommendation & Multilingual Engine
-├── travel_engine.py            # Route matrices, 2-day itineraries, and hotel lookup
-├── analytics_engine.py         # Footfall prediction, Crowd Risk & GIS GeoJSON
-├── organizer_engine.py         # Live spectator metrics & broadcast announcements
-├── test_full_prototype.py      # Automated e2e verification suite (12/12 tests)
-├── static/
-│   └── index.html              # Unified HTML5/Tailwind single-page web app
-├── festivals_backup.csv        # Seeding data backups
-├── requirements.txt            # Python dependencies
-└── README.md                   # Full-stack documentation
-```
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
