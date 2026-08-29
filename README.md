@@ -57,7 +57,7 @@ The single-page web application features a top navigation tab bar enabling seaml
 | **Member 2** | Nandish | AI Recommendation & Multilingual | `POST /recommend`, `POST /translate` |
 | **Member 3** | Simran | Travel & Hotel Engine | `POST /travel-plan`, `GET /hotels/{location}` |
 | **Member 4** | Monika | Tourist Discovery Dashboard | `GET /announcements/{festival_id}` |
-| **Member 5** | Gov Analytics | Department Intelligence & Crowd Risk | `GET /analytics/overview`, `/analytics/map-data`, `/analytics/trends` |
+| **Member 5** | Jhanvi | Department Intelligence & Crowd Risk | `GET /analytics/overview`, `/analytics/map-data`, `/analytics/trends` |
 | **Member 6** | Tanishi | Organizer Site Ops | `GET /organizer/overview/{id}`, `POST /organizer/announcement` |
 
 ---
