@@ -1,41 +1,128 @@
 <!-- ============================================================
-                         YUKTIAI README
+                     YUKTIAI — SANSKRITIPULSE
+                  KARNATAKA CULTURAL INTELLIGENCE
 ============================================================ -->
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=280&section=header&text=YuktiAI%20%E2%80%94%20SanskritiPulse&fontSize=58&fontAlignY=38&animation=fadeIn&fontColor=ffffff&desc=Unified%20Cultural%20Intelligence%20%26%20Live%20Event%20Management%20Platform&descSize=18&descAlignY=62" width="100%" alt="YuktiAI SanskritiPulse Banner"/>
+# 🏛️ YuktiAI — SanskritiPulse
 
-<a href="https://github.com/Tejzraj/YuktiAI">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=22&pause=1200&color=58A6FF&center=true&vCenter=true&width=900&height=55&lines=AI-Powered+Festival+Recommendations+%F0%9F%A7%B3;GIS+Crowd+Risk+%26+Predictive+Logistics+%F0%9F%8F%9B%EF%B8%8F;Real-Time+Venue+Spectator+Telemetry+%F0%9F%8E%AA;Smart+Travel+Planning+%26+Hotel+Discovery+%F0%9F%9A%97;English+%E2%80%A2+%E0%B2%95%E0%B2%A8%E0%B3%8D%E0%B2%A8%E0%B2%A1+%E2%80%A2+%E0%A4%B9%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A5%80+%F0%9F%8C%90" alt="Typing SVG"/>
-</a>
+### *Discover Karnataka. Experience its Culture. Move Smarter.*
+
+<br/>
+
+> ## 🌏 Karnataka's AI-Powered Cultural Intelligence Platform
+>
+> **One intelligent platform connecting Karnataka's festivals, tourism,
+> travel planning, crowd intelligence, and live event operations.**
+
+<br/>
+
+`🤖 AI Recommendations` &nbsp;•&nbsp;
+`🗺️ Smart Tourism` &nbsp;•&nbsp;
+`📊 Crowd Intelligence` &nbsp;•&nbsp;
+`🚍 Travel Planning` &nbsp;•&nbsp;
+`🎪 Live Event Operations`
+
+<br/>
+
+[![Python](https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
 <br/><br/>
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge\&logo=githubactions\&logoColor=white\&labelColor=0D1117)](https://github.com/Tejzraj/YuktiAI)
-[![Version](https://img.shields.io/badge/version-v1.0.0-58A6FF?style=for-the-badge\&logo=git\&logoColor=white\&labelColor=0D1117)](https://github.com/Tejzraj/YuktiAI)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=for-the-badge\&logo=fastapi\&logoColor=white\&labelColor=0D1117)](https://fastapi.tiangolo.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15+-4169E1?style=for-the-badge\&logo=postgresql\&logoColor=white\&labelColor=0D1117)](https://www.postgresql.org/)
-[![License](https://img.shields.io/badge/license-MIT-success?style=for-the-badge\&logo=open-source-initiative\&logoColor=white\&labelColor=0D1117)](LICENSE)
+### 🇮🇳 Built for Karnataka
+
+**From the grandeur of Mysuru Dasara to the cultural heritage,
+temples, traditions, and festivals across Karnataka — YuktiAI
+helps tourists discover experiences while enabling authorities
+and organizers to manage them intelligently.**
 
 <br/>
 
-> ### 🏛️ AI-Powered Cultural Intelligence for Smarter Festival Experiences
->
-> **YuktiAI — SanskritiPulse** is an end-to-end cultural intelligence platform that brings together personalized festival discovery, AI-driven recommendations, GIS crowd-risk analytics, smart travel planning, multilingual accessibility, and live venue operations through a unified interactive dashboard.
-
-<br/>
-
-[⚡ Quick Start](#-quick-start) •
-[✨ Features](#-key-features) •
-[🏗️ Architecture](#️-system-architecture) •
-[🛠️ Tech Stack](#️-technology-stack) •
-[🔌 API Matrix](#-multi-stakeholder-api-matrix) •
-[🧪 Testing](#-verification--testing) •
-[🐳 Docker](#-docker-deployment)
+<a href="#-quick-start">⚡ Quick Start</a> &nbsp;•&nbsp;
+<a href="#-what-yuktiai-solves">🎯 Problem & Vision</a> &nbsp;•&nbsp;
+<a href="#-key-features">✨ Features</a> &nbsp;•&nbsp;
+<a href="#️-system-architecture">🏗️ Architecture</a> &nbsp;•&nbsp;
+<a href="#-technology-stack">🛠️ Tech Stack</a> &nbsp;•&nbsp;
+<a href="#-api-overview">🔌 APIs</a> &nbsp;•&nbsp;
+<a href="#-verification--testing">🧪 Testing</a>
 
 </div>
 
+---
+
+<br/>
+
+# 🌺 Experience Karnataka, Intelligently
+
+<table>
+<tr>
+<td width="33%" align="center">
+
+### 🧳 Discover
+
+**For Tourists & Pilgrims**
+
+AI-powered festival recommendations based on personal interests, cultural preferences, location, and travel requirements.
+
+</td>
+
+<td width="33%" align="center">
+
+### 🏛️ Analyze
+
+**For Tourism Authorities**
+
+Monitor festival activity, crowd density, footfall patterns, and potential risk zones across Karnataka.
+
+</td>
+
+<td width="33%" align="center">
+
+### 🎪 Manage
+
+**For Event Organizers**
+
+Track venue occupancy, monitor live operations, and communicate important announcements instantly.
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+---
+
+# 🎯 What YuktiAI Solves
+
+Karnataka hosts a diverse range of cultural festivals, religious gatherings,
+heritage events, and tourism experiences. Managing these experiences involves
+multiple challenges — from helping visitors discover the right events to
+ensuring safe crowd movement and efficient on-ground operations.
+
+### YuktiAI brings these disconnected experiences into one platform.
+
+```text
+                         🏛️ KARNATAKA
+                              │
+                              ▼
+                ┌───────────────────────────┐
+                │       YUKTIAI AI          │
+                │    SANSKRITIPULSE CORE    │
+                └─────────────┬─────────────┘
+                              │
+          ┌───────────────────┼───────────────────┐
+          │                   │                   │
+          ▼                   ▼                   ▼
+     🧳 TOURISTS         🏛️ GOVERNMENT       🎪 ORGANIZERS
+          │                   │                   │
+     Discover Events      Analyze Crowds      Manage Venues
+     Plan Travel          Assess Risk         Track Occupancy
+     Find Hotels          Plan Logistics      Send Alerts
+     Get Recommendations  Monitor Footfall    Live Operations
 ---
 
 # 🏛️ System Overview
