@@ -2,29 +2,36 @@
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=300&section=header&text=Likhith%20Raj&fontSize=80&fontAlignY=38&animation=fadeIn&fontColor=fff&desc=Building%20Intelligent%20Systems%2C%20One%20Commit%20at%20a%20Time&descSize=22&descAlignY=62" width="100%" alt="Header Banner"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=300&section=header&text=YuktiAI%20%E2%80%94%20SanskritiPulse&fontSize=60&fontAlignY=38&animation=fadeIn&fontColor=fff&desc=Unified%20Cultural%20Intelligence%20%26%20Live%20Event%20Management%20Platform&descSize=20&descAlignY=62" width="100%" alt="YuktiAI Header Banner"/>
 
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=28&pause=900&color=58A6FF&center=true&vCenter=true&random=false&width=750&height=65&lines=AI+%26+ML+Engineer+%F0%9F%A4%96;Computer+Vision+Explorer+%F0%9F%91%81%EF%B8%8F;IoT+%26+Edge+AI+Builder+%F0%9F%9A%80;Research+%26+Innovation+Enthusiast+%F0%9F%94%AC;Turning+Ideas+into+Intelligent+Systems+%E2%9A%A1" alt="Typing SVG" />
+<a href="https://github.com/Tejzraj/YuktiAI" target="_blank">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=24&pause=1000&color=58A6FF&center=true&vCenter=true&random=false&width=800&height=50&lines=AI-Powered+Tourist+Event+Recommendations+%F0%9F%A7%B3;GIS+Crowd+Risk+%26+Predictive+Logistics+%F0%9F%8F%9B%EF%B8%8F;Real-Time+Venue+Spectator+Telemetry+%F0%9F%8E%AA;Multi-Modal+Transit+%26+Hotel+Planner+%F0%9F%9A%97;Multilingual+Interface%3A+English+%E2%80%A2+%E0%B2%95%E0%B2%AE%E0%B3%8D%E0%B2%A8%E0%B2%A1+%E2%80%A2+%E0%A4%B9%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A4%BF+%F0%9F%8C%90" alt="Typing SVG" />
 </a>
 
 <br/>
 
-<a href="https://github.com/Tejzraj?tab=followers" target="_blank">
-  <img src="https://img.shields.io/github/followers/Tejzraj?style=for-the-badge&logo=github&color=58A6FF&labelColor=0D1117&label=Followers" alt="GitHub Followers"/>
-</a>
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white&labelColor=0D1117)](https://github.com/Tejzraj/YuktiAI)
 &nbsp;
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://komarev.com/ghpvc/?username=Tejzraj&style=for-the-badge&color=58A6FF&labelColor=0D1117&label=Profile+Views" alt="Profile Views"/>
-</a>
+[![Version](https://img.shields.io/badge/version-v1.0.0-58A6FF?style=for-the-badge&logo=git&logoColor=white&labelColor=0D1117)](https://github.com/Tejzraj/YuktiAI)
 &nbsp;
-<a href="https://leetcode.com/u/profraj/" target="_blank">
-  <img src="https://img.shields.io/badge/LeetCode-150%2B%20Solved-FFA116?style=for-the-badge&logo=leetcode&logoColor=white&labelColor=0D1117" alt="LeetCode"/>
-</a>
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white&labelColor=0D1117)](https://fastapi.tiangolo.com)
 &nbsp;
-<a href="mailto:likhithraj155@gmail.com" target="_blank">
-  <img src="https://img.shields.io/badge/Status-Open%20To%20Collaborations-238636?style=for-the-badge&logo=github&logoColor=white&labelColor=0D1117" alt="Status"/>
-</a>
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15.0-4169E1?style=for-the-badge&logo=postgresql&logoColor=white&labelColor=0D1117)](https://www.postgresql.org)
+&nbsp;
+[![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge&logo=open-source-initiative&logoColor=white&labelColor=0D1117)](LICENSE)
+
+<br/>
+
+**YuktiAI (SanskritiPulse)** is an end-to-end AI-powered cultural intelligence platform that integrates real-time tourist event recommendations, GIS crowd risk analytics, smart travel routing, and live venue site operations into a single interactive dashboard.
+
+<br/>
+
+<a href="#-quick-start"><b>⚡ Quick Start</b></a> •
+<a href="#-key-features"><b>🌟 Key Features</b></a> •
+<a href="#%EF%B8%8F-system-architecture"><b>🏗️ Architecture</b></a> •
+<a href="#-multi-stakeholder-api-matrix"><b>🔌 API Matrix</b></a> •
+<a href="#-verification--testing"><b>🧪 Testing</b></a> •
+<a href="#-docker-deployment"><b>🐳 Docker</b></a>
 
 </div>
 
@@ -32,67 +39,54 @@
 
 ---
 
-<!-- ======================= ABOUT ME ======================= -->
+<!-- ======================= SYSTEM OVERVIEW ======================= -->
 
-## 👨🏻‍💻 About Me
+## 🏛️ System Overview
 
 <table>
 <tr>
 <td valign="top" width="55%">
 
 ```python
-class LikhithRaj:
+class YuktiAISanskritiPulse:
 
     def __init__(self):
-        self.name = "Likhith Raj"
-        self.username = "Tejzraj"
-        self.location = "Bengaluru, India 🇮🇳"
+        self.name = "YuktiAI — SanskritiPulse"
+        self.version = "1.0.0"
+        self.stack = ["FastAPI", "PostgreSQL", "Leaflet.js", "Python"]
         
-        self.education = (
-            "B.E. Computer Science & Engineering "
-            "(AI & ML) @ RVCE"
-        )
+        self.stakeholder_domains = {
+            "tourist": "Personalized Recs & Multi-Modal Routing",
+            "government": "GIS Crowd Risk & Logistics Intelligence",
+            "organizer": "Live Telemetry & Broadcast Operations"
+        }
         
-        self.interests = [
-            "Artificial Intelligence 🤖",
-            "Machine Learning 🧠",
-            "Computer Vision 👁️",
-            "IoT Systems 🔌",
-            "Edge AI ⚡"
-        ]
-        
-        self.current_focus = [
-            "Building Intelligent Systems",
-            "Applied AI & ML Research",
-            "Real-World Problem Solving",
-            "Data Structures & Algorithms"
+        self.ai_features = [
+            "Cosine Similarity Vector Matcher",
+            "Dynamic Translation (EN, KN, HI)",
+            "GIS GeoJSON Crowd Risk Heatmap",
+            "Real-Time Venue Occupancy Telemetry"
         ]
 
-    def motto(self):
-        return "Build. Learn. Research. Repeat. 🚀"
+    def status(self):
+        return "12/12 Endpoints Verified & Operational 🚀"
 ```
 
 </td>
 
 <td valign="top" width="45%">
 
-### 🎓 Education
+### 🎯 Mission Statement
 
-**RV College of Engineering, Bengaluru**  
-🏛️ *B.E. Computer Science & Engineering*  
-🎯 **Specialization:** Artificial Intelligence & Machine Learning  
-📅 **Duration:** 2024 – 2028  
-🌟 **CGPA:** `8.36 / 10`  
+> **Preserving cultural heritage while ensuring safe, intelligent, and seamless festival experiences across Karnataka.**
 
 <br/>
 
-### 🧠 What I Enjoy Building
+### 👥 Primary Stakeholders
 
-* 🤖 **Intelligent AI Systems** — End-to-end ML architectures
-* 👁️ **Computer Vision Solutions** — Real-time detection & tracking
-* 🌱 **IoT Monitoring Systems** — Sensor networks & automation
-* ⚡ **Smart Automation** — Edge computing & BCI prototypes
-* 🔬 **Research Prototypes** — Novel concepts & Proof-of-Concepts
+* 🧳 **Tourists & Pilgrims** — Vector match quiz, multi-modal travel, nearby hotels & localized translations.
+* 🏛️ **Tourism Department** — Real-time GIS crowd density mapping, footfall forecasting & automated logistics planning.
+* 🎪 **Event Organizers** — Live venue occupancy monitoring & instant emergency/event broadcasts.
 
 </td>
 </tr>
@@ -100,424 +94,260 @@ class LikhithRaj:
 
 ---
 
-<!-- ======================= WHAT I'M WORKING ON ======================= -->
+<!-- ======================= KEY FEATURES ======================= -->
 
-## 🚀 What I'm Working On
+## 🌟 Key Features
+
+<div align="center">
 
 <table>
 <tr>
-<td width="50%" valign="top">
 
-### 🔭 Currently Exploring
+<td width="33%" valign="top">
 
-- 🤖 Advanced **AI & Deep Learning** architectures
-- 👁️ **Computer Vision** & real-time object tracking
-- 🌐 Intelligent **IoT & Embedded Systems**
-- 🧠 Collaborative **Edge AI** frameworks
-- 📊 Applied research & prototype development
+### 🧳 1. Tourist Discovery
+*AI-Driven Recommendation Engine*
+
+- **Vector Matching:** Calculates cosine similarity scores against 35+ Karnataka heritage festivals.
+- **Smart Itinerary Planner:** Tailored 2-day schedules, multi-modal transit (Bus, Train, Car) & hotel lookups.
+- **Multilingual Support:** Instant UI translation across **English**, **ಕನ್ನಡ (Kannada)**, and **हिंदी (Hindi)**.
+
+</td>
+
+<td width="33%" valign="top">
+
+### 🏛️ 2. Tourism Dept Intelligence
+*GIS Analytics & Risk Mitigation*
+
+- **GIS Crowd Risk Map:** Renders color-coded markers (🟢 Low, 🟡 Medium, 🔴 High) powered by Leaflet.js.
+- **Predictive Logistics:** Automated advisories for transport, sanitation, medical services, and security.
+- **District Analytics:** Real-time footfall distribution and high-density risk monitoring.
 
 </td>
 
-<td width="50%" valign="top">
+<td width="33%" valign="top">
 
-### 🌱 Currently Improving
+### 🎪 3. Live Site Operations
+*Real-Time Venue Telemetry*
 
-- 💻 Advanced **Data Structures & Algorithms**
-- 🐍 High-performance **Python & C++** workflows
-- 🔬 Scalable **Machine Learning pipelines**
-- 📷 Image processing & OpenCV optimizations
-- 🏗️ Scalable intelligent system architecture
+- **Spectator Telemetry:** Monitors live venue occupancy against safety thresholds with peak alerts.
+- **Broadcast Alerts:** Enables site organizers to publish instant notifications directly to tourist feeds.
+- **Emergency Dispatch:** Dynamic propagation of critical advisory updates.
 
 </td>
+
 </tr>
 </table>
+
+</div>
+
+---
+
+<!-- ======================= SYSTEM ARCHITECTURE ======================= -->
+
+## 🏗️ System Architecture
+
+### 📂 Directory Structure
+
+```text
+YuktiAI/
+├── main.py                     # Master FastAPI application, CORS policy & router mounting
+├── ai_engine.py                # Cosine similarity vector matcher & multilingual translation engine
+├── travel_engine.py            # Transit route matrix, multi-day itinerary builder & hotel locator
+├── analytics_engine.py         # Crowd risk assessment, footfall forecasting & GIS GeoJSON generator
+├── organizer_engine.py         # Live spectator telemetry & broadcast alert publisher
+├── test_full_prototype.py      # E2E automated test suite (12/12 routes verified)
+├── static/
+│   └── index.html              # Single-page HTML5/TailwindCSS & Leaflet.js web application
+├── database/
+│   ├── init.sql                # PostgreSQL relational database schema definition
+│   └── mock_festivals.json     # Baseline dataset for festival records & metadata
+├── requirements.txt            # Python dependencies (FastAPI, Uvicorn, Requests, Pydantic)
+├── Dockerfile                  # Container build instructions for backend service
+└── docker-compose.yml          # Multi-container orchestration (FastAPI + PostgreSQL)
+```
+
+### 🔄 Data & Execution Flow
+
+```text
+                               ┌───────────────────────────┐
+                               │  Web Browser / Single UI  │
+                               └─────────────┬─────────────┘
+                                             │
+                                             ▼
+                                    ┌─────────────────┐
+                                    │     main.py     │  ◄── FastAPI REST Gateway
+                                    └────────┬────────┘
+                                             │
+      ┌──────────────────────┬───────────────┴───────────────┬──────────────────────┐
+      ▼                      ▼                               ▼                      ▼
+┌──────────────┐      ┌──────────────┐                ┌────────────────┐    ┌──────────────────┐
+│  ai_engine   │      │ travel_engine│                │analytics_engine│    │ organizer_engine │
+├──────────────┤      ├──────────────┤                ├────────────────┤    ├──────────────────┤
+│• Vector Match│      │• Transit Plan│                │• Hotels Data   │    │• Live Telemetry  │
+│• Translation │      │• Hotels Data │                │• Crowd Risk    │    │• Broadcast Alerts│
+└──────────────┘      └──────────────┘                └────────────────┘    └──────────────────┘
+```
 
 ---
 
 <!-- ======================= TECH STACK ======================= -->
 
-## 🛠️ Tech Stack & Toolkit
+## 🛠️ Tech Stack & Technologies
 
 <div align="center">
 
-### 💻 Programming Languages
+### 💻 Core Backend & API Framework
 <p>
-  <img src="https://skillicons.dev/icons?i=python,c,cpp,java&theme=dark" alt="Languages"/>
+  <img src="https://skillicons.dev/icons?i=python,fastapi,postgres,docker&theme=dark" alt="Backend Stack"/>
 </p>
 
-### 🤖 AI / ML / Computer Vision & Data Science
+### 🎨 Frontend & Mapping Pipeline
 <p>
-  <img src="https://skillicons.dev/icons?i=pytorch,tensorflow,opencv,scikitlearn,numpy,pandas&theme=dark" alt="AI Stack"/>
-</p>
-
-### 🔌 IoT, Embedded & Cloud Tools
-<p>
-  <img src="https://skillicons.dev/icons?i=arduino,git,github,vscode,linux,bash&theme=dark" alt="Tools"/>
+  <img src="https://skillicons.dev/icons?i=html,css,js,tailwind&theme=dark" alt="Frontend Stack"/>
 </p>
 
 <br/>
 
-<!-- Shields Badges Showcase -->
-<img src="https://img.shields.io/badge/Machine%20Learning-FF6F00?style=for-the-badge&logo=scikitlearn&logoColor=white"/>
+<img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"/>
 &nbsp;
-<img src="https://img.shields.io/badge/Computer%20Vision-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white"/>
+<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/>
 &nbsp;
-<img src="https://img.shields.io/badge/Deep%20Learning-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
+<img src="https://img.shields.io/badge/Leaflet.js-199900?style=for-the-badge&logo=leaflet&logoColor=white"/>
 &nbsp;
-<img src="https://img.shields.io/badge/IoT%20Systems-00A98F?style=for-the-badge&logo=internetofthings&logoColor=white"/>
+<img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white"/>
 &nbsp;
-<img src="https://img.shields.io/badge/Edge%20AI-00599C?style=for-the-badge&logo=cplusplus&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
 
 </div>
 
 ---
 
-<!-- ======================= RESEARCH EXPERIENCE ======================= -->
+<!-- ======================= QUICK START ======================= -->
 
-## 🔬 Research Experience
+## ⚡ Quick Start
 
-<table>
-<tr>
-<td width="50%" valign="top">
+Launch the full-stack REST API and interactive web application using a single command:
 
-### 🔍 O-Ring Defect Detection using ML
+```bash
+# Clone the repository
+git clone https://github.com/Tejzraj/YuktiAI.git && cd YuktiAI
 
-**Machine Learning Researcher**  
-📍 *RV College of Engineering*  
-📅 *Aug 2025 – Mar 2026*  
+# Install dependencies
+pip install -r requirements.txt
 
-Worked under faculty guidance on a real-world industrial quality inspection system:
+# Start the application server
+uvicorn main:app --reload --port 8000
+```
 
-- 🎯 Developed an ML-based defect detection framework for industrial **O-Rings**.
-- 📷 Applied advanced image processing & computer vision techniques.
-- 📑 Documented findings and presented research methodologies.
-
-</td>
-
-<td width="50%" valign="top">
-
-### 🌱 Vetiver Plant Monitoring System
-
-**Research Assistant**  
-📍 *RV College of Engineering*  
-📅 *Aug 2025 – Present*  
-
-Designing an intelligent IoT monitoring system for sustainable cultivation:
-
-- 🌊 Monitored plant growth parameters and water-quality indicators.
-- 🪴 Designed hydroponic-aquaponic automated cultivation framework.
-- ⚡ Engineered real-time sensor integration & web monitoring dashboards.
-
-</td>
-</tr>
-</table>
-
----
-
-<!-- ======================= FEATURED PROJECTS ======================= -->
-
-## 📌 Featured Projects
+<br/>
 
 <div align="center">
 
-<table>
-<tr>
-
-<td width="50%" valign="top">
-
-### 🧠 Human-Brain Interface
-*Smart Automation via EEG Signals*
-
-A brain-computer interface prototype designed to explore smart device control using real-time **EEG signals** and neural telemetry.
-
-<br/>
-
-`AI` `EEG` `BCI` `Smart Automation`
-
-<br/>
-
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://img.shields.io/badge/View_Project-58A6FF?style=for-the-badge&logo=github&logoColor=white" alt="View Project"/>
-</a>
-
-</td>
-
-<td width="50%" valign="top">
-
-### 👁️ Smart AI Attendance System
-*Automated Computer Vision Pipeline*
-
-An automated attendance solution using **YOLOv8 and Face Recognition** to identify and log attendance seamlessly in real time.
-
-<br/>
-
-`Python` `YOLOv8` `OpenCV` `Face Rec`
-
-<br/>
-
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://img.shields.io/badge/View_Project-58A6FF?style=for-the-badge&logo=github&logoColor=white" alt="View Project"/>
-</a>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td width="50%" valign="top">
-
-### 🌐 LinkBrain
-*Collaborative AI for Edge Devices*
-
-An innovative AI framework concept enabling distributed intelligence and collaborative computing across multiple **Edge AI nodes**.
-
-<br/>
-
-`Edge AI` `Distributed Systems` `Collaboration`
-
-<br/>
-
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://img.shields.io/badge/View_Project-58A6FF?style=for-the-badge&logo=github&logoColor=white" alt="View Project"/>
-</a>
-
-</td>
-
-<td width="50%" valign="top">
-
-### 💬 Ethical AI Chatbot
-*Responsible & Conversational Assistant*
-
-A user-centric, responsible AI chatbot designed around ethical AI principles and empathetic conversational dynamics for female students.
-
-<br/>
-
-`AI` `LLM` `Responsible AI` `Python`
-
-<br/>
-
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://img.shields.io/badge/View_Project-58A6FF?style=for-the-badge&logo=github&logoColor=white" alt="View Project"/>
-</a>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td colspan="2" width="100%" valign="top" align="center">
-
-### 🚦 Smart Traffic Management System
-*Arduino-Based Adaptive Sensor Control*
-
-An **Arduino & sensor-integrated adaptive traffic control system** that dynamically regulates traffic lights based on real-time vehicle density analysis.
-
-<br/>
-
-`Arduino` `IoT` `Smart Cities` `Embedded C`
-
-<br/>
-
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://img.shields.io/badge/View_Project-58A6FF?style=for-the-badge&logo=github&logoColor=white" alt="View Project"/>
-</a>
-
-</td>
-
-</tr>
-</table>
+| Service Endpoint | Description | Direct Access |
+| :--- | :--- | :--- |
+| 🌐 **Live Web Application** | Interactive single-page multi-stakeholder dashboard | [`http://localhost:8000`](http://localhost:8000) |
+| 📚 **Swagger OpenAPI Docs** | Interactive API testing interface | [`http://localhost:8000/docs`](http://localhost:8000/docs) |
+| 📖 **ReDoc Documentation** | Structural API specification reference | [`http://localhost:8000/redoc`](http://localhost:8000/redoc) |
 
 </div>
 
 ---
 
-<!-- ======================= HACKATHONS & INNOVATION ======================= -->
+<!-- ======================= API MATRIX ======================= -->
 
-## 🏆 Hackathons & Innovation
+## 🔌 Multi-Stakeholder API Matrix
 
-<div align="center">
-
-<a href="https://github.com/Tejzraj">
-  <img src="https://img.shields.io/badge/Nebius-Nova%20AI%20Buildathon-58A6FF?style=for-the-badge&logo=sparkles&logoColor=white"/>
-</a>
-&nbsp;
-<a href="https://github.com/Tejzraj">
-  <img src="https://img.shields.io/badge/Tata%20Technologies-InnoVent-FF6B35?style=for-the-badge&logo=rocket&logoColor=white"/>
-</a>
-&nbsp;
-<a href="https://github.com/Tejzraj">
-  <img src="https://github.com/Tejzraj">
-  <img src="https://img.shields.io/badge/PRISM%20Samsung-Clash%20of%20Claw-1428A0?style=for-the-badge&logo=samsung&logoColor=white"/>
-</a>
-
-</div>
-
-<br/>
-
-> 💡 *I thrive on taking complex ideas from concept to functional prototypes, pushing the boundaries of emerging tech, and engineering high-impact solutions for real-world challenges.*
+| Stakeholder Domain | Core Module | Route Endpoint | Method | Functionality Description |
+| :--- | :--- | :--- | :---: | :--- |
+| **Festival Core** | `main.py` | `/festivals` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Retrieve complete festival catalog & filtering metadata |
+| **Festival Core** | `main.py` | `/festivals/{id}` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Fetch specific festival profile details |
+| **AI Intelligence** | `ai_engine.py` | `/recommend` | `<img src="https://img.shields.io/badge/POST-98C379?style=flat-square&logoColor=white"/>` | Execute vector similarity matching against user quiz tags |
+| **AI Intelligence** | `ai_engine.py` | `/translate` | `<img src="https://img.shields.io/badge/POST-98C379?style=flat-square&logoColor=white"/>` | Translate UI text dynamically (English, Kannada, Hindi) |
+| **Travel & Logistics** | `travel_engine.py` | `/travel-plan` | `<img src="https://img.shields.io/badge/POST-98C379?style=flat-square&logoColor=white"/>` | Compute multi-modal route options & 2-day itinerary |
+| **Travel & Logistics** | `travel_engine.py` | `/hotels/{id}` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Find nearby accommodation options by festival ID |
+| **Gov Analytics** | `analytics_engine.py` | `/analytics/overview` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Fetch macro tourism KPIs, total footfall & risk counters |
+| **Gov Analytics** | `analytics_engine.py` | `/analytics/map-data` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Generate Leaflet-compatible GeoJSON feature collections |
+| **Gov Analytics** | `analytics_engine.py` | `/analytics/trends` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Get district & category footfall distribution metrics |
+| **Site Operations** | `organizer_engine.py` | `/organizer/overview/{id}`| `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Monitor live venue spectator stats & safety thresholds |
+| **Site Operations** | `organizer_engine.py` | `/organizer/announcement`| `<img src="https://img.shields.io/badge/POST-98C379?style=flat-square&logoColor=white"/>` | Dispatch live emergency or general event broadcasts |
+| **Tourist Feed** | `organizer_engine.py` | `/announcements/{id}` | `<img src="https://img.shields.io/badge/GET-61AFEF?style=flat-square&logoColor=white"/>` | Stream broadcast announcements to tourist dashboard |
 
 ---
 
-<!-- ======================= GITHUB ACTIVITY ======================= -->
+<!-- ======================= TESTING ======================= -->
 
-## 📊 GitHub Analytics & Activity
+## 🧪 Verification & Automated Testing
 
-<div align="center">
+Verify system integrity across all 12 backend endpoints with the automated integration suite:
 
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img
-    src="https://streak-stats.demolab.com?user=Tejzraj&theme=tokyonight&hide_border=true&background=0D1117&stroke=58A6FF&ring=58A6FF&fire=F78166&currStreakLabel=C9D1D9&sideLabels=C9D1D9&dates=8B949E&currStreakNum=58A6FF&sideNums=58A6FF"
-    alt="GitHub Streak"
-    width="75%"
-  />
-</a>
+```bash
+python test_full_prototype.py
+```
 
-<br/><br/>
-
-<img
-  src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Tejzraj&theme=tokyonight"
-  alt="GitHub Contribution Summary"
-  width="95%"
-/>
-
-<br/><br/>
-
-<table>
-<tr>
-<td align="center" width="50%">
-
-<img
-  src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Tejzraj&theme=tokyonight"
-  alt="Repositories Per Language"
-  width="100%"
-/>
-
-</td>
-
-<td align="center" width="50%">
-
-<img
-  src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Tejzraj&theme=tokyonight"
-  alt="Most Commit Language"
-  width="100%"
-/>
-
-</td>
-</tr>
-</table>
-
-</div>
-
----
-
-<!-- ======================= CONTRIBUTION SNAKE ======================= -->
-
-## 🐍 Contribution Snake Animation
-
-<div align="center">
-
-<picture>
-  <source
-    media="(prefers-color-scheme: dark)"
-    srcset="https://raw.githubusercontent.com/Tejzraj/Tejzraj/output/github-contribution-grid-snake-dark.svg"
-  />
-  <source
-    media="(prefers-color-scheme: light)"
-    srcset="https://raw.githubusercontent.com/Tejzraj/Tejzraj/output/github-contribution-grid-snake.svg"
-  />
-  <img
-    alt="GitHub Contribution Snake"
-    src="https://raw.githubusercontent.com/Tejzraj/Tejzraj/output/github-contribution-grid-snake.svg"
-  />
-</picture>
-
-</div>
-
-> ℹ️ *The contribution snake is updated automatically via GitHub Actions workflows in the profile repository.*
-
----
-
-<!-- ======================= BEYOND CODE ======================= -->
-
-## 🏹 Beyond Code
-
-<div align="center">
-
-| 🧠 Technical | 🤝 Leadership & Community | 🏹 Personal & Creative |
-| :---: | :---: | :---: |
-| **AI & ML Research** | **Co-Coordinator** — NSS | **Archery Athlete** 🎯 |
-| **Computer Vision** | **Technical Team** — Kannada CARV | **Photography & Editing** 📷 |
-| **IoT Systems** | **Team Coordination** | **Dance** 🕺 |
-| **150+ DSA Problems** | **Campus Initiatives** | **Continuous Learning** 📚 |
-
-</div>
-
----
-
-<!-- ======================= CURRENT GOALS ======================= -->
-
-## 🎯 Current Goals
+### 📋 Test Suite Execution Output:
 
 ```text
-[████████████░░░░░░░░] 60% — Build high-impact real-world AI systems
-[██████████████░░░░░░] 70% — Master Computer Vision & Edge AI pipelines
-[████████████████░░░░] 80% — Solve 250+ DSA problems on LeetCode
-[██████████████░░░░░░] 70% — Drive meaningful open-source innovation
-[█████████████████░░░] 85% — Publish applied AI research & compete in buildathons
+================================================================
+🚀 Running SanskritiPulse AI Full Prototype Test Suite
+================================================================
+
+Testing [GET] / (Single-Page Web UI) ........................ ✅ PASSED (HTTP 200)
+Testing [GET] /festivals (Get Festivals) .................... ✅ PASSED (HTTP 200)
+Testing [POST] /recommend (AI Recommendation) ............... ✅ PASSED (HTTP 200)
+Testing [POST] /translate (Multilingual Translation) ........ ✅ PASSED (HTTP 200)
+Testing [POST] /travel-plan (Travel Route & Itinerary) ...... ✅ PASSED (HTTP 200)
+Testing [GET] /hotels/mysuru-dasara (Nearby Hotels Search) .. ✅ PASSED (HTTP 200)
+Testing [GET] /analytics/overview (Analytics Overview) ...... ✅ PASSED (HTTP 200)
+Testing [GET] /analytics/map-data (GIS Map GeoJSON) ......... ✅ PASSED (HTTP 200)
+Testing [GET] /analytics/trends (Analytics Trends) ......... ✅ PASSED (HTTP 200)
+Testing [GET] /organizer/overview/mysuru-dasara (Site Ops) .. ✅ PASSED (HTTP 200)
+Testing [POST] /organizer/announcement (Publish Broadcast) ... ✅ PASSED (HTTP 200)
+Testing [GET] /announcements/mysuru-dasara (Fetch Feed) ..... ✅ PASSED (HTTP 200)
+
+================================================================
+📊 Summary: 12/12 Prototype Routes Verified (HTTP 200 OK)
+================================================================
 ```
 
 ---
 
-<!-- ======================= CONNECT ======================= -->
+<!-- ======================= DOCKER ======================= -->
 
-## 📬 Let's Connect
+## 🐳 Docker Deployment
 
-<div align="center">
+Run the complete containerized stack using Docker Compose:
 
-<a href="mailto:likhithraj155@gmail.com" target="_blank">
-  <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"/>
-</a>
-&nbsp;
-<a href="https://github.com/Tejzraj" target="_blank">
-  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-</a>
-&nbsp;
-<a href="https://www.linkedin.com/in/likhith-raj-070861398" target="_blank">
-  <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
-</a>
-&nbsp;
-<a href="https://leetcode.com/u/profraj/" target="_blank">
-  <img src="https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=white" alt="LeetCode"/>
-</a>
+```bash
+# Build and launch containers in detached mode
+docker-compose up -d --build
 
-<br/><br/>
-
-### 🤝 Open to
-
-**Collaborations • AI/ML Projects • Research Opportunities • Hackathons • Innovative Ideas**
-
-<br/>
-
-> ***"ಕಾಲಾಯ ತಸ್ಮೈ ನಮಃ"***
-
-<br/>
-
-**Let's build intelligent solutions for real-world problems. 🚀**
-
-</div>
+# View application logs
+docker-compose logs -f
+```
 
 ---
 
-<!-- ======================= FOOTER ======================= -->
+<!-- ======================= LICENSE & CREDITS ======================= -->
+
+## 📜 License & Author
+
+This project is open-source and licensed under the [MIT License](LICENSE).
 
 <div align="center">
+
+<br/>
+
+<a href="https://github.com/Tejzraj" target="_blank">
+  <img src="https://img.shields.io/badge/Author-Likhith%20Raj%20(%40Tejzraj)-58A6FF?style=for-the-badge&logo=github&logoColor=white&labelColor=0D1117" alt="Author"/>
+</a>
+
+<br/><br/>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=130&section=footer" width="100%" alt="Footer Banner"/>
 
 <br/>
 
-<sub>⭐ Crafted with curiosity, code, and continuous innovation · <a href="https://github.com/Tejzraj" target="_blank">Likhith Raj (Tejzraj)</a> ⭐</sub>
+<sub>⭐ Built for Cultural Intelligence & Smart Tourism · <a href="https://github.com/Tejzraj/YuktiAI" target="_blank">YuktiAI — SanskritiPulse</a> ⭐</sub>
 
 </div>
