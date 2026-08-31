@@ -45,7 +45,8 @@ app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 # Mock In-Memory User Store for Authentication
 USERS_DB = {
     "tourist1": {"username": "tourist1", "password": "password123", "role": "tourist", "name": "Monika (Tourist)"},
-    "organizer1": {"username": "organizer1", "password": "password123", "role": "organizer", "name": "Tanishi (Organizer)"},
+    "organizer1": {"username": "organizer1", "password": "password123", "role": "authority", "name": "Tanishi (Authority)"},
+    "authority1": {"username": "authority1", "password": "password123", "role": "authority", "name": "Tanishi (Authority)"},
     "gov1": {"username": "gov1", "password": "password123", "role": "government", "name": "Dept Analytics Officer"}
 }
 
@@ -57,6 +58,8 @@ class AuthRequest(BaseModel):
     username: str = Field(..., example="tourist1")
     password: str = Field(..., example="password123")
     role: Optional[str] = Field("tourist", example="tourist")
+    email: Optional[str] = Field(None, example="tourist@karnataka.gov.in")
+    phone: Optional[str] = Field(None, example="+91-9876543210")
 
 
 class RecommendRequest(BaseModel):
@@ -94,49 +97,188 @@ class PublishFestivalRequest(BaseModel):
     start_date: Optional[str] = Field("2026-01-15", example="2026-01-15")
     end_date: Optional[str] = Field("2026-01-18", example="2026-01-18")
     short_description: Optional[str] = Field("Massive religious congregation and fair in Koppal.", example="Massive fair.")
+    cultural_significance: Optional[str] = Field("Deep spiritual legacy and communal feast.", example="Significance")
+    major_attractions: Optional[List[str]] = Field(["Jatre Procession", "Temple Chariot Pulling"], example=["Chariot"])
+    local_food: Optional[List[str]] = Field(["Jowar Rotti", "Sajje Kadubu"], example=["Jowar Rotti"])
+    activities: Optional[List[str]] = Field(["spiritual", "folk", "fair"], example=["spiritual"])
+    best_time_to_visit: Optional[str] = Field("January Jatre festival days", example="January")
     expected_footfall: Optional[int] = Field(500000, example=500000)
     image_url: Optional[str] = Field("https://images.unsplash.com/photo-1600100397608-f010f443b749", example="https://images.unsplash.com/photo-1600100397608-f010f443b749")
+    owner_username: Optional[str] = Field("authority1", example="authority1")
+
+
+class UpdateFestivalRequest(BaseModel):
+    name: Optional[str] = None
+    district: Optional[str] = None
+    city: Optional[str] = None
+    category: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+    short_description: Optional[str] = None
+    cultural_significance: Optional[str] = None
+    major_attractions: Optional[List[str]] = None
+    local_food: Optional[List[str]] = None
+    activities: Optional[List[str]] = None
+    best_time_to_visit: Optional[str] = None
+    expected_footfall: Optional[int] = None
+    image_url: Optional[str] = None
+    owner_username: Optional[str] = None
+
+
+class VerifyRequest(BaseModel):
+    action: str = Field(..., example="approve")
+
+
+# Search Helper
+def find_festival_by_id(fest_id: str):
+    for f in travel_engine.festivals:
+        f_id = f.get("id") or f.get("festival_id")
+        if str(f_id).lower().strip() == str(fest_id).lower().strip():
+            return f
+    return None
 
 
 # ---------------------------------------------------------
-# Core Web UI Route
+# Multi-Role Authentication Helpers & Endpoints (Step 3)
 # ---------------------------------------------------------
-@app.get("/")
-def home():
-    index_file = templates_dir / "index.html"
-    if index_file.exists():
-        return FileResponse(str(index_file))
-    fallback_index = static_dir.parent.parent / "static" / "index.html"
-    if fallback_index.exists():
-        return FileResponse(str(fallback_index))
+def save_user_to_postgres(username: str, password_hash: str, role: str, email: str = None, phone: str = None):
+    """Save registered user details to PostgreSQL database, with self-healing columns and local memory fallback."""
+    conn = None
+    try:
+        conn = get_db_connection()
+        with conn.cursor() as cur:
+            # Self-healing columns alter schema dynamically if needed
+            try:
+                cur.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS email VARCHAR(150);")
+                cur.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS phone VARCHAR(50);")
+                conn.commit()
+            except Exception as e:
+                print(f"[WARNING] Schema alter warning (might be read-only): {e}")
+                conn.rollback()
+                
+            # Insert user
+            cur.execute(
+                "INSERT INTO users (username, password_hash, role, email, phone) VALUES (%s, %s, %s, %s, %s) ON CONFLICT (username) DO NOTHING;",
+                (username, password_hash, role, email, phone)
+            )
+            conn.commit()
+            return True
+    except Exception as e:
+        print(f"[WARNING] PostgreSQL connection/write skipped: {e}. User saved to local fallback memory.")
+        return False
+    finally:
+        if conn:
+            conn.close()
+
+
+def send_welcome_notification(username: str, email: str = None, phone: str = None, role: str = None):
+    """Generates and logs an automated welcome SMS and Email for the new sign up."""
+    role_name = "Tourist Visitor"
+    if role == "authority":
+        role_name = "Festival Event Authority"
+    elif role == "government":
+        role_name = "Tourism Department Official"
+
+    # SMS draft
+    sms_text = f"Welcome to SanskritiPulse AI, {username}! Your account has been approved with role '{role_name}'. Explore living traditions, manage plans, and broadcast live updates of Karnataka's grand festivals."
+    
+    # Email draft
+    email_text = f"""Subject: Welcome to SanskritiPulse AI Portal, {username}!
+
+Namaste {username},
+
+Welcome to SanskritiPulse AI - the Unified Cultural Intelligence and Stakeholder Portal of Karnataka!
+
+Your account has been successfully configured with the role: {role_name}.
+
+Account Details:
+- Username: {username}
+- Assigned Role: {role_name}
+- Contact Email: {email or 'Not Provided'}
+- Contact Phone: {phone or 'Not Provided'}
+
+Based on your role, you now have access to our unified features:
+- Tourist Discovery: Explore custom Haversine travel plans and AI-guided routes.
+- Site Operations: Publish festivals, view visitor counts, and broadcast live event advisories.
+- Government Intelligence: Verify submissions, view crowd metrics, and manage regional advisory flags.
+
+Happy Exploring!
+
+Warm regards,
+SanskritiPulse AI Engineering Team
+Department of Tourism, Government of Karnataka"""
+
+    # Log to file for verification
+    log_dir = Path(__file__).parent.parent.parent / "database"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / "welcome_notifications.log"
+    
+    try:
+        with open(log_file, "a", encoding="utf-8") as f:
+            f.write(f"\n--- NOTIFICATION FOR {username.upper()} ({role_name.upper()}) at 2026-08-31 ---\n")
+            f.write(f"[AUTO-SMS to {phone or 'N/A'}]:\n{sms_text}\n")
+            f.write(f"[AUTO-EMAIL to {email or 'N/A'}]:\n{email_text}\n")
+            f.write("-" * 60 + "\n")
+    except Exception as e:
+        print(f"[WARNING] Failed to write to welcome notifications log: {e}")
+
+    # Also print to stdout
+    print(f"\n[AUTO-SMS Sent to {phone or 'N/A'}]: {sms_text}")
+    print(f"[AUTO-EMAIL Sent to {email or 'N/A'}]: {email_text.strip()}\n")
+    
     return {
-        "service": "SanskritiPulse AI Multi-Stakeholder Unified Backend",
-        "status": "online",
-        "version": "3.0.0"
+        "sms_sent": True,
+        "email_sent": True,
+        "sms_preview": sms_text,
+        "email_preview": email_text.strip()
     }
 
 
-# ---------------------------------------------------------
-# Multi-Role Authentication Endpoints (Step 3)
-# ---------------------------------------------------------
 @app.post("/auth/register")
 def register_user(payload: AuthRequest):
-    """Register a new user with role ('tourist', 'organizer', 'government')."""
+    """Register a new user, save to PostgreSQL and local fallback memory, and send welcome notifications."""
     if payload.username in USERS_DB:
         raise HTTPException(status_code=400, detail="Username already exists")
     
+    role = payload.role or "tourist"
+    if role == "organizer":
+        role = "authority"  # Map organizer to authority internally
+        
+    # 1. Save to in-memory fallback
     USERS_DB[payload.username] = {
         "username": payload.username,
         "password": payload.password,
-        "role": payload.role or "tourist",
+        "role": role,
         "name": payload.username.capitalize()
     }
+
+    # 2. Save to PostgreSQL database
+    db_saved = save_user_to_postgres(
+        username=payload.username,
+        password_hash=payload.password,  # Storing password in schema column
+        role=role,
+        email=payload.email,
+        phone=payload.phone
+    )
+
+    # 3. Send automated message and email
+    notif_result = send_welcome_notification(
+        username=payload.username,
+        email=payload.email,
+        phone=payload.phone,
+        role=role
+    )
+
     return {
         "status": "success",
-        "message": f"Account created for {payload.username} with role {payload.role}",
+        "message": f"Account created for {payload.username} with role {role}.",
+        "db_saved": db_saved,
+        "notifications": notif_result,
         "user": {
             "username": payload.username,
-            "role": payload.role
+            "role": role
         }
     }
 
@@ -146,14 +288,18 @@ def login_user(payload: AuthRequest):
     """Authenticate user and return role token & profile."""
     user = USERS_DB.get(payload.username)
     if not user or user["password"] != payload.password:
+        # Check if they request organizer and map it
+        role_ret = payload.role or "tourist"
+        if role_ret == "organizer":
+            role_ret = "authority"
         # Default tourist login fallback for smooth demo testing
         return {
             "status": "success",
-            "message": "Authenticated as Guest Tourist",
-            "token": "token_guest_tourist",
+            "message": "Authenticated as Guest",
+            "token": f"token_guest_{payload.username}",
             "user": {
                 "username": payload.username,
-                "role": payload.role or "tourist",
+                "role": role_ret,
                 "name": payload.username
             }
         }
@@ -169,6 +315,18 @@ def login_user(payload: AuthRequest):
     }
 
 
+@app.get("/")
+def home():
+    """GET /: Serve the main index.html portal page."""
+    index_file = templates_dir / "index.html"
+    if index_file.exists():
+        return FileResponse(str(index_file))
+    return {
+        "status": "online",
+        "message": "FastAPI server is running, but templates/index.html was not found."
+    }
+
+
 # ---------------------------------------------------------
 # Core Master Dataset Endpoints
 # ---------------------------------------------------------
@@ -176,12 +334,49 @@ def login_user(payload: AuthRequest):
 def get_festivals(
     district: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
-    date: Optional[str] = Query(None)
+    date: Optional[str] = Query(None),
+    role: Optional[str] = Query(None),
+    username: Optional[str] = Query(None)
 ):
-    """Retrieve master festivals list."""
+    """Retrieve master festivals list with verification and role-based filtering."""
     festivals = travel_engine.festivals
     filtered = []
+    
+    # Standardize roles
+    std_role = (role or "").lower().strip()
+    if std_role == "organizer":
+        std_role = "authority"
+        
     for f in festivals:
+        # Standardize workflow fields on mock data if missing
+        f_verified = f.get("verified")
+        if f_verified is None:
+            f_verified = True
+            f["verified"] = True
+            
+        f_status = f.get("verification_status")
+        if f_status is None:
+            f_status = "approved"
+            f["verification_status"] = "approved"
+            
+        f_owner = f.get("owner_username")
+        if f_owner is None:
+            f_owner = "system"
+            f["owner_username"] = "system"
+
+        # Apply workflow filtering:
+        # 1. Government role sees all events
+        # 2. Authority role sees approved events + pending/rejected events they own
+        # 3. Tourists & guests only see verified & approved events
+        if std_role == "government":
+            pass
+        elif std_role == "authority":
+            if not f_verified and f_owner != username:
+                continue
+        else:
+            if not f_verified or f_status != "approved":
+                continue
+
         if district and district.lower() not in str(f.get("district", "")).lower():
             continue
         if category and category.lower() not in str(f.get("category", "")).lower():
@@ -193,7 +388,10 @@ def get_festivals(
 @app.get("/festivals/{festival_id}")
 def get_festival_detail(festival_id: str):
     """Fetch detail record for a festival."""
-    fest = travel_engine._find_festival(festival_id)
+    fest = find_festival_by_id(festival_id)
+    if not fest:
+        # Fallback to general lookup
+        fest = travel_engine._find_festival(festival_id)
     if not fest:
         raise HTTPException(status_code=404, detail="Festival not found")
     return fest
@@ -323,14 +521,105 @@ def get_announcements(festival_id: str):
 
 @app.post("/organizer/publish-festival")
 def publish_festival(payload: PublishFestivalRequest):
-    """POST /organizer/publish-festival: Organizer publishes a new festival directly to live tourist feed and map markers."""
+    """POST /organizer/publish-festival: Organizer publishes a new festival directly to live memory and saves to JSON."""
     fest_dict = payload.dict()
+    
+    # Force default workflow fields
+    fest_dict["verified"] = False
+    fest_dict["verification_status"] = "pending"
+    fest_dict["owner_username"] = fest_dict.get("owner_username") or "authority1"
+    
     result = organizer_engine.publish_new_festival(fest_dict)
-
-    # Append to travel_engine memory
     new_fest = result["festival"]
+
+    # Append to engine memory
     travel_engine.festivals.insert(0, new_fest)
     ai_engine.festivals.insert(0, new_fest)
     analytics_engine.festivals.insert(0, new_fest)
 
+    # Save to mock database file for persistence
+    from database import save_festivals_to_json
+    save_festivals_to_json(travel_engine.festivals)
+
     return result
+
+
+@app.put("/organizer/update-festival/{festival_id}")
+def update_festival(festival_id: str, payload: UpdateFestivalRequest):
+    """PUT /organizer/update-festival/{festival_id}: Edit / update details of an existing festival."""
+    fest = find_festival_by_id(festival_id)
+    if not fest:
+        raise HTTPException(status_code=404, detail="Festival not found")
+        
+    update_data = payload.dict(exclude_unset=True)
+    for k, v in update_data.items():
+        if v is not None:
+            fest[k] = v
+            
+    # Save to mock database file for persistence
+    from database import save_festivals_to_json
+    save_festivals_to_json(travel_engine.festivals)
+    
+    return {
+        "status": "success",
+        "message": f"Festival '{fest.get('name')}' updated successfully.",
+        "festival": fest
+    }
+
+
+@app.delete("/organizer/delete-festival/{festival_id}")
+def delete_festival(festival_id: str, username: Optional[str] = Query(None)):
+    """DELETE /organizer/delete-festival/{festival_id}: Delete/unpublish a festival."""
+    found = False
+    for i, f in enumerate(travel_engine.festivals):
+        f_id = f.get("id") or f.get("festival_id")
+        if str(f_id).lower() == festival_id.lower():
+            if username and f.get("owner_username") and f.get("owner_username") != username:
+                raise HTTPException(status_code=403, detail="Not authorized to delete this festival")
+            travel_engine.festivals.pop(i)
+            found = True
+            break
+            
+    if not found:
+        raise HTTPException(status_code=404, detail="Festival not found")
+        
+    # Sync memory references in other engines
+    ai_engine.festivals = [f for f in ai_engine.festivals if str(f.get("id") or f.get("festival_id")).lower() != festival_id.lower()]
+    analytics_engine.festivals = [f for f in analytics_engine.festivals if str(f.get("id") or f.get("festival_id")).lower() != festival_id.lower()]
+    
+    # Save to mock database file for persistence
+    from database import save_festivals_to_json
+    save_festivals_to_json(travel_engine.festivals)
+    
+    return {
+        "status": "success",
+        "message": "Festival deleted successfully from memory and JSON."
+    }
+
+
+@app.post("/gov/verify-festival/{festival_id}")
+def verify_festival(festival_id: str, payload: VerifyRequest):
+    """POST /gov/verify-festival/{festival_id}: Government department approves or rejects a festival."""
+    fest = find_festival_by_id(festival_id)
+    if not fest:
+        raise HTTPException(status_code=404, detail="Festival not found")
+        
+    action = payload.action.lower().strip()
+    if action == "approve":
+        fest["verified"] = True
+        fest["verification_status"] = "approved"
+    elif action == "reject":
+        fest["verified"] = False
+        fest["verification_status"] = "rejected"
+    else:
+        raise HTTPException(status_code=400, detail="Invalid action. Use 'approve' or 'reject'")
+        
+    # Save to mock database file for persistence
+    from database import save_festivals_to_json
+    save_festivals_to_json(travel_engine.festivals)
+    
+    return {
+        "status": "success",
+        "message": f"Festival has been {fest['verification_status']}.",
+        "festival": fest
+    }

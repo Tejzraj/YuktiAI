@@ -22,6 +22,95 @@
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-950">
 
+  <!-- Welcome Portal Overlay (Authentication Wall before entering site) -->
+  <div id="welcome-overlay" class="fixed inset-0 bg-[#0f0d15] z-[100] flex items-center justify-center p-4">
+    <div class="cultural-card max-w-md w-full rounded-3xl p-8 border border-[#D4AF37]/50 space-y-6 relative text-center">
+      <div class="space-y-2">
+        <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-[#800020] to-[#D4AF37] flex items-center justify-center text-white shadow-xl shadow-[#D4AF37]/15">
+          <i class="fa-solid fa-om text-3xl text-[#F5D061]"></i>
+        </div>
+        <h2 class="text-2xl font-bold font-heading bg-gradient-to-r from-[#F5D061] via-[#D4AF37] to-amber-200 bg-clip-text text-transparent mt-3">
+          SanskritiPulse AI
+        </h2>
+        <p class="text-xs text-amber-200/70 font-medium">Karnataka Unified Cultural Intelligence Portal</p>
+      </div>
+
+      <div class="border-t border-slate-800/80 pt-4 space-y-4">
+        <!-- Auth Selector -->
+        <div class="flex bg-slate-950 border border-slate-800 rounded-xl p-1 text-xs font-bold">
+          <button id="welcome-tab-login" onclick="toggleWelcomeTab('login')" class="flex-1 py-1.5 rounded-lg bg-mysuru-gold text-slate-950">Log In</button>
+          <button id="welcome-tab-signup" onclick="toggleWelcomeTab('signup')" class="flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white">Sign Up</button>
+        </div>
+
+        <!-- Inputs -->
+        <div class="space-y-3 text-xs text-left">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Username:</label>
+            <div class="relative">
+              <i class="fa-solid fa-user absolute left-3 top-2.5 text-slate-500"></i>
+              <input type="text" id="welcome-username" placeholder="Enter username..." class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Password:</label>
+            <div class="relative">
+              <i class="fa-solid fa-lock absolute left-3 top-2.5 text-slate-500"></i>
+              <input type="password" id="welcome-password" placeholder="Enter password..." class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+            </div>
+          </div>
+          
+          <!-- Extra signup-only fields -->
+          <div id="welcome-signup-fields-wrapper" class="hidden space-y-3">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Email Address:</label>
+              <div class="relative">
+                <i class="fa-solid fa-envelope absolute left-3 top-2.5 text-slate-500"></i>
+                <input type="email" id="welcome-email" placeholder="e.g., mail@domain.com" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+              </div>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1">Phone Number:</label>
+              <div class="relative">
+                <i class="fa-solid fa-phone absolute left-3 top-2.5 text-slate-500"></i>
+                <input type="text" id="welcome-phone" placeholder="e.g., +91-9988776655" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+              </div>
+            </div>
+          </div>
+
+          <div id="welcome-role-wrapper" class="hidden">
+            <label class="block text-slate-300 font-semibold mb-1">Choose Account Role:</label>
+            <div class="relative">
+              <i class="fa-solid fa-user-gear absolute left-3 top-2.5 text-slate-500"></i>
+              <select id="welcome-role" class="w-full bg-slate-950 text-slate-300 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37] font-semibold">
+                <option value="tourist">Tourist (Visitor Access)</option>
+                <option value="authority">Festival Authority (Site Ops & Publishing)</option>
+                <option value="government">Tourism Department (Analytics & Verification)</option>
+              </select>
+            </div>
+          </div>
+
+          <button id="welcome-submit-btn" onclick="submitWelcomeAuthForm()" class="w-full py-2.5 rounded-xl btn-royal-gold font-bold flex items-center justify-center gap-1.5 mt-2">
+            <i class="fa-solid fa-unlock-keyhole"></i> <span>Log In & Enter Portal</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800/80 pt-4 flex flex-col gap-2">
+        <button onclick="dismissWelcomeOverlay()" class="w-full py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-all text-xs font-semibold">
+          <i class="fa-solid fa-suitcase mr-1"></i> Continue as Guest (Tourist Feed)
+        </button>
+        
+        <!-- Quick credentials hint -->
+        <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-[10px] text-slate-400 space-y-1 text-left">
+          <span class="font-bold text-[#F5D061] uppercase tracking-wider block">🔑 Demo Accounts:</span>
+          <p>• <strong>Tourist:</strong> tourist1 / password123</p>
+          <p>• <strong>Authority:</strong> authority1 / password123</p>
+          <p>• <strong>Tourism Dept:</strong> gov1 / password123</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Navigation Header -->
   <header class="sticky top-0 z-50 bg-[#0f0d15]/90 backdrop-blur-md px-4 lg:px-8 py-3.5 border-b border-[#D4AF37]/20 flex flex-wrap justify-between items-center gap-4">
     <div class="flex items-center space-x-3">
@@ -49,13 +138,22 @@
       </button>
     </nav>
 
-    <!-- Language Selector Dropdown -->
-    <div class="flex items-center gap-2">
-      <span class="text-xs text-slate-400 font-medium hidden sm:inline"><i class="fa-solid fa-language text-[#D4AF37] mr-1"></i> Lang:</span>
-      <div class="flex bg-slate-950 border border-slate-800 rounded-xl p-1 text-xs font-semibold">
-        <button onclick="setLanguage('en')" id="lang-en" class="px-2.5 py-1 rounded-lg bg-mysuru-gold text-slate-950 font-bold">EN</button>
-        <button onclick="setLanguage('kn')" id="lang-kn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">ಕನ್ನಡ</button>
-        <button onclick="setLanguage('hi')" id="lang-hi" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">हिंदी</button>
+    <!-- Language Selector & Login Dropdown -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-400 font-medium hidden sm:inline"><i class="fa-solid fa-language text-[#D4AF37] mr-1"></i> Lang:</span>
+        <div class="flex bg-slate-950 border border-slate-800 rounded-xl p-1 text-xs font-semibold">
+          <button onclick="setLanguage('en')" id="lang-en" class="px-2.5 py-1 rounded-lg bg-mysuru-gold text-slate-950 font-bold">EN</button>
+          <button onclick="setLanguage('kn')" id="lang-kn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">ಕನ್ನಡ</button>
+          <button onclick="setLanguage('hi')" id="lang-hi" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">हिंदी</button>
+        </div>
+      </div>
+      
+      <!-- User Authentication Controls -->
+      <div id="auth-controls" class="text-xs font-semibold flex items-center gap-2">
+        <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl btn-royal-gold text-xs flex items-center gap-1.5">
+          <i class="fa-solid fa-user-lock"></i> <span>Login / Sign Up</span>
+        </button>
       </div>
     </div>
   </header>
@@ -148,6 +246,35 @@
     <!-- =================================================================================== -->
     <section id="view-gov" class="hidden space-y-8">
       
+      <!-- Event Verification/Approval Panel (Tourism Department Officer) -->
+      <div id="gov-approval-center" class="cultural-card p-6 rounded-2xl space-y-4">
+        <div class="border-b border-slate-800 pb-3 flex justify-between items-center">
+          <div>
+            <h3 class="font-bold font-heading text-base text-slate-200">Event Approval Center</h3>
+            <p class="text-xs text-slate-400">Review and verify new festival submissions from regional authorities before publication on public tourist feeds.</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold">Department Authority</span>
+        </div>
+        
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 font-semibold text-[11px] uppercase tracking-wider">
+                <th class="py-2.5 px-3">Festival Name</th>
+                <th class="py-2.5 px-3">District & City</th>
+                <th class="py-2.5 px-3">Category</th>
+                <th class="py-2.5 px-3">Publisher</th>
+                <th class="py-2.5 px-3">Description</th>
+                <th class="py-2.5 px-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="gov-pending-list" class="divide-y divide-slate-800/60 text-slate-300">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- KPI Overview Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div class="cultural-card p-5 rounded-2xl border-l-4 border-[#D4AF37]">
@@ -264,6 +391,37 @@
           </div>
         </div>
       </div>
+
+      <!-- My Published Events Table (Member 3 Control Panel) -->
+      <div id="authority-festivals-panel" class="cultural-card p-6 rounded-2xl space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+          <div>
+            <h3 class="font-bold font-heading text-base text-slate-200">My Published Events</h3>
+            <p class="text-xs text-slate-400">View, update, or delete your published cultural events. Track their official verification status.</p>
+          </div>
+          <button onclick="document.getElementById('modal-publish').classList.remove('hidden')" class="px-4 py-2 rounded-xl btn-royal-gold text-xs font-bold flex items-center gap-1.5">
+            <i class="fa-solid fa-plus"></i> Publish New Event
+          </button>
+        </div>
+        
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-slate-800 text-slate-400 font-semibold text-[11px] uppercase tracking-wider">
+                <th class="py-2.5 px-3">Festival Name</th>
+                <th class="py-2.5 px-3">District & City</th>
+                <th class="py-2.5 px-3">Category</th>
+                <th class="py-2.5 px-3">Expected Footfall</th>
+                <th class="py-2.5 px-3">Verification Status</th>
+                <th class="py-2.5 px-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="my-festivals-list" class="divide-y divide-slate-800/60 text-slate-300">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -356,7 +514,7 @@
   <!-- MODAL: ORGANIZER EVENT PUBLISHER (Step 4) -->
   <!-- =================================================================================== -->
   <div id="modal-publish" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="cultural-card max-w-lg w-full rounded-3xl p-6 space-y-4 relative border border-[#D4AF37]/40">
+    <div class="cultural-card max-w-xl w-full rounded-3xl p-6 space-y-4 relative border border-[#D4AF37]/40 max-h-[90vh] overflow-y-auto">
       <button onclick="closeModal('modal-publish')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
@@ -365,25 +523,71 @@
       <div class="space-y-3 text-xs">
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Festival Name:</label>
-          <input type="text" id="pub-name" placeholder="e.g., Gavisiddheshwara Jatre" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+          <input type="text" id="pub-name" placeholder="e.g., Gavisiddheshwara Jatre" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
         </div>
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">District:</label>
-            <input type="text" id="pub-district" value="Koppal" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+            <input type="text" id="pub-district" value="Koppal" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
           </div>
           <div>
+            <label class="block text-slate-300 font-semibold mb-1">City/Town:</label>
+            <input type="text" id="pub-city" value="Koppal" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Start Date:</label>
+            <input type="date" id="pub-start-date" value="2026-10-15" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">End Date:</label>
+            <input type="date" id="pub-end-date" value="2026-10-18" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
             <label class="block text-slate-300 font-semibold mb-1">Category:</label>
-            <input type="text" id="pub-category" value="Spiritual & Folk" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+            <input type="text" id="pub-category" value="Spiritual & Folk" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Expected Footfall:</label>
+            <input type="number" id="pub-footfall" value="500000" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Latitude (for map):</label>
+            <input type="number" step="any" id="pub-latitude" value="15.3524" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Longitude (for map):</label>
+            <input type="number" step="any" id="pub-longitude" value="76.1557" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
           </div>
         </div>
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Expected Footfall:</label>
-          <input type="number" id="pub-footfall" value="500000" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5">
+          <label class="block text-slate-300 font-semibold mb-1">Photo Image URL:</label>
+          <input type="text" id="pub-image-url" value="https://images.unsplash.com/photo-1600100397608-f010f443b749" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
         </div>
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Description:</label>
-          <textarea id="pub-desc" rows="2" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2.5" placeholder="Event description..."></textarea>
+          <label class="block text-slate-300 font-semibold mb-1">Short Description:</label>
+          <textarea id="pub-desc" rows="2" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2" placeholder="Brief summary for cards..."></textarea>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Cultural Significance & History:</label>
+          <textarea id="pub-significance" rows="2" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2" placeholder="Why is this celebrated and what is its history..."></textarea>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Major Attractions (comma separated):</label>
+          <input type="text" id="pub-attractions" value="Chariot Procession, Musical Stage, Local Fair" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Local Food Recommendations (comma separated):</label>
+          <input type="text" id="pub-food" value="Jowar Rotti, Yennegai, Shenga Holige" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Activities / Tags (comma separated):</label>
+          <input type="text" id="pub-activities" value="spiritual, folk, heritage, sports" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
         </div>
         <button onclick="publishNewOrganizerEvent()" class="w-full py-2.5 rounded-xl btn-terracotta font-bold">
           <i class="fa-solid fa-globe"></i> Publish to Live Tourist Feed & Map
@@ -392,6 +596,178 @@
     </div>
   </div>
 
-  <script src="/static/js/app.js"></script>
+  <!-- =================================================================================== -->
+  <!-- MODAL: ORGANIZER EVENT EDITOR (Step 4) -->
+  <!-- =================================================================================== -->
+  <div id="modal-edit" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="cultural-card max-w-xl w-full rounded-3xl p-6 space-y-4 relative border border-[#D4AF37]/40 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('modal-edit')" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="text-lg font-bold font-heading text-white">Edit Festival Event Details</h3>
+      <input type="hidden" id="edit-id">
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Festival Name:</label>
+          <input type="text" id="edit-name" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">District:</label>
+            <input type="text" id="edit-district" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">City/Town:</label>
+            <input type="text" id="edit-city" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Start Date:</label>
+            <input type="date" id="edit-start-date" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">End Date:</label>
+            <input type="date" id="edit-end-date" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Category:</label>
+            <input type="text" id="edit-category" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Expected Footfall:</label>
+            <input type="number" id="edit-footfall" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Latitude:</label>
+            <input type="number" step="any" id="edit-latitude" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Longitude:</label>
+            <input type="number" step="any" id="edit-longitude" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Photo Image URL:</label>
+          <input type="text" id="edit-image-url" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Short Description:</label>
+          <textarea id="edit-desc" rows="2" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Cultural Significance & History:</label>
+          <textarea id="edit-significance" rows="2" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2"></textarea>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Major Attractions (comma separated):</label>
+          <input type="text" id="edit-attractions" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Local Food Recommendations (comma separated):</label>
+          <input type="text" id="edit-food" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Activities / Tags (comma separated):</label>
+          <input type="text" id="edit-activities" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl p-2">
+        </div>
+        <button onclick="submitEditFestival()" class="w-full py-2.5 rounded-xl btn-royal-gold font-bold">
+          <i class="fa-solid fa-floppy-disk"></i> Save Changes & Update Event
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================================================================================== -->
+  <!-- MODAL: MULTI-ROLE AUTHENTICATION (Step 3) -->
+  <!-- =================================================================================== -->
+  <div id="modal-auth" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="cultural-card max-w-sm w-full rounded-3xl p-6 relative border border-[#D4AF37]/50 space-y-4">
+      <button onclick="closeModal('modal-auth')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <h3 class="text-lg font-bold font-heading text-white bg-gradient-to-r from-[#F5D061] to-amber-200 bg-clip-text text-transparent flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-om text-[#F5D061]"></i> SanskritiPulse Portal
+        </h3>
+        <p class="text-[11px] text-slate-400 font-medium">Verify credentials for multi-role operations access</p>
+      </div>
+
+      <!-- Login vs Register Tab Selector -->
+      <div class="flex bg-slate-950 border border-slate-800 rounded-xl p-1 text-xs text-center font-bold">
+        <button id="auth-tab-login" onclick="toggleAuthTab('login')" class="flex-1 py-1.5 rounded-lg bg-mysuru-gold text-slate-950">Log In</button>
+        <button id="auth-tab-signup" onclick="toggleAuthTab('signup')" class="flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white">Sign Up</button>
+      </div>
+
+      <!-- Auth Inputs Form -->
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Username:</label>
+          <div class="relative">
+            <i class="fa-solid fa-user absolute left-3 top-2.5 text-slate-500"></i>
+            <input type="text" id="auth-username" placeholder="Enter username..." class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Password:</label>
+          <div class="relative">
+            <i class="fa-solid fa-lock absolute left-3 top-2.5 text-slate-500"></i>
+            <input type="password" id="auth-password" placeholder="Enter password..." class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+          </div>
+        </div>
+        
+        <!-- Extra signup-only fields -->
+        <div id="auth-signup-fields-wrapper" class="hidden space-y-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Email Address:</label>
+            <div class="relative">
+              <i class="fa-solid fa-envelope absolute left-3 top-2.5 text-slate-500"></i>
+              <input type="email" id="auth-email" placeholder="e.g., mail@domain.com" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Phone Number:</label>
+            <div class="relative">
+              <i class="fa-solid fa-phone absolute left-3 top-2.5 text-slate-500"></i>
+              <input type="text" id="auth-phone" placeholder="e.g., +91-9988776655" class="w-full bg-slate-950 text-slate-200 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37]">
+            </div>
+          </div>
+        </div>
+
+        <!-- Role selector - only displayed during Sign Up -->
+        <div id="auth-role-wrapper" class="hidden">
+          <label class="block text-slate-300 font-semibold mb-1">Choose Account Role:</label>
+          <div class="relative">
+            <i class="fa-solid fa-user-gear absolute left-3 top-2.5 text-slate-500"></i>
+            <select id="auth-role" class="w-full bg-slate-950 text-slate-300 border border-slate-800 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:border-[#D4AF37] font-semibold">
+              <option value="tourist">Tourist (Visitor Access)</option>
+              <option value="authority">Festival Authority (Site Ops & Publishing)</option>
+              <option value="government">Tourism Department (Analytics & Verification)</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="auth-submit-btn" onclick="submitAuthForm()" class="w-full py-2.5 rounded-xl btn-royal-gold font-bold flex items-center justify-center gap-1.5 mt-2">
+          <i class="fa-solid fa-unlock-keyhole"></i> <span>Log In to Account</span>
+        </button>
+      </div>
+
+      <!-- Quick credentials help -->
+      <div id="auth-demo-hint" class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-[10px] text-slate-400 space-y-1">
+        <span class="font-bold text-[#F5D061] uppercase tracking-wider block">🔑 Demo Accounts Available:</span>
+        <p>• <strong>Tourist:</strong> tourist1 / password123</p>
+        <p>• <strong>Authority:</strong> authority1 / password123</p>
+        <p>• <strong>Tourism Dept:</strong> gov1 / password123</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js?v=3.0.1"></script>
 </body>
 </html>

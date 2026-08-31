@@ -5,6 +5,7 @@ let currentUser = null;
 let leafletMap = null;
 
 document.addEventListener("DOMContentLoaded", () => {
+  checkUserSession();
   fetchFestivals();
   loadAnalyticsOverview();
   loadOrganizerOverview();
@@ -12,6 +13,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Tab Switching
 function switchTab(tab) {
+  // Gating tabs based on logged-in roles (Member 3 Gating)
+  if (tab === 'gov') {
+    if (!currentUser || currentUser.role !== 'government') {
+      showToast("Access Restricted", "Only Tourism Department Officials can access Gov Analytics. Please log in.");
+      openAuthModal();
+      return;
+    }
+  } else if (tab === 'organizer') {
+    if (!currentUser || currentUser.role !== 'authority') {
+      showToast("Access Restricted", "Only Festival Authorities can access Site Operations. Please log in.");
+      openAuthModal();
+      return;
+    }
+  }
+
   document.getElementById('view-tourist').classList.add('hidden');
   document.getElementById('view-gov').classList.add('hidden');
   document.getElementById('view-organizer').classList.add('hidden');
@@ -37,10 +53,18 @@ function switchTab(tab) {
 // Fetch Festivals List
 async function fetchFestivals() {
   try {
-    const res = await fetch(`${API_BASE}/festivals`);
+    let url = `${API_BASE}/festivals`;
+    if (currentUser) {
+      url += `?role=${currentUser.role}&username=${currentUser.username}`;
+    }
+    const res = await fetch(url);
     const json = await res.json();
     allFestivals = json.data || [];
     renderFestivalsGrid(allFestivals);
+    
+    // Refresh tables
+    renderMyPublishedEvents();
+    renderPendingGovApprovals();
   } catch (err) {
     console.error("Error fetching festivals:", err);
   }
@@ -490,40 +514,555 @@ async function loadOrganizerOverview() {
   }
 }
 
-async function publishNewOrganizerEvent() {
-  const name = document.getElementById('pub-name').value;
-  const district = document.getElementById('pub-district').value;
-  const category = document.getElementById('pub-category').value;
-  const footfall = parseInt(document.getElementById('pub-footfall').value) || 50000;
-  const desc = document.getElementById('pub-desc').value;
+// User Session & Header Management (Member 3 Auth Control)
+function checkUserSession() {
+  const session = localStorage.getItem("sanskriti_session");
+  const overlay = document.getElementById("welcome-overlay");
+  if (session) {
+    try {
+      currentUser = JSON.parse(session);
+      updateAuthHeaderUI();
+      if (overlay) overlay.classList.add("hidden");
+    } catch (e) {
+      localStorage.removeItem("sanskriti_session");
+      if (overlay) overlay.classList.remove("hidden");
+    }
+  } else {
+    if (overlay) overlay.classList.remove("hidden");
+  }
+}
 
-  if (!name.trim()) {
-    showToast("Input Required", "Please enter festival name.");
+// Welcome Overlay Auth Screen Controls
+let currentWelcomeTab = 'login';
+
+function toggleWelcomeTab(tab) {
+  currentWelcomeTab = tab;
+  const loginBtn = document.getElementById("welcome-tab-login");
+  const signupBtn = document.getElementById("welcome-tab-signup");
+  const roleWrapper = document.getElementById("welcome-role-wrapper");
+  const extraFields = document.getElementById("welcome-signup-fields-wrapper");
+  const submitBtn = document.getElementById("welcome-submit-btn");
+
+  if (tab === 'login') {
+    loginBtn.className = "flex-1 py-1.5 rounded-lg bg-mysuru-gold text-slate-950";
+    signupBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white";
+    roleWrapper.classList.add("hidden");
+    if (extraFields) extraFields.classList.add("hidden");
+    submitBtn.innerHTML = `<i class="fa-solid fa-unlock-keyhole"></i> <span>Log In & Enter Portal</span>`;
+  } else {
+    signupBtn.className = "flex-1 py-1.5 rounded-lg bg-mysuru-gold text-slate-950";
+    loginBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white";
+    roleWrapper.classList.remove("hidden");
+    if (extraFields) extraFields.classList.remove("hidden");
+    submitBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i> <span>Create Account & Enter</span>`;
+  }
+}
+
+async function submitWelcomeAuthForm() {
+  const username = document.getElementById("welcome-username").value.trim();
+  const password = document.getElementById("welcome-password").value.trim();
+  const role = document.getElementById("welcome-role").value;
+  
+  let email = null;
+  let phone = null;
+  const emailInput = document.getElementById("welcome-email");
+  const phoneInput = document.getElementById("welcome-phone");
+  if (emailInput) email = emailInput.value.trim();
+  if (phoneInput) phone = phoneInput.value.trim();
+
+  if (!username || !password) {
+    showToast("Input Required", "Please enter both username and password.");
     return;
   }
+
+  const endpoint = currentWelcomeTab === 'login' ? '/auth/login' : '/auth/register';
+  const payload = { username, password };
+  if (currentWelcomeTab === 'signup') {
+    payload.role = role;
+    payload.email = email;
+    payload.phone = phone;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    
+    if (!res.ok) {
+      const err = await res.json();
+      showToast("Auth Failed", err.detail || "Authentication request failed.");
+      return;
+    }
+
+    const data = await res.json();
+    
+    if (currentWelcomeTab === 'login') {
+      currentUser = {
+        username: data.user.username,
+        role: data.user.role,
+        name: data.user.name,
+        token: data.token
+      };
+      localStorage.setItem("sanskriti_session", JSON.stringify(currentUser));
+      
+      const overlay = document.getElementById("welcome-overlay");
+      if (overlay) overlay.classList.add("hidden");
+      
+      showToast("Authentication Successful", `Welcome, ${currentUser.name}!`);
+      
+      // Clean inputs
+      document.getElementById("welcome-username").value = "";
+      document.getElementById("welcome-password").value = "";
+
+      updateAuthHeaderUI();
+      // Redirect based on role
+      if (currentUser.role === 'government') {
+        switchTab('gov');
+      } else if (currentUser.role === 'authority') {
+        switchTab('organizer');
+      } else {
+        switchTab('tourist');
+      }
+      fetchFestivals();
+    } else {
+      showToast("Account Created", "Successfully registered! Welcome SMS & Email sent.");
+      toggleWelcomeTab('login');
+      document.getElementById("welcome-username").value = username;
+      document.getElementById("welcome-password").value = "";
+    }
+  } catch (err) {
+    console.error("Welcome auth error:", err);
+    showToast("Server Connection Error", "Unable to connect to auth server.");
+  }
+}
+
+function dismissWelcomeOverlay() {
+  const overlay = document.getElementById("welcome-overlay");
+  if (overlay) overlay.classList.add("hidden");
+  showToast("Welcome Guest", "You are exploring the tourist discovery feed in read-only mode.");
+  switchTab('tourist');
+}
+
+function updateAuthHeaderUI() {
+  const authDiv = document.getElementById("auth-controls");
+  if (!authDiv) return;
+
+  if (currentUser) {
+    let roleText = currentUser.role.toUpperCase();
+    if (roleText === "AUTHORITY") roleText = "Authority";
+    if (roleText === "GOVERNMENT") roleText = "Dept Official";
+    if (roleText === "TOURIST") roleText = "Tourist";
+    
+    authDiv.innerHTML = `
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] text-slate-300 font-bold">
+          <i class="fa-solid fa-user-circle text-[#D4AF37] mr-1"></i> ${currentUser.name} (${roleText})
+        </span>
+        <button onclick="logout()" class="px-2.5 py-1.5 rounded-lg bg-red-950/40 text-red-400 hover:text-red-300 border border-red-500/20 text-xs flex items-center gap-1 font-bold">
+          <i class="fa-solid fa-right-from-bracket"></i> <span>Log Out</span>
+        </button>
+      </div>
+    `;
+  } else {
+    authDiv.innerHTML = `
+      <button onclick="openAuthModal()" class="px-4 py-2 rounded-xl btn-royal-gold text-xs flex items-center gap-1.5">
+        <i class="fa-solid fa-user-lock"></i> <span>Login / Sign Up</span>
+      </button>
+    `;
+  }
+  
+  // Refresh grids and tables
+  renderMyPublishedEvents();
+  renderPendingGovApprovals();
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem("sanskriti_session");
+  updateAuthHeaderUI();
+  
+  // Show welcome overlay again
+  const overlay = document.getElementById("welcome-overlay");
+  if (overlay) overlay.classList.remove("hidden");
+
+  showToast("Logged Out", "You have successfully logged out of the portal.");
+  switchTab("tourist");
+  fetchFestivals();
+}
+
+// Authentication Modal UI Handlers
+let currentAuthTab = 'login';
+
+function openAuthModal() {
+  document.getElementById("modal-auth").classList.remove("hidden");
+  toggleAuthTab('login');
+}
+
+function toggleAuthTab(tab) {
+  currentAuthTab = tab;
+  const loginBtn = document.getElementById("auth-tab-login");
+  const signupBtn = document.getElementById("auth-tab-signup");
+  const roleWrapper = document.getElementById("auth-role-wrapper");
+  const extraFields = document.getElementById("auth-signup-fields-wrapper");
+  const submitBtn = document.getElementById("auth-submit-btn");
+
+  if (tab === 'login') {
+    loginBtn.className = "flex-1 py-1.5 rounded-lg bg-mysuru-gold text-slate-950";
+    signupBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white";
+    roleWrapper.classList.add("hidden");
+    if (extraFields) extraFields.classList.add("hidden");
+    submitBtn.innerHTML = `<i class="fa-solid fa-unlock-keyhole"></i> <span>Log In to Account</span>`;
+  } else {
+    signupBtn.className = "flex-1 py-1.5 rounded-lg bg-mysuru-gold text-slate-950";
+    loginBtn.className = "flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white";
+    roleWrapper.classList.remove("hidden");
+    if (extraFields) extraFields.classList.remove("hidden");
+    submitBtn.innerHTML = `<i class="fa-solid fa-user-plus"></i> <span>Create Account</span>`;
+  }
+}
+
+async function submitAuthForm() {
+  const username = document.getElementById("auth-username").value.trim();
+  const password = document.getElementById("auth-password").value.trim();
+  const role = document.getElementById("auth-role").value;
+  
+  let email = null;
+  let phone = null;
+  const emailInput = document.getElementById("auth-email");
+  const phoneInput = document.getElementById("auth-phone");
+  if (emailInput) email = emailInput.value.trim();
+  if (phoneInput) phone = phoneInput.value.trim();
+
+  if (!username || !password) {
+    showToast("Input Required", "Please enter both username and password.");
+    return;
+  }
+
+  const endpoint = currentAuthTab === 'login' ? '/auth/login' : '/auth/register';
+  const payload = { username, password };
+  if (currentAuthTab === 'signup') {
+    payload.role = role;
+    payload.email = email;
+    payload.phone = phone;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    
+    if (!res.ok) {
+      const err = await res.json();
+      showToast("Auth Failed", err.detail || "Authentication request failed.");
+      return;
+    }
+
+    const data = await res.json();
+    
+    if (currentAuthTab === 'login') {
+      currentUser = {
+        username: data.user.username,
+        role: data.user.role,
+        name: data.user.name,
+        token: data.token
+      };
+      localStorage.setItem("sanskriti_session", JSON.stringify(currentUser));
+      closeModal('modal-auth');
+      showToast("Authentication Successful", `Welcome, ${currentUser.name}!`);
+      
+      // Clean inputs
+      document.getElementById("auth-username").value = "";
+      document.getElementById("auth-password").value = "";
+
+      updateAuthHeaderUI();
+      // Redirect based on role
+      if (currentUser.role === 'government') {
+        switchTab('gov');
+      } else if (currentUser.role === 'authority') {
+        switchTab('organizer');
+      } else {
+        switchTab('tourist');
+      }
+      fetchFestivals();
+    } else {
+      showToast("Account Created", "Successfully registered! Welcome SMS & Email sent.");
+      toggleAuthTab('login');
+      document.getElementById("auth-username").value = username;
+      document.getElementById("auth-password").value = "";
+    }
+  } catch (err) {
+    console.error("Auth error:", err);
+    showToast("Server Connection Error", "Unable to connect to auth server.");
+  }
+}
+
+// Publish New Festival (Member 3 / Site Ops)
+async function publishNewOrganizerEvent() {
+  const name = document.getElementById("pub-name").value.trim();
+  const district = document.getElementById("pub-district").value.trim();
+  const city = document.getElementById("pub-city").value.trim();
+  const start_date = document.getElementById("pub-start-date").value;
+  const end_date = document.getElementById("pub-end-date").value;
+  const category = document.getElementById("pub-category").value.trim();
+  const expected_footfall = parseInt(document.getElementById("pub-footfall").value) || 10000;
+  const latitude = parseFloat(document.getElementById("pub-latitude").value) || 12.9716;
+  const longitude = parseFloat(document.getElementById("pub-longitude").value) || 77.5946;
+  const image_url = document.getElementById("pub-image-url").value.trim();
+  const short_description = document.getElementById("pub-desc").value.trim();
+  const cultural_significance = document.getElementById("pub-significance").value.trim();
+  const attractions = document.getElementById("pub-attractions").value.split(",").map(x => x.trim()).filter(Boolean);
+  const food = document.getElementById("pub-food").value.split(",").map(x => x.trim()).filter(Boolean);
+  const activities = document.getElementById("pub-activities").value.split(",").map(x => x.trim()).filter(Boolean);
+
+  if (!name) {
+    showToast("Input Required", "Please enter the festival name.");
+    return;
+  }
+
+  const payload = {
+    name, district, city, start_date, end_date, category,
+    expected_footfall, latitude, longitude, image_url,
+    short_description, cultural_significance,
+    major_attractions: attractions, local_food: food, activities,
+    owner_username: currentUser ? currentUser.username : "authority1"
+  };
 
   try {
     const res = await fetch(`${API_BASE}/organizer/publish-festival`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name,
-        district: district,
-        category: category,
-        expected_footfall: footfall,
-        short_description: desc,
-        latitude: 15.3524,
-        longitude: 76.1557
-      })
+      body: JSON.stringify(payload)
     });
-    const json = await res.json();
-    showToast("Event Published Live!", `Festival '${name}' is now active on live tourist feeds.`);
+    
+    if (!res.ok) {
+      showToast("Publishing Failed", "Could not submit event details.");
+      return;
+    }
 
-    // Refresh tourist grid
+    showToast("Submission Sent!", "Your event is pending verification by the Tourism Department.");
+    closeModal("modal-publish");
     fetchFestivals();
-    closeModal('modal-publish');
   } catch (err) {
-    console.error("Publish festival error:", err);
+    console.error("Publish error:", err);
+    showToast("Publishing Error", "Server connection timed out.");
+  }
+}
+
+// Render "My Published Events" Table (Member 3 Control Panel)
+function renderMyPublishedEvents() {
+  const tbody = document.getElementById("my-festivals-list");
+  if (!tbody) return;
+  
+  tbody.innerHTML = "";
+  if (!currentUser || currentUser.role !== 'authority') {
+    tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-500 italic">Please log in as a Festival Authority to view your events.</td></tr>`;
+    return;
+  }
+
+  const myEvents = allFestivals.filter(f => f.owner_username === currentUser.username);
+  if (myEvents.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-500 italic">No events published yet. Click "Publish New Event" to get started!</td></tr>`;
+    return;
+  }
+
+  myEvents.forEach(f => {
+    const f_id = f.id || f.festival_id;
+    const status = f.verification_status || "pending";
+    
+    let statusBadge = "";
+    if (status === "approved") {
+      statusBadge = `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">Approved</span>`;
+    } else if (status === "rejected") {
+      statusBadge = `<span class="px-2.5 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 text-[10px] font-bold">Rejected</span>`;
+    } else {
+      statusBadge = `<span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">Pending Review</span>`;
+    }
+
+    tbody.innerHTML += `
+      <tr class="hover:bg-slate-900/40 border-b border-slate-800/40">
+        <td class="py-3 px-3 font-semibold text-white">${f.name}</td>
+        <td class="py-3 px-3">${f.district}${f.city ? `, ${f.city}` : ""}</td>
+        <td class="py-3 px-3">${f.category || "General"}</td>
+        <td class="py-3 px-3">${(f.expected_footfall || 0).toLocaleString()}</td>
+        <td class="py-3 px-3">${statusBadge}</td>
+        <td class="py-3 px-3 text-right space-x-1 whitespace-nowrap">
+          <button onclick="openEditFestival('${f_id}')" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-mysuru-gold/40 text-slate-300 hover:text-white transition-all text-[11px] font-semibold">
+            <i class="fa-solid fa-pen text-[9px]"></i> Edit
+          </button>
+          <button onclick="deleteFestival('${f_id}')" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 hover:border-red-500/40 text-red-400 hover:text-red-300 transition-all text-[11px] font-semibold">
+            <i class="fa-solid fa-trash text-[9px]"></i> Delete
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+// Edit Festival Event
+function openEditFestival(festId) {
+  const f = allFestivals.find(x => String(x.id || x.festival_id) === String(festId));
+  if (!f) return;
+
+  document.getElementById("edit-id").value = festId;
+  document.getElementById("edit-name").value = f.name || "";
+  document.getElementById("edit-district").value = f.district || "";
+  document.getElementById("edit-city").value = f.city || "";
+  document.getElementById("edit-start-date").value = f.start_date || "";
+  document.getElementById("edit-end-date").value = f.end_date || "";
+  document.getElementById("edit-category").value = f.category || "";
+  document.getElementById("edit-footfall").value = f.expected_footfall || 10000;
+  document.getElementById("edit-latitude").value = f.latitude || 12.9716;
+  document.getElementById("edit-longitude").value = f.longitude || 77.5946;
+  
+  const imgUrl = (f.images && f.images.length > 0) 
+    ? (typeof f.images[0] === 'object' ? f.images[0].url : f.images[0])
+    : (f.image_url || "");
+  document.getElementById("edit-image-url").value = imgUrl;
+  
+  document.getElementById("edit-desc").value = f.short_description || f.description || "";
+  document.getElementById("edit-significance").value = f.cultural_significance || "";
+  document.getElementById("edit-attractions").value = Array.isArray(f.major_attractions) ? f.major_attractions.join(", ") : (f.major_attractions || "");
+  document.getElementById("edit-food").value = Array.isArray(f.local_food) ? f.local_food.join(", ") : (f.local_food || "");
+  document.getElementById("edit-activities").value = Array.isArray(f.activities) ? f.activities.join(", ") : (f.activities || "");
+
+  document.getElementById("modal-edit").classList.remove("hidden");
+}
+
+async function submitEditFestival() {
+  const id = document.getElementById("edit-id").value;
+  const name = document.getElementById("edit-name").value.trim();
+  const district = document.getElementById("edit-district").value.trim();
+  const city = document.getElementById("edit-city").value.trim();
+  const start_date = document.getElementById("edit-start-date").value;
+  const end_date = document.getElementById("edit-end-date").value;
+  const category = document.getElementById("edit-category").value.trim();
+  const expected_footfall = parseInt(document.getElementById("edit-footfall").value) || 10000;
+  const latitude = parseFloat(document.getElementById("edit-latitude").value) || 12.9716;
+  const longitude = parseFloat(document.getElementById("edit-longitude").value) || 77.5946;
+  const image_url = document.getElementById("edit-image-url").value.trim();
+  const short_description = document.getElementById("edit-desc").value.trim();
+  const cultural_significance = document.getElementById("edit-significance").value.trim();
+  const attractions = document.getElementById("edit-attractions").value.split(",").map(x => x.trim()).filter(Boolean);
+  const food = document.getElementById("edit-food").value.split(",").map(x => x.trim()).filter(Boolean);
+  const activities = document.getElementById("edit-activities").value.split(",").map(x => x.trim()).filter(Boolean);
+
+  const payload = {
+    name, district, city, start_date, end_date, category,
+    expected_footfall, latitude, longitude, image_url,
+    short_description, cultural_significance,
+    major_attractions: attractions, local_food: food, activities
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/organizer/update-festival/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      showToast("Update Failed", "Could not save festival updates.");
+      return;
+    }
+
+    showToast("Event Updated", "Festival details successfully modified.");
+    closeModal("modal-edit");
+    fetchFestivals();
+  } catch (err) {
+    console.error("Update error:", err);
+    showToast("Update Error", "Connection timed out.");
+  }
+}
+
+// Delete / Unpublish Festival
+async function deleteFestival(festId) {
+  if (!confirm("Are you sure you want to delete and unpublish this festival? This action cannot be undone.")) return;
+  
+  try {
+    let url = `${API_BASE}/organizer/delete-festival/${festId}`;
+    if (currentUser) {
+      url += `?username=${currentUser.username}`;
+    }
+    const res = await fetch(url, { method: "DELETE" });
+    
+    if (!res.ok) {
+      showToast("Deletion Failed", "Not authorized or event does not exist.");
+      return;
+    }
+
+    showToast("Event Deleted", "Successfully removed from dashboard feeds.");
+    fetchFestivals();
+  } catch (err) {
+    console.error("Delete error:", err);
+    showToast("Delete Error", "Could not connect to database.");
+  }
+}
+
+// Render Tourism Department Pending Verifications
+function renderPendingGovApprovals() {
+  const tbody = document.getElementById("gov-pending-list");
+  if (!tbody) return;
+
+  tbody.innerHTML = "";
+  if (!currentUser || currentUser.role !== 'government') {
+    tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-slate-500 italic">Please log in as a Tourism Department Officer to access approvals.</td></tr>`;
+    return;
+  }
+
+  const pendingEvents = allFestivals.filter(f => !f.verified || f.verification_status === "pending");
+  if (pendingEvents.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-emerald-400 font-bold"><i class="fa-solid fa-check-circle mr-1"></i> Verification Inbox Clean! All events are approved.</td></tr>`;
+    return;
+  }
+
+  pendingEvents.forEach(f => {
+    const f_id = f.id || f.festival_id;
+    const publisher = f.owner_username || "anonymous";
+    const desc = f.short_description || f.description || "No description provided.";
+
+    tbody.innerHTML += `
+      <tr class="hover:bg-slate-900/40 border-b border-slate-800/40">
+        <td class="py-3 px-3 font-semibold text-white">${f.name}</td>
+        <td class="py-3 px-3">${f.district}${f.city ? `, ${f.city}` : ""}</td>
+        <td class="py-3 px-3">${f.category || "General"}</td>
+        <td class="py-3 px-3"><span class="px-2 py-0.5 rounded bg-slate-950 font-mono text-[10px] text-slate-400">${publisher}</span></td>
+        <td class="py-3 px-3 max-w-[200px] truncate" title="${desc}">${desc}</td>
+        <td class="py-3 px-3 text-right space-x-1 whitespace-nowrap">
+          <button onclick="verifyEvent('${f_id}', 'approve')" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition-all shadow-md shadow-emerald-600/20 text-[11px]">
+            <i class="fa-solid fa-check text-[10px]"></i> Approve
+          </button>
+          <button onclick="verifyEvent('${f_id}', 'reject')" class="px-2.5 py-1 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold transition-all shadow-md shadow-red-600/20 text-[11px]">
+            <i class="fa-solid fa-xmark text-[10px]"></i> Reject
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+async function verifyEvent(festId, action) {
+  try {
+    const res = await fetch(`${API_BASE}/gov/verify-festival/${festId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action })
+    });
+
+    if (!res.ok) {
+      showToast("Action Failed", "Could not complete verification state change.");
+      return;
+    }
+
+    const state = action === "approve" ? "Approved" : "Rejected";
+    showToast(`Event ${state}`, `The festival is now officially marked as ${state.toLowerCase()}.`);
+    fetchFestivals();
+  } catch (err) {
+    console.error("Verify error:", err);
+    showToast("Verify Error", "Could not complete request.");
   }
 }
 
@@ -556,8 +1095,10 @@ function closeModal(id) {
 }
 
 function showToast(title, msg) {
+  const banner = document.getElementById('toast-banner');
+  if (!banner) return;
   document.getElementById('toast-title').innerText = title;
   document.getElementById('toast-body').innerText = msg;
-  document.getElementById('toast-banner').classList.remove('hidden');
-  setTimeout(() => document.getElementById('toast-banner').classList.add('hidden'), 4000);
+  banner.classList.remove('hidden');
+  setTimeout(() => banner.classList.add('hidden'), 4000);
 }
