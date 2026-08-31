@@ -1,5 +1,31 @@
+# Python byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Virtual Environment
 venv/
+env/
+ENV/
+.venv/
+
+# Environment variables & secrets
 .env
-pgdata/
+!.env.example
+
+# Local SQLite Database & FAISS Vector Index
+*.db
+*.sqlite
+*.sqlite3
+data/faiss_index.bin
+data/faiss_id_mapping.json
+data/*.bin
+data/*.json
+
+# IDEs & System Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
