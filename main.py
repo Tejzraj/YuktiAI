@@ -65,7 +65,17 @@ class TranslateRequest(BaseModel):
 class TravelPlanRequest(BaseModel):
     origin: str = Field(..., example="Bangalore")
     festival_id: Union[str, int] = Field(..., example="mysuru-dasara")
-    date: str = Field(..., example="2026-10-15")
+    start_date: str = Field(..., example="2026-10-15")
+    end_date: str = Field(..., example="2026-10-17")
+    travellers: int = Field(1, example=2)
+
+class ItineraryRequest(BaseModel):
+    origin: str
+    festival_id: Union[str, int]
+    start_date: str
+    end_date: str
+    transport_mode: str
+    transport_duration_minutes: int
 
 
 class AnnouncementRequest(BaseModel):
@@ -222,13 +232,31 @@ def translate_content(payload: TranslateRequest):
 # ---------------------------------------------------------
 @app.post("/travel-plan")
 def calculate_travel_plan(payload: TravelPlanRequest):
-    """POST /travel-plan: Generates transit mode comparisons and 2-day structured itinerary."""
+    """POST /travel-plan: Generates transit mode comparisons and structured itinerary."""
     plan = travel_engine.generate_travel_plan(
         origin=payload.origin,
         festival_id=payload.festival_id,
-        date=payload.date
+        start_date=payload.start_date,
+        end_date=payload.end_date,
+        travellers=payload.travellers
     )
     return plan
+
+@app.post("/api/generate_itinerary")
+def generate_itinerary(req: ItineraryRequest):
+    try:
+        itinerary = travel_engine.generate_itinerary(
+            origin=req.origin,
+            festival_id=req.festival_id,
+            start_date_str=req.start_date,
+            end_date_str=req.end_date,
+            transport_mode=req.transport_mode,
+            transport_duration_mins=req.transport_duration_minutes
+        )
+        return {"status": "success", "itinerary": itinerary}
+    except Exception as e:
+        logger.error(f"Itinerary Error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to generate itinerary")
 
 
 @app.get("/hotels/{location}")

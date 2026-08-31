@@ -316,10 +316,11 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 bg-slate-950 p-4 rounded-2xl border border-slate-800 text-xs">
           <div>
             <label class="block text-slate-400 font-semibold mb-1">Starting City:</label>
-            <select id="trip-origin" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 font-bold focus:outline-none focus:border-[#D4AF37]">
+            <select id="trip-origin" onchange="document.getElementById('trip-modal-output').innerHTML=''" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 font-bold focus:outline-none focus:border-[#D4AF37]">
+              <option value="">Select City...</option>
               <option value="Bangalore">Bangalore (Bengaluru)</option>
               <option value="Mysuru">Mysuru</option>
               <option value="Mangaluru">Mangaluru</option>
@@ -328,16 +329,22 @@
             </select>
           </div>
           <div>
-            <label class="block text-slate-400 font-semibold mb-1">Festival ID:</label>
-            <input type="text" id="trip-festival-id" value="mysuru-dasara" readonly class="w-full bg-slate-900 text-mysuru-gold font-bold border border-slate-800 rounded-xl p-2">
+            <label class="block text-slate-400 font-semibold mb-1">Destination:</label>
+            <select id="trip-festival-id" onchange="document.getElementById('trip-modal-output').innerHTML=''" class="w-full bg-slate-900 text-mysuru-gold font-bold border border-slate-800 rounded-xl p-2 focus:outline-none focus:border-[#D4AF37]">
+              <!-- Dynamically populated -->
+            </select>
           </div>
           <div>
             <label class="block text-slate-400 font-semibold mb-1">Start Date:</label>
-            <input type="date" id="trip-date" value="2026-10-15" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2">
+            <input type="date" id="trip-start-date" value="2026-10-15" onchange="document.getElementById('trip-modal-output').innerHTML=''" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 focus:outline-none focus:border-[#D4AF37]">
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">End Date:</label>
+            <input type="date" id="trip-end-date" value="2026-10-17" onchange="document.getElementById('trip-modal-output').innerHTML=''" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 focus:outline-none focus:border-[#D4AF37]">
           </div>
           <div>
             <label class="block text-slate-400 font-semibold mb-1">Travelers:</label>
-            <input type="number" id="trip-people" value="2" min="1" max="20" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 font-bold">
+            <input type="number" id="trip-people" value="2" min="1" max="20" onchange="document.getElementById('trip-modal-output').innerHTML=''" class="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded-xl p-2 font-bold focus:outline-none focus:border-[#D4AF37]">
           </div>
         </div>
 
