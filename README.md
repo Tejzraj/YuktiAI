@@ -1,508 +1,203 @@
-<!-- ============================================================
-                     YUKTIAI — SANSKRITIPULSE
-                  KARNATAKA CULTURAL INTELLIGENCE
-============================================================ -->
+# Sanskriti AI — AI Recommendation Engine & Multilingual Intelligence
 
-<div align="center">
-
-# 🏛️ YuktiAI — SanskritiPulse
-
-### *Discover Karnataka. Experience its Culture. Move Smarter.*
-
-<br/>
-
-> ## 🌏 Karnataka's AI-Powered Cultural Intelligence Platform
->
-> **One intelligent platform connecting Karnataka's festivals, tourism,
-> travel planning, crowd intelligence, and live event operations.**
-
-<br/>
-
-`🤖 AI Recommendations` &nbsp;•&nbsp;
-`🗺️ Smart Tourism` &nbsp;•&nbsp;
-`📊 Crowd Intelligence` &nbsp;•&nbsp;
-`🚍 Travel Planning` &nbsp;•&nbsp;
-`🎪 Live Event Operations`
-
-<br/>
-
-[![Python](https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-
-<br/><br/>
-
-### 🇮🇳 Built for Karnataka
-
-**From the grandeur of Mysuru Dasara to the cultural heritage,
-temples, traditions, and festivals across Karnataka — YuktiAI
-helps tourists discover experiences while enabling authorities
-and organizers to manage them intelligently.**
-
-<br/>
-
-<a href="#-quick-start">⚡ Quick Start</a> &nbsp;•&nbsp;
-<a href="#-what-yuktiai-solves">🎯 Problem & Vision</a> &nbsp;•&nbsp;
-<a href="#-key-features">✨ Features</a> &nbsp;•&nbsp;
-<a href="#️-system-architecture">🏗️ Architecture</a> &nbsp;•&nbsp;
-<a href="#-technology-stack">🛠️ Tech Stack</a> &nbsp;•&nbsp;
-<a href="#-api-overview">🔌 APIs</a> &nbsp;•&nbsp;
-<a href="#-verification--testing">🧪 Testing</a>
-
-</div>
+Production-quality AI recommendation engine and multilingual intelligence subsystem for the **Karnataka Cultural Tourism Platform (SANSKRITI_AI)**.
 
 ---
 
-<br/>
-
-# 🌺 Experience Karnataka, Intelligently
-
-<table>
-<tr>
-<td width="33%" align="center">
-
-### 🧳 Discover
-
-**For Tourists & Pilgrims**
-
-AI-powered festival recommendations based on personal interests, cultural preferences, location, and travel requirements.
-
-</td>
-
-<td width="33%" align="center">
-
-### 🏛️ Analyze
-
-**For Tourism Authorities**
-
-Monitor festival activity, crowd density, footfall patterns, and potential risk zones across Karnataka.
-
-</td>
-
-<td width="33%" align="center">
-
-### 🎪 Manage
-
-**For Event Organizers**
-
-Track venue occupancy, monitor live operations, and communicate important announcements instantly.
-
-</td>
-</tr>
-</table>
-
-<br/>
-
----
-
-# 🎯 What YuktiAI Solves
-
-Karnataka hosts a diverse range of cultural festivals, religious gatherings,
-heritage events, and tourism experiences. Managing these experiences involves
-multiple challenges — from helping visitors discover the right events to
-ensuring safe crowd movement and efficient on-ground operations.
-
-### YuktiAI brings these disconnected experiences into one platform.
+## Architecture Overview
 
 ```text
-                         🏛️ KARNATAKA
-                              │
-                              ▼
-                ┌───────────────────────────┐
-                │       YUKTIAI AI          │
-                │    SANSKRITIPULSE CORE    │
-                └─────────────┬─────────────┘
-                              │
-          ┌───────────────────┼───────────────────┐
-          │                   │                   │
-          ▼                   ▼                   ▼
-     🧳 TOURISTS         🏛️ GOVERNMENT       🎪 ORGANIZERS
-          │                   │                   │
-     Discover Events      Analyze Crowds      Manage Venues
-     Plan Travel          Assess Risk         Track Occupancy
-     Find Hotels          Plan Logistics      Send Alerts
-     Get Recommendations  Monitor Footfall    Live Operations
----
-
-# 🏛️ System Overview
-
-## 🎯 Our Mission
-
-> **Preserving cultural heritage while making festival experiences safer, smarter, and more accessible across Karnataka.**
-
-YuktiAI connects three major stakeholders through one intelligent ecosystem:
-
-| 🧳 Tourists & Pilgrims          | 🏛️ Tourism Department | 🎪 Event Organizers   |
-| ------------------------------- | ---------------------- | --------------------- |
-| Personalized festival discovery | GIS crowd intelligence | Live venue monitoring |
-| AI-powered recommendations      | Footfall analytics     | Occupancy tracking    |
-| Travel & hotel planning         | Risk mitigation        | Instant broadcasts    |
-| Multilingual accessibility      | Predictive logistics   | Emergency alerts      |
-
----
-
-## 🧠 Platform Snapshot
-
-```python
-class YuktiAISanskritiPulse:
-
-    def __init__(self):
-        self.name = "YuktiAI — SanskritiPulse"
-        self.version = "1.0.0"
-
-        self.stack = [
-            "FastAPI",
-            "PostgreSQL",
-            "Leaflet.js",
-            "Python"
-        ]
-
-        self.stakeholder_domains = {
-            "tourist": "Personalized Recommendations & Smart Routing",
-            "government": "GIS Crowd Risk & Logistics Intelligence",
-            "organizer": "Live Telemetry & Broadcast Operations"
-        }
-
-        self.ai_features = [
-            "Cosine Similarity Vector Matching",
-            "Dynamic Multilingual Translation",
-            "GIS GeoJSON Crowd Risk Analytics",
-            "Real-Time Venue Occupancy Monitoring"
-        ]
-
-    def status(self):
-        return "🚀 12/12 API Routes Verified & Operational"
+                                TOURIST PREFERENCES
+                                         │
+                                         ▼
+                             FastAPI Web Interface
+                                         │
+              ┌──────────────────────────┴──────────────────────────┐
+              │                                                     │
+              ▼                                                     ▼
+     AI Recommendation API                                 Multilingual API
+              │                                                     │
+              ▼                                                     ▼
+   Recommendation Service                                 Translation Service
+              │                                                     │
+      ┌───────┼───────┐                                     ┌───────┴───────┐
+      ▼       ▼       ▼                                     ▼               ▼
+  Embedding FAISS  Hybrid                               Provider         Database
+   Model    Index  Ranking                             Abstraction        Cache
+  (ST ML)  (Vec)   Engine                              (Google/Mock)        │
+      │       │       │                                     │               │
+      └───┬───┴───────┘                                     └───────┬───────┘
+          ▼                                                         ▼
+     Festival DB                                           Localized Responses
+  (Published Events)                                    (EN, KN - ಕನ್ನಡ, HI - हिंदी)
 ```
 
 ---
 
-# ✨ Key Features
+## Features
 
-## 🧳 Tourist Discovery
+### 1. Semantic Recommendation Subsystem
+- **Sentence Transformers (`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`)**: Encodes rich festival metadata (Name, Category, Description, History, Cultural Significance, Activities, Food, Location, Tags, Tourist Info) into dense normalized 384-dimensional vectors.
+- **FAISS Vector Store (`faiss.IndexFlatIP`)**: Provides fast cosine similarity vector search. Automatically persisted to disk (`data/faiss_index.bin` + `data/faiss_id_mapping.json`) with support for full index rebuilding and real-time incremental vector updates when festivals are published or updated.
+- **Hybrid Ranking Engine**: Blends 4 distinct scoring signals:
+  - **Semantic Score (50%)**: Cosine similarity between tourist query/interests and festival vector.
+  - **Location Score (20%)**: Haversine great-circle distance formula between tourist coordinates/location and festival venue ($1.0 - \text{distance}/500$).
+  - **Date Overlap Score (20%)**: Temporal relevance matching festival start/end dates with tourist travel dates ($1.0$ for direct overlap, decaying linearly if near).
+  - **Category / Interest Score (10%)**: Jaccard similarity between tourist interest keywords and festival category/tags.
+- **Match Score & Dynamic Explanations**: Converts raw component scores into user-friendly integer percentages (e.g. `92% Match`) accompanied by real evidence-backed explanation signals ("Why this festival matches you").
 
-### AI-Powered Festival Recommendation Engine
-
-* 🧠 **Vector Matching** — Calculates cosine similarity against **35+ Karnataka heritage festivals**.
-* 🗺️ **Smart Travel Planning** — Generates tailored multi-day schedules and multi-modal travel options.
-* 🏨 **Hotel Discovery** — Finds nearby accommodation based on festival location.
-* 🌐 **Multilingual Support** — Supports:
-
-  * 🇬🇧 English
-  * 🇮🇳 ಕನ್ನಡ (Kannada)
-  * 🇮🇳 हिंदी (Hindi)
-
----
-
-## 🏛️ Tourism Department Intelligence
-
-### GIS Analytics & Risk Mitigation
-
-* 🗺️ **GIS Crowd Risk Mapping** — Displays color-coded crowd risk levels.
-
-| Level | Risk   |
-| ----- | ------ |
-| 🟢    | Low    |
-| 🟡    | Medium |
-| 🔴    | High   |
-
-* 📊 **District Analytics** — Monitors footfall distribution and high-density areas.
-* 📈 **Predictive Logistics** — Generates advisories for:
-
-  * 🚍 Transportation
-  * 🧹 Sanitation
-  * 🏥 Medical services
-  * 👮 Security deployment
+### 2. Multilingual Subsystem
+- **Supported Languages**: English (`en`), Kannada (`kn` - ಕನ್ನಡ), Hindi (`hi` - हिंदी).
+- **Provider Abstraction**: Decoupled `TranslationProvider` base class supporting `GoogleTranslationProvider`, `LibreTranslateProvider`, and `MockTranslationProvider`.
+- **Database-Backed Caching**: `TranslationCacheManager` stores translated strings using SHA-256 text hashes to avoid redundant external API calls and reduce latency.
+- **Failure Resilience**: Automatic fallback chain (Cache -> Primary Provider -> Fallback Provider -> Original Text) ensures zero application crashes even if external translation APIs fail.
+- **Structured Content Translation**: Translates structured festival fields dynamically without overwriting original database records.
 
 ---
 
-## 🎪 Live Site Operations
-
-### Real-Time Venue Intelligence
-
-* 👥 **Spectator Telemetry** — Monitors live occupancy against safety thresholds.
-* 🚨 **Peak Alerts** — Identifies potentially unsafe crowd levels.
-* 📢 **Broadcast Alerts** — Allows organizers to publish announcements directly to tourist feeds.
-* 🆘 **Emergency Dispatch** — Supports rapid propagation of critical event advisories.
-
----
-
-# 🏗️ System Architecture
-
-## 📂 Project Structure
+## Directory Structure
 
 ```text
-YuktiAI/
-│
-├── main.py
-│   └── Master FastAPI application, CORS policy & router mounting
-│
-├── ai_engine.py
-│   └── Vector matching & multilingual translation engine
-│
-├── travel_engine.py
-│   └── Transit planning, itinerary builder & hotel discovery
-│
-├── analytics_engine.py
-│   └── Crowd risk assessment, forecasting & GeoJSON generation
-│
-├── organizer_engine.py
-│   └── Live telemetry & broadcast alert management
-│
-├── test_full_prototype.py
-│   └── End-to-end automated integration test suite
-│
-├── static/
-│   └── index.html
-│       └── Single-page HTML application with Tailwind CSS & Leaflet.js
-│
+d:\SANSKRITI_AI\
+├── config.py                         # App configuration & env variables (Pydantic Settings)
+├── requirements.txt                  # Python dependencies
+├── .env.example                      # Environment variables template
 ├── database/
-│   ├── init.sql
-│   │   └── PostgreSQL schema
-│   │
-│   └── mock_festivals.json
-│       └── Festival metadata & baseline dataset
-│
-├── requirements.txt
-│   └── Python dependencies
-│
-├── Dockerfile
-│   └── Backend container configuration
-│
-└── docker-compose.yml
-    └── FastAPI + PostgreSQL orchestration
+│   ├── connection.py                 # SQLAlchemy engine & session management
+│   ├── models.py                     # Database schemas (Festival, FestivalTranslation, TranslationCache)
+│   └── seed.py                       # Karnataka cultural festival seed dataset
+├── ai/
+│   ├── models/
+│   │   └── schemas.py                # Pydantic request & response schemas
+│   ├── recommendation/
+│   │   ├── embedding_service.py      # SentenceTransformer singleton loader & encoder
+│   │   ├── faiss_service.py          # FAISS vector store, disk persistence, vector CRUD
+│   │   ├── ranking_service.py        # Hybrid ranking engine (Semantic + Distance + Date + Category)
+│   │   ├── explanation_service.py    # Match signal explanation generator
+│   │   ├── recommendation_service.py # Core orchestrator
+│   │   └── index_manager.py          # CLI & service for build/rebuild/update FAISS index
+│   └── translation/
+│       ├── language_detector.py      # Automatic language identifier (en, kn, hi)
+│       ├── cache.py                  # Database-backed translation caching
+│       ├── providers/
+│       │   ├── base.py               # Abstract TranslationProvider interface
+│       │   ├── google_provider.py    # Google Translate provider
+│       │   ├── libretranslate_provider.py # LibreTranslate API provider
+│       │   └── mock_provider.py      # Deterministic Mock provider for testing/offline
+│       └── translation_service.py    # Central translation service
+├── api/
+│   ├── routes/
+│   │   ├── recommendation.py         # POST /api/ai/recommendations
+│   │   ├── translation.py            # POST /api/translate & /api/festivals/{id}/translate
+│   │   ├── index_mgmt.py             # GET/POST /api/ai/index/status & /rebuild
+│   │   └── festivals.py              # GET/POST /api/festivals (Publish & auto-index)
+│   └── main.py                       # FastAPI application entrypoint & lifespan pre-loader
+└── tests/
+    ├── test_embedding.py             # Sentence Transformer unit tests
+    ├── test_faiss.py                 # FAISS index persistence & vector CRUD tests
+    ├── test_ranking.py               # Hybrid ranking engine unit tests
+    ├── test_recommendation.py        # Recommendation service integration tests
+    ├── test_translation.py           # Translation provider & cache tests
+    └── test_api.py                   # FastAPI REST endpoint integration tests
 ```
 
 ---
 
-## 🔄 Application Data Flow
+## Environment Configuration (`.env`)
 
-```text
-                         ┌─────────────────────────┐
-                         │     Web Application     │
-                         │   Single-Page Dashboard │
-                         └────────────┬────────────┘
-                                      │
-                                      ▼
-                         ┌─────────────────────────┐
-                         │        FastAPI          │
-                         │       main.py           │
-                         │    REST API Gateway     │
-                         └────────────┬────────────┘
-                                      │
-          ┌───────────────────────────┼───────────────────────────┐
-          │                           │                           │
-          ▼                           ▼                           ▼
-┌──────────────────┐       ┌──────────────────┐       ┌──────────────────┐
-│    AI ENGINE     │       │  TRAVEL ENGINE   │       │ ANALYTICS ENGINE │
-│                  │       │                  │       │                  │
-│ • Vector Match   │       │ • Transit Plans  │       │ • Crowd Risk     │
-│ • Recommendations│       │ • Itineraries    │       │ • Footfall       │
-│ • Translation    │       │ • Hotel Lookup   │       │ • GeoJSON Maps   │
-└──────────────────┘       └──────────────────┘       └──────────────────┘
-          │
-          │
-          ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                        ORGANIZER ENGINE                         │
-│                                                                 │
-│              • Live Venue Telemetry                             │
-│              • Occupancy Monitoring                             │
-│              • Emergency & Event Broadcasts                     │
-└─────────────────────────────────────────────────────────────────┘
+```env
+EMBEDDING_MODEL=sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+FAISS_INDEX_PATH=data/faiss_index.bin
+FAISS_MAPPING_PATH=data/faiss_id_mapping.json
+
+SEMANTIC_WEIGHT=0.50
+LOCATION_WEIGHT=0.20
+DATE_WEIGHT=0.20
+CATEGORY_WEIGHT=0.10
+
+TRANSLATION_PROVIDER=google
+TRANSLATION_API_KEY=your_api_key_here
+DATABASE_URL=sqlite:///./sanskriti_ai.db
 ```
 
 ---
 
-# 🛠️ Technology Stack
+## Execution Instructions
 
-<div align="center">
-
-### Backend & Infrastructure
-
-<img src="https://skillicons.dev/icons?i=python,fastapi,postgres,docker&theme=dark" alt="Backend Technology Stack"/>
-
-<br/><br/>
-
-### Frontend & Mapping
-
-<img src="https://skillicons.dev/icons?i=html,css,js,tailwind&theme=dark" alt="Frontend Technology Stack"/>
-
-<br/><br/>
-
-<img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"/>
-<img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/>
-<img src="https://img.shields.io/badge/Leaflet.js-199900?style=for-the-badge&logo=leaflet&logoColor=white"/>
-<img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white"/>
-<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
-
-</div>
-
----
-
-# ⚡ Quick Start
-
-## 1️⃣ Clone the Repository
-
+### 1. Database Initialization & Seeding
 ```bash
-git clone https://github.com/Tejzraj/YuktiAI.git
-cd YuktiAI
+python -m database.seed
 ```
 
-## 2️⃣ Install Dependencies
-
+### 2. FAISS Vector Index Build
 ```bash
-pip install -r requirements.txt
+python -m ai.recommendation.index_manager rebuild
 ```
 
-## 3️⃣ Start the Application
-
+### 3. Launch FastAPI Backend
 ```bash
-uvicorn main:app --reload --port 8000
+uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 ```
+Interactive OpenAPI documentation will be accessible at: `http://localhost:8000/docs`.
 
-## 🚀 Access the Platform
-
-Once the server is running:
-
-| Service                | Description                             | Access                        |
-| ---------------------- | --------------------------------------- | ----------------------------- |
-| 🌐 **Web Application** | Interactive multi-stakeholder dashboard | `http://localhost:8000`       |
-| 📚 **Swagger UI**      | Interactive API documentation & testing | `http://localhost:8000/docs`  |
-| 📖 **ReDoc**           | Structured OpenAPI documentation        | `http://localhost:8000/redoc` |
-
----
-
-# 🔌 Multi-Stakeholder API Matrix
-
-## 🎭 Festival Core
-
-| Endpoint          | Method | Description                                                   |
-| ----------------- | :----: | ------------------------------------------------------------- |
-| `/festivals`      |  `GET` | Retrieve the complete festival catalog and filtering metadata |
-| `/festivals/{id}` |  `GET` | Retrieve detailed information for a specific festival         |
-
-## 🧠 AI Intelligence
-
-| Endpoint     | Method | Description                                                       |
-| ------------ | :----: | ----------------------------------------------------------------- |
-| `/recommend` | `POST` | Execute vector similarity matching based on user quiz preferences |
-| `/translate` | `POST` | Dynamically translate UI content across supported languages       |
-
-## 🚍 Travel & Logistics
-
-| Endpoint       | Method | Description                                                  |
-| -------------- | :----: | ------------------------------------------------------------ |
-| `/travel-plan` | `POST` | Generate multi-modal route options and a multi-day itinerary |
-| `/hotels/{id}` |  `GET` | Find nearby accommodation based on festival ID               |
-
-## 📊 Government Analytics
-
-| Endpoint              | Method | Description                                                  |
-| --------------------- | :----: | ------------------------------------------------------------ |
-| `/analytics/overview` |  `GET` | Retrieve tourism KPIs, total footfall and risk counters      |
-| `/analytics/map-data` |  `GET` | Generate Leaflet-compatible GeoJSON feature collections      |
-| `/analytics/trends`   |  `GET` | Retrieve district and category footfall distribution metrics |
-
-## 🎪 Site Operations
-
-| Endpoint                   | Method | Description                                        |
-| -------------------------- | :----: | -------------------------------------------------- |
-| `/organizer/overview/{id}` |  `GET` | Monitor live venue occupancy and safety thresholds |
-| `/organizer/announcement`  | `POST` | Publish emergency or general event broadcasts      |
-| `/announcements/{id}`      |  `GET` | Retrieve announcements for the tourist dashboard   |
-
----
-
-# 🧪 Verification & Automated Testing
-
-YuktiAI includes an automated integration suite to verify all major backend routes.
-
+### 4. Run Automated Test Suite
 ```bash
-python test_full_prototype.py
-```
-
-## 📋 Expected Test Output
-
-```text
-================================================================
-🚀 Running SanskritiPulse AI Full Prototype Test Suite
-================================================================
-
-Testing [GET] / .............................................. ✅ PASSED
-Testing [GET] /festivals ..................................... ✅ PASSED
-Testing [POST] /recommend .................................... ✅ PASSED
-Testing [POST] /translate .................................... ✅ PASSED
-Testing [POST] /travel-plan .................................. ✅ PASSED
-Testing [GET] /hotels/mysuru-dasara .......................... ✅ PASSED
-Testing [GET] /analytics/overview ............................ ✅ PASSED
-Testing [GET] /analytics/map-data ............................ ✅ PASSED
-Testing [GET] /analytics/trends .............................. ✅ PASSED
-Testing [GET] /organizer/overview/mysuru-dasara ............. ✅ PASSED
-Testing [POST] /organizer/announcement ...................... ✅ PASSED
-Testing [GET] /announcements/mysuru-dasara ................... ✅ PASSED
-
-================================================================
-📊 Summary: 12/12 Prototype Routes Verified Successfully
-================================================================
-```
-
-<div align="center">
-
-### 🎯 System Status
-
-**🟢 OPERATIONAL — 12 / 12 ROUTES VERIFIED**
-
-</div>
-
----
-
-# 🐳 Docker Deployment
-
-Run the complete containerized application stack using Docker Compose.
-
-## Build & Start
-
-```bash
-docker compose up -d --build
-```
-
-## View Logs
-
-```bash
-docker compose logs -f
-```
-
-## Stop the Stack
-
-```bash
-docker compose down
+pytest tests/ -v
 ```
 
 ---
 
-# 📜 License
+## API Endpoints Specification
 
-This project is open-source and distributed under the **MIT License**.
+### Recommendations API
+- **`POST /api/ai/recommendations`**
+  - **Request Payload**:
+    ```json
+    {
+      "interests": ["folk", "traditional food", "heritage"],
+      "query": "I want to experience authentic village festivals and coastal food",
+      "location": {
+        "city": "Bengaluru",
+        "latitude": 12.9716,
+        "longitude": 77.5946
+      },
+      "start_date": "2026-10-01",
+      "end_date": "2026-10-10",
+      "language": "en",
+      "limit": 5
+    }
+    ```
+  - **Response Payload**:
+    ```json
+    {
+      "success": true,
+      "language": "en",
+      "total_found": 5,
+      "recommendations": [
+        {
+          "festival_id": "fest-mysuru-dasara-001",
+          "festival_name": "Mysuru Dasara (Nada Habba)",
+          "category": "Heritage, Cultural, Royal",
+          "match_score": 93,
+          "match_reason": "Strong match for your interest in Heritage and Folk.",
+          "explanation_signals": [
+            "You selected Heritage, Folk, Food",
+            "The festival occurs during your travel period",
+            "The festival is easily accessible from your location (~135 km away)"
+          ],
+          "location": "Mysore Palace & Chamundi Hill",
+          "district": "Mysuru",
+          "distance_km": 135.4,
+          "start_date": "2026-10-01",
+          "end_date": "2026-10-10"
+        }
+      ]
+    }
+    ```
 
-See the [LICENSE](LICENSE) file for more information.
+### Multilingual Translation API
+- **`POST /api/translate`**: Translates text string.
+- **`POST /api/festivals/{festival_id}/translate`**: Translates structured festival fields into Kannada or Hindi.
 
----
-
-# 👨‍💻 Author
-
-<div align="center">
-
-<a href="https://github.com/Tejzraj">
-  <img src="https://img.shields.io/badge/Author-Likhith%20Raj%20(@Tejzraj)-58A6FF?style=for-the-badge&logo=github&logoColor=white&labelColor=0D1117" alt="Author Likhith Raj"/>
-</a>
-
-<br/><br/>
-
-### ⭐ Built with a vision for Cultural Intelligence & Smart Tourism ⭐
-
-<br/>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=130&section=footer" width="100%" alt="YuktiAI Footer Banner"/>
-
-</div>
+### Festival Publishing API
+- **`POST /api/festivals`**: Creates a published festival and immediately updates the FAISS vector index in real time.
